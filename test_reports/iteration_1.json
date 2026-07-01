@@ -1,0 +1,24 @@
+{
+  "summary": "First-finish smoke test for GlobiSync marketing site. Backend contact + bookings endpoints work (POST/GET, 422 on missing fields). Frontend loads on all 7 routes, hero contains 'ambitious brands', WhatsApp FAB has correct wa.me/447309721673 href on every page, Team page shows 3 correct LinkedIn URLs. Booking form (Radix Select for time slot) and Contact form both submit successfully and render their success testids. Mobile nav toggle opens/closes and reveals mobile-nav-home. No console errors.",
+  "tested_scope": ["frontend", "backend", "integration"],
+  "passed": [
+    "GET /api/health -> 200 {status:ok, email_configured:false}",
+    "POST /api/contact -> 200 with round-trip name/email/message; GET /api/contact returns record",
+    "POST /api/contact missing email -> 422",
+    "POST /api/bookings -> 200 with preferred_date/preferred_time; GET /api/bookings returns record",
+    "POST /api/bookings missing fields -> 422",
+    "Home page loads, hero heading contains 'ambitious brands', 'Book a Strategy Call' CTA present",
+    "All nav routes /services, /markets, /case-studies, /about, /team, /contact load with unique H1 and no console errors",
+    "Contact page: 'Book a strategy call' tab is default; booking form submitted with tomorrow date + Radix Select time slot -> booking-success shows 'Booked.'",
+    "Contact page: 'Send a message' tab submission -> contact-success visible",
+    "WhatsAppFAB [data-testid=whatsapp-fab] visible on home/contact with href containing wa.me/447309721673",
+    "Mobile viewport (390x844): nav-mobile-toggle opens/closes; mobile-nav-home visible only when open",
+    "Team page has 3 LinkedIn links: shwetachauhanuk, sunnychauhanuk, zainalvi"
+  ],
+  "failed": [],
+  "action_items": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true,
+  "notes": "RESEND_API_KEY intentionally empty; email_configured=false as expected — not a bug. Booking time is a Radix Select (not native <select>) — tests must click the trigger then click [role=option]. Mobile menu links use mobile-nav-* testids (not nav-*)."
+}

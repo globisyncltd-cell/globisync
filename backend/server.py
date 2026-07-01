@@ -1,72 +1,204 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import asyncio
 import logging
+import resend
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
-
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
+# MongoDB
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
-app = FastAPI()
+# Resend
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '').strip()
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
+CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', 'globisyncltd@gmail.com')
+if RESEND_API_KEY:
+    resend.api_key = RESEND_API_KEY
 
-# Create a router with the /api prefix
+app = FastAPI(title="GlobiSync API")
 api_router = APIRouter(prefix="/api")
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
+
+# ---------- Models ----------
+class ContactSubmission(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    phone: Optional[str] = None
+    marketplace: Optional[str] = None
+    message: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
 
-# Add your routes to the router instead of directly to app
+class ContactCreate(BaseModel):
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    phone: Optional[str] = None
+    marketplace: Optional[str] = None
+    message: str
+
+
+class BookingSubmission(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    phone: Optional[str] = None
+    preferred_date: str  # YYYY-MM-DD
+    preferred_time: str  # HH:MM
+    timezone_name: Optional[str] = None
+    marketplace: Optional[str] = None
+    notes: Optional[str] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class BookingCreate(BaseModel):
+    name: str
+    email: EmailStr
+    company: Optional[str] = None
+    phone: Optional[str] = None
+    preferred_date: str
+    preferred_time: str
+    timezone_name: Optional[str] = None
+    marketplace: Optional[str] = None
+    notes: Optional[str] = None
+
+
+# ---------- Helpers ----------
+async def _send_email_async(subject: str, html: str, to_email: str = None):
+    """Send email via Resend. Silently no-op if API key not configured."""
+    if not RESEND_API_KEY:
+        logger.info("RESEND_API_KEY not set; skipping email send.")
+        return None
+    target = to_email or CONTACT_EMAIL
+    try:
+        params = {
+            "from": SENDER_EMAIL,
+            "to": [target],
+            "subject": subject,
+            "html": html,
+        }
+        result = await asyncio.to_thread(resend.Emails.send, params)
+        logger.info(f"Email sent: {result}")
+        return result
+    except Exception as e:
+        logger.error(f"Email send failed: {e}")
+        return None
+
+
+def _contact_html(payload: ContactSubmission) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
+      <h2 style="border-bottom:2px solid #FF9900;padding-bottom:8px">New Contact Enquiry — GlobiSync</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:6px 0;font-weight:600">Name</td><td>{payload.name}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Email</td><td>{payload.email}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Company</td><td>{payload.company or '-'}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Phone</td><td>{payload.phone or '-'}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Marketplace Interest</td><td>{payload.marketplace or '-'}</td></tr>
+      </table>
+      <h3 style="margin-top:16px">Message</h3>
+      <p style="white-space:pre-wrap;background:#f8f9fa;padding:12px;border-left:3px solid #FF9900">{payload.message}</p>
+      <p style="color:#4B5563;font-size:12px;margin-top:24px">Submitted at {payload.created_at.isoformat()}</p>
+    </div>
+    """
+
+
+def _booking_html(payload: BookingSubmission) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
+      <h2 style="border-bottom:2px solid #FF9900;padding-bottom:8px">New Strategy Call Booking — GlobiSync</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:6px 0;font-weight:600">Name</td><td>{payload.name}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Email</td><td>{payload.email}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Company</td><td>{payload.company or '-'}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Phone</td><td>{payload.phone or '-'}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Preferred Date</td><td>{payload.preferred_date}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Preferred Time</td><td>{payload.preferred_time} {payload.timezone_name or ''}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Marketplace</td><td>{payload.marketplace or '-'}</td></tr>
+      </table>
+      <h3 style="margin-top:16px">Notes</h3>
+      <p style="white-space:pre-wrap;background:#f8f9fa;padding:12px;border-left:3px solid #FF9900">{payload.notes or '-'}</p>
+      <p style="color:#4B5563;font-size:12px;margin-top:24px">Submitted at {payload.created_at.isoformat()}</p>
+    </div>
+    """
+
+
+# ---------- Routes ----------
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "GlobiSync API — cross-border ecommerce growth"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.get("/health")
+async def health():
+    return {"status": "ok", "email_configured": bool(RESEND_API_KEY)}
 
-# Include the router in the main app
+
+@api_router.post("/contact", response_model=ContactSubmission)
+async def create_contact(payload: ContactCreate):
+    submission = ContactSubmission(**payload.model_dump())
+    doc = submission.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.contact_submissions.insert_one(doc)
+    # Fire and forget email
+    asyncio.create_task(_send_email_async(
+        subject=f"New enquiry from {submission.name} — GlobiSync",
+        html=_contact_html(submission),
+    ))
+    return submission
+
+
+@api_router.get("/contact", response_model=List[ContactSubmission])
+async def list_contacts():
+    docs = await db.contact_submissions.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    for d in docs:
+        if isinstance(d.get('created_at'), str):
+            d['created_at'] = datetime.fromisoformat(d['created_at'])
+    return docs
+
+
+@api_router.post("/bookings", response_model=BookingSubmission)
+async def create_booking(payload: BookingCreate):
+    submission = BookingSubmission(**payload.model_dump())
+    doc = submission.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.bookings.insert_one(doc)
+    asyncio.create_task(_send_email_async(
+        subject=f"New strategy-call booking from {submission.name} — GlobiSync",
+        html=_booking_html(submission),
+    ))
+    return submission
+
+
+@api_router.get("/bookings", response_model=List[BookingSubmission])
+async def list_bookings():
+    docs = await db.bookings.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    for d in docs:
+        if isinstance(d.get('created_at'), str):
+            d['created_at'] = datetime.fromisoformat(d['created_at'])
+    return docs
+
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -77,12 +209,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

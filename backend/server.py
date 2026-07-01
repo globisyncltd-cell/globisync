@@ -126,7 +126,7 @@ def _contact_html(payload: ContactSubmission) -> str:
 def _booking_html(payload: BookingSubmission) -> str:
     return f"""
     <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
-      <h2 style="border-bottom:2px solid #FF9900;padding-bottom:8px">New Strategy Call Booking — GlobiSync</h2>
+      <h2 style="border-bottom:2px solid #FF9900;padding-bottom:8px">New Discovery Call Booking — GlobiSync</h2>
       <table style="width:100%;border-collapse:collapse">
         <tr><td style="padding:6px 0;font-weight:600">Name</td><td>{payload.name}</td></tr>
         <tr><td style="padding:6px 0;font-weight:600">Email</td><td>{payload.email}</td></tr>
@@ -240,7 +240,7 @@ async def create_booking(payload: BookingCreate):
     doc['created_at'] = doc['created_at'].isoformat()
     await db.bookings.insert_one(doc)
     asyncio.create_task(_send_email_async(
-        subject=f"New strategy-call booking from {submission.name} — GlobiSync",
+        subject=f"New discovery-call booking from {submission.name} — GlobiSync",
         html=_booking_html(submission),
     ))
     return submission

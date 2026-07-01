@@ -1,0 +1,98 @@
+{
+  "project_name": "GlobiSync",
+  "domain": "Cross-Border Ecommerce Growth Agency",
+  "theme": "light",
+  "archetype": "4 (Swiss & High-Contrast) + Editorial Authority",
+  "colors": {
+    "background_primary": "#FFFFFF",
+    "background_secondary": "#F8F9FA",
+    "text_primary": "#0A0A0A",
+    "text_secondary": "#4B5563",
+    "accent_primary": "#FF9900",
+    "accent_primary_hover": "#E68A00",
+    "surface_dark": "#0B0F19",
+    "surface_dark_text": "#FFFFFF",
+    "border_light": "#E5E7EB"
+  },
+  "typography": {
+    "headings": {
+      "family": "Playfair Display, serif",
+      "weights": ["400", "600", "700"],
+      "strategy": "Editorial serif, tight tracking, used for large authoritative statements. Brings a sophisticated, high-end UK agency feel.",
+      "classes": "font-serif tracking-tight text-text_primary"
+    },
+    "body": {
+      "family": "Plus Jakarta Sans, sans-serif",
+      "weights": ["400", "500", "600"],
+      "strategy": "Confident modern sans-serif for high legibility in dense data and process explanations.",
+      "classes": "font-sans leading-relaxed text-text_secondary"
+    }
+  },
+  "layout_spacing": {
+    "strategy": "Generous spacing. Use p-12 to p-24 for main sections. Use asymmetrical 'Bento' grids for feature highlights.",
+    "border_radius": "rounded-none or max rounded-sm. Keep edges sharp for a serious, non-playful enterprise feel.",
+    "container": "max-w-7xl mx-auto px-6 lg:px-8"
+  },
+  "pages_to_build": [
+    "Homepage",
+    "Services",
+    "Markets",
+    "Case Studies",
+    "About",
+    "Team",
+    "Contact"
+  ],
+  "key_functionalities": [
+    "Floating WhatsApp button (+44 7309 721673)",
+    "In-house date/time booking form (custom, saved to DB)",
+    "Sticky 'Book a strategy call' CTA",
+    "Marketplace trust bar (Amazon, eBay, Etsy, Lazada, Zalora, Noon)",
+    "Mobile responsive layouts"
+  ],
+  "components_strategy": {
+    "forms": "Use Shadcn UI. Keep styling sharp with minimal to no radius. High contrast borders. No soft drop shadows.",
+    "buttons": "High contrast solid blocks. Primary: Dark Slate (#0B0F19) with White text, OR Marketplace Orange (#FF9900) with Dark text. Hover: -translate-y-1 with a sharp solid shadow.",
+    "navigation": "Crystal glassmorphism sticky header (backdrop-blur-xl bg-white/80) with 1px border-b. High contrast logo.",
+    "trust_bar": "Grayscale logos that turn full color on hover. Use react-icons/si (SiAmazon, SiEbay, SiEtsy) or styled text for unavailable ones.",
+    "cards": "Flat background, 1px subtle border, no initial shadow. Hover brings a sharp drop-shadow and slight lift.",
+    "data_testid": "MANDATORY on all interactive elements (buttons, links, form inputs)."
+  },
+  "media_assets": {
+    "hero_abstract": "https://images.unsplash.com/photo-1684610529682-553625a1ffed",
+    "analytics_chart": "https://images.pexels.com/photos/97080/pexels-photo-97080.jpeg",
+    "london_skyline": "https://images.pexels.com/photos/29253536/pexels-photo-29253536.jpeg",
+    "logistics_ship": "https://images.unsplash.com/photo-1606185540834-d6e7483ee1a4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA0MTJ8MHwxfHNlYXJjaHwxfHxjYXJnbyUyMHNoaXAlMjBsb2dpc3RpY3MlMjBjb250YWluZXJ8ZW58MHx8fHwxNzgyOTAxODk1fDA&ixlib=rb-4.1.0&q=85",
+    "team": [
+      {
+        "name": "Shweta (Founder)",
+        "role": "Founder",
+        "url": "https://images.pexels.com/photos/31869537/pexels-photo-31869537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "name": "Sunny (Lead Consultant)",
+        "role": "Lead Consultant",
+        "url": "https://images.pexels.com/photos/4797690/pexels-photo-4797690.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "name": "Zain (Advisor)",
+        "role": "Advisor",
+        "url": "https://images.pexels.com/photos/14585727/pexels-photo-14585727.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      }
+    ]
+  },
+  "seo_guidelines": {
+    "title_template": "{Page Name} | GlobiSync | UK Ecommerce Agency in Birmingham",
+    "meta_description": "GlobiSync is a Birmingham-based UK ecommerce agency helping ambitious brands expand across global marketplaces like Amazon, eBay, and Etsy.",
+    "keywords": ["UK ecommerce agency", "Birmingham", "cross-border ecommerce", "Amazon agency UK", "ecommerce growth partner"]
+  },
+  "instructions_to_main_agent": [
+    "Initialize Tailwind config with the specified colors, Playfair Display for serif, and Plus Jakarta Sans for sans.",
+    "Use react-icons/si for the marketplace trust bar. For missing icons like Noon or Zalora, use text styling that matches their brand vibe.",
+    "Implement a custom date/time booking form on the Contact page using Shadcn Form components. Ensure it simulates saving to a DB.",
+    "Build a Floating WhatsApp button using react-icons/fa (FaWhatsapp) placed fixed at the bottom right. Use #25D366.",
+    "Use the provided image URLs strictly. DO NOT use generic placeholders.",
+    "Ensure SEO tags are implemented via react-helmet or native Next.js/React document head strategies, including 'UK ecommerce agency' and 'Birmingham'.",
+    "All interactive elements MUST have `data-testid` attributes.",
+    "Create dynamic, asymmetrical sections, specifically for the Services and Case Studies pages to avoid the generic agency template look."
+  ]
+}

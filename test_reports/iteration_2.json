@@ -1,0 +1,61 @@
+{
+  "summary": "Iteration 2 full regression: 9/9 backend pytest cases pass (health, dynamic+static sitemap/robots, contact/booking POST+GET persistence, 422 validation). Frontend: hero H1 contains 'UK brands' + 'online sales'; brand strip lists all 5 named brands (London RAG, Shaze, Livetech, Tvam, PlayPanda); How It Works + FAQ visible on home; 3 JSON-LD scripts on home (Organization + LocalBusiness + FAQPage); nav has no Birmingham subtext and includes all 8 items (Home/Services/International/Case Studies/About/Team/Insights/Contact); footer disclaimer removed and 'Company registration' text present; Team page shows Shweta → Zain → Sunny with correct roles (Founder & Director / Strategic Advisor / Lead Consultant) and /team/shweta.png, zain.png, sunny.jpg all return HTTP 200; Blog list shows exactly 35 posts, Amazon category filter narrows to 8, search 'amazon' narrows to 10; blog post detail /blog/how-to-sell-on-amazon-uk-founder-guide-2026 renders H1, 5 H2 subheadings, 'Book a Discovery Call' CTA, Related section, BlogPosting JSON-LD; Services page shows all 6 pillars (Marketplace Management, Shopify & Website Optimisation, Ecommerce SEO, Social Media Marketing, Paid Advertising, Full Account Management) each with problem/approach/included/outcome; Contact page has 'Book a Discovery Call' CTA and 'growth challenge' label with 3-field message form (name/email/textarea); NO banned CTA language ('free strategy call'/'free audit'/'free consultation'/'book a strategy call'/'book a free') found anywhere on the 9 pages scanned; Mobile 390x844 nav-mobile-toggle opens menu with all 8 items and WhatsApp FAB href contains wa.me/447309721673.",
+  "tested_scope": ["backend", "frontend", "integration", "seo"],
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_checks": [
+    "GET /api/health → 200 {status: ok}",
+    "GET /api/sitemap.xml → 200 XML with all 8 static routes + 35 blog URLs",
+    "GET /api/robots.txt → 200 text/plain with Allow + Sitemap directives",
+    "GET /sitemap.xml (static CRA) → 200 XML",
+    "GET /robots.txt (static CRA) → 200 text",
+    "POST /api/contact minimal {name,email,message} → 200; GET /api/contact returns record (persistence verified)",
+    "POST /api/contact invalid → 422",
+    "POST /api/bookings {name,email,preferred_date,preferred_time} → 200; GET /api/bookings returns record",
+    "POST /api/bookings invalid → 422",
+    "Home hero H1 contains 'UK brands' and 'online sales'",
+    "'Book a Discovery Call' CTA present on home, services, contact, blog post",
+    "Brand strip shows London RAG, Shaze, Livetech, Tvam, PlayPanda",
+    "How It Works section visible on home",
+    "FAQ section visible on home",
+    "JSON-LD Organization + LocalBusiness present on home (3 ld+json tags total incl. FAQ)",
+    "Nav logo has NO 'UK · Birmingham' subtext",
+    "Nav shows all 8 items: Home, Services, International, Case Studies, About, Team, Insights, Contact",
+    "Footer has no GlobeSync disclaimer; contains 'Company registration'",
+    "International Expansion page loads with region cards (UK, US, Middle East, SEA)",
+    "Team page order: Shweta (Founder & Director) → Zain (Strategic Advisor) → Sunny (Lead Consultant)",
+    "Team images /team/shweta.png, /team/zain.png, /team/sunny.jpg all return HTTP 200 (visually rendered)",
+    "Blog list shows exactly 35 posts",
+    "Blog Amazon category filter narrows to 8 posts",
+    "Blog search 'amazon' narrows results",
+    "Blog post detail: H1 + 5 H2 subheadings + Related section + Discovery CTA + BlogPosting JSON-LD",
+    "Services page shows all 6 pillars each with problem/approach/included/outcome (6 occurrences of each keyword)",
+    "Contact page: Discovery CTA + 'growth challenge' label + Send-Message tab has 3 fields",
+    "No banned 'free strategy/free audit/free consultation/book a strategy call/book a free' CTA phrase on any of the 9 pages scanned",
+    "Mobile 390x844: nav-mobile-toggle opens menu with all 8 items stacked",
+    "WhatsApp FAB present on home + mobile with href wa.me/447309721673"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/iteration_2.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Services pillar titles differ slightly from problem-statement labels: 'Shopify & Website Optimisation' (vs 'Shopify'), 'Ecommerce SEO' (vs 'SEO'), 'Social Media Marketing' (vs 'Social'), 'Paid Advertising' (vs 'Paid Ads'). Content matches intent — noting for main agent in case exact wording is required.",
+    "backend server.py: _booking_html subject still says 'New Strategy Call Booking' internally (H2 in the outgoing email HTML). Not user-facing on the site, but if the 'no strategy call' rule extends to outgoing emails it should be updated to 'Discovery Call'.",
+    "Blog copy contains the word 'free' in organic content (e.g. 'free volume', 'A+ content is free CVR uplift') — these are NOT CTAs so they don't violate the no-'Free' rule, but flagging for editorial awareness."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (new pytest regression suite)"
+  ],
+  "success_rate": { "backend": "100%", "frontend": "100%" },
+  "test_credentials": "N/A — no auth on this site",
+  "seed_data_creation": "Test rows created via POST /api/contact and /api/bookings with 'TEST_' prefixed names for easy identification. Not cleaned up (public app, low volume).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend regression at /app/backend/tests/backend_test.py — 9 tests, run with `pytest backend/tests/backend_test.py -v`. Sitemap has 8 static + 35 blog URLs. Blog uses <a href='/blog/{slug}'> cards; search input is a native <input> with placeholder 'Search'; category filter buttons are role=button. Contact page BookingForm is default tab; Send-a-message tab exposes 3-field form (name/email/textarea with 'growth challenge' label). WhatsApp number: wa.me/447309721673. Team images live at /team/shweta.png, /team/zain.png, /team/sunny.jpg — CDN rejects HEAD requests (403) but GET returns 200; use GET when scripting."
+}

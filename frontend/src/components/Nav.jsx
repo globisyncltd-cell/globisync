@@ -6,13 +6,12 @@ import { Button } from "@/components/ui/button";
 
 const Logo = () => (
   <Link to="/" data-testid="nav-logo" className="group flex items-center gap-2">
-    <div className="relative h-8 w-8 border border-ink flex items-center justify-center bg-white group-hover:bg-amber transition-colors">
-      <span className="font-serif text-lg font-bold text-ink">G</span>
+    <div className="relative h-9 w-9 border border-ink flex items-center justify-center bg-white group-hover:bg-amber transition-colors">
+      <span className="font-serif text-xl font-bold text-ink">G</span>
       <span className="absolute -top-1 -right-1 h-2 w-2 bg-amber border border-ink" />
     </div>
     <div className="leading-none">
       <div className="font-serif text-xl font-bold text-ink tracking-tight">GlobiSync</div>
-      <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-muted2">UK · Birmingham</div>
     </div>
   </Link>
 );
@@ -29,9 +28,7 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [loc.pathname]);
+  useEffect(() => { setOpen(false); }, [loc.pathname]);
 
   return (
     <header
@@ -42,7 +39,7 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
         <Logo />
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-0" aria-label="Primary">
           {NAV.map((n) => (
             <NavLink
               key={n.to}
@@ -66,7 +63,7 @@ export default function Nav() {
               data-testid="nav-book-call-btn"
               className="rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink transition-all hover:-translate-y-0.5 hover:sharp-shadow font-semibold"
             >
-              Book a Strategy Call <ArrowUpRight className="ml-1 h-4 w-4" />
+              {SITE.cta} <ArrowUpRight className="ml-1 h-4 w-4" />
             </Button>
           </Link>
           <button
@@ -103,7 +100,7 @@ export default function Nav() {
                 data-testid="mobile-nav-book-btn"
                 className="w-full rounded-none bg-amber text-ink hover:bg-amber-hover border border-ink font-semibold"
               >
-                Book a Strategy Call
+                {SITE.cta}
               </Button>
             </Link>
           </div>

@@ -1,23 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { SERVICES } from "@/lib/content";
+import { SERVICES, SITE } from "@/lib/content";
 import { Check, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import FAQSection from "@/components/FAQSection";
 
 export default function Services() {
   return (
     <>
-      <SEO title="Services · UK Ecommerce Agency" path="/services" />
+      <SEO
+        title="Services · UK Ecommerce Agency"
+        description="Marketplace management, Shopify optimisation, SEO, social, paid ads and full account management from a Birmingham-based UK ecommerce agency."
+        path="/services"
+      />
       <section className="bg-white pt-20 pb-14">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">Services</div>
+          <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Services ]</div>
           <h1 className="mt-3 font-serif text-5xl md:text-6xl font-bold leading-tight text-ink">
-            Everything you need to<br />sell profitably across borders.
+            Everything a brand needs<br />to sell online successfully.
           </h1>
           <p className="mt-6 max-w-2xl text-muted2 text-lg">
-            Four service pillars, one operator team. Engage us for a single pillar or hand us the whole account —
-            most clients start with a fixed-fee pilot.
+            Six service pillars. One operator team. Engage us for a single pillar or hand us the whole
+            account — most clients start with a 3-month pilot.
           </p>
         </div>
       </section>
@@ -81,17 +86,19 @@ export default function Services() {
         );
       })}
 
+      <FAQSection />
+
       <section className="bg-amber py-16">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
-            Not sure which pillar you need? That's exactly what the strategy call is for.
+            Not sure where to start? That's exactly what a discovery call is for.
           </h2>
           <Link to="/contact">
             <Button
               data-testid="services-final-cta-btn"
               className="mt-6 rounded-none h-12 px-6 bg-ink text-white hover:bg-white hover:text-ink border border-ink font-semibold"
             >
-              Book Free 30-min Call →
+              {SITE.cta} →
             </Button>
           </Link>
         </div>

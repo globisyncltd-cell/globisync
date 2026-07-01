@@ -154,6 +154,62 @@ async def health():
     return {"status": "ok", "email_configured": bool(RESEND_API_KEY)}
 
 
+# ---------- Sitemap / SEO helpers ----------
+from fastapi.responses import Response
+
+_STATIC_ROUTES = [
+    ("/", "1.0", "weekly"),
+    ("/services", "0.8", "monthly"),
+    ("/international-expansion", "0.8", "monthly"),
+    ("/case-studies", "0.7", "monthly"),
+    ("/about", "0.6", "monthly"),
+    ("/team", "0.6", "monthly"),
+    ("/blog", "0.8", "weekly"),
+    ("/contact", "0.7", "monthly"),
+]
+
+_BLOG_SLUGS = [
+    "how-to-sell-on-amazon-uk-founder-guide-2026","shopify-plus-vs-shopify-which-to-choose",
+    "amazon-ppc-2026-whats-changed","tiktok-shop-uk-founder-playbook",
+    "ecommerce-seo-checklist-uk-brands","core-web-vitals-shopify-fixes",
+    "klaviyo-email-flows-every-dtc-brand-needs","ebay-uk-launch-successfully",
+    "etsy-seo-tactics-that-work","cross-border-uk-to-us",
+    "selling-on-noon-gcc-playbook","lazada-launch-checklist",
+    "zalora-onboarding-guide","uk-vat-and-eori-international-sellers",
+    "amazon-vine-programme-worth-it","meta-ads-creative-that-converts",
+    "google-pmax-dtc-setup-guide","ecommerce-analytics-kpis-that-matter",
+    "monthly-promo-calendar-amazon","product-photography-that-sells-online",
+    "ugc-content-source-and-use","retail-expansion-uk-supermarket-entry",
+    "chalhoub-group-brand-entry","distributor-vs-direct-decision",
+    "amazon-aplus-content-best-practices","amazon-repricing-strategies",
+    "buy-box-win-and-defend","cross-border-logistics-freight-to-amazon-fba",
+    "ior-services-when-you-need-one","shopify-checkout-optimisation-quick-wins",
+    "subscription-commerce-shopify","loyalty-programs-drive-ltv",
+    "post-purchase-experience-growth-lever","brand-protection-amazon-map-ip-gating",
+    "hire-agency-vs-in-house",
+]
+
+BASE_URL = "https://www.globisync.com"
+
+
+@api_router.get("/sitemap.xml")
+async def sitemap():
+    today = datetime.now(timezone.utc).date().isoformat()
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for path, prio, freq in _STATIC_ROUTES:
+        lines.append(f'  <url><loc>{BASE_URL}{path}</loc><lastmod>{today}</lastmod><changefreq>{freq}</changefreq><priority>{prio}</priority></url>')
+    for slug in _BLOG_SLUGS:
+        lines.append(f'  <url><loc>{BASE_URL}/blog/{slug}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>')
+    lines.append('</urlset>')
+    return Response(content='\n'.join(lines), media_type='application/xml')
+
+
+@api_router.get("/robots.txt")
+async def robots():
+    body = f"User-agent: *\nAllow: /\n\nSitemap: {BASE_URL}/sitemap.xml\n"
+    return Response(content=body, media_type='text/plain')
+
+
 @api_router.post("/contact", response_model=ContactSubmission)
 async def create_contact(payload: ContactCreate):
     submission = ContactSubmission(**payload.model_dump())

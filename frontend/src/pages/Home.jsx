@@ -1,38 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Check, Sparkles, Globe2, Boxes, LineChart } from "lucide-react";
+import { ArrowUpRight, Check, Sparkles, Store, Search, Share2, Target, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SITE, SERVICES } from "@/lib/content";
+import { BLOG } from "@/lib/blog";
 import SEO from "@/components/SEO";
 import MarketplaceMarquee from "@/components/MarketplaceMarquee";
+import BrandStrip from "@/components/BrandStrip";
+import HowItWorks from "@/components/HowItWorks";
+import FAQSection from "@/components/FAQSection";
+import StructuredData from "@/components/StructuredData";
 
-const StatCard = ({ v, k, i }) => (
-  <div
-    data-testid={`stat-card-${i}`}
-    className="p-6 border border-border hover:border-ink transition-all group"
-  >
-    <div className="font-serif text-5xl md:text-6xl font-bold text-ink tracking-tight">
-      {v}
-    </div>
-    <div className="mt-2 text-sm text-muted2 leading-snug">{k}</div>
-  </div>
-);
-
-const ServiceIcon = ({ id }) => {
-  const cls = "h-6 w-6 text-amber";
-  if (id === "strategy") return <Sparkles className={cls} />;
-  if (id === "storefront") return <Boxes className={cls} />;
-  if (id === "management") return <LineChart className={cls} />;
-  return <Globe2 className={cls} />;
+const ICONS = {
+  "marketplace-management": Store,
+  "shopify-optimization": Sparkles,
+  seo: Search,
+  social: Share2,
+  "paid-ads": Target,
+  "account-management": Users,
 };
 
 export default function Home() {
+  const featuredPosts = BLOG.slice(0, 3);
+
   return (
     <>
       <SEO
         title="UK Ecommerce Agency Birmingham"
-        description="GlobiSync — a Birmingham-based UK ecommerce agency scaling ambitious brands across Amazon, eBay, Etsy, Lazada, Zalora and Noon in the UK, US, Singapore and Hong Kong."
+        description="GlobiSync is a Birmingham-based UK ecommerce agency running marketplace management, Shopify, SEO, social, and paid ads for ambitious brands. Book a discovery call."
       />
+      <StructuredData />
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-white">
@@ -43,21 +40,20 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 animate-fade-up">
               <div className="inline-flex items-center gap-2 px-3 py-1 border border-ink text-xs font-mono uppercase tracking-[0.2em]">
-                <span className="h-2 w-2 bg-amber" /> UK · Birmingham · Est. 2019
+                <span className="h-2 w-2 bg-amber" /> UK Ecommerce Agency · Est. 2019
               </div>
               <h1 className="mt-6 font-serif text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-ink">
-                We scale ambitious brands<br />
-                across{" "}
+                We help UK brands<br />
+                grow{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10">global marketplaces</span>
+                  <span className="relative z-10">online sales</span>
                   <span className="absolute left-0 right-0 bottom-1 h-3 bg-amber -z-0" />
                 </span>{" "}
-                — the hands-on way.
+                — end to end.
               </h1>
               <p className="mt-6 text-lg text-muted2 max-w-2xl leading-relaxed">
-                GlobiSync is the UK ecommerce agency for founder-led Indian brands entering Amazon, eBay, Etsy,
-                Lazada, Zalora and Noon in the UK, US, Singapore and Hong Kong. We don't hand you a deck —
-                we run your account.
+                Marketplace management, Shopify optimisation, SEO, social, paid ads and full account management.
+                One senior team. One monthly report. One number that matters — your growth.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link to="/contact">
@@ -65,7 +61,7 @@ export default function Home() {
                     data-testid="hero-book-call-btn"
                     className="h-12 px-6 rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-semibold hover:-translate-y-0.5 hover:sharp-shadow-amber transition-all"
                   >
-                    Book a Free Strategy Call <ArrowUpRight className="ml-2 h-4 w-4" />
+                    {SITE.cta} <ArrowUpRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link to="/services">
@@ -74,14 +70,14 @@ export default function Home() {
                     variant="outline"
                     className="h-12 px-6 rounded-none border-ink hover:bg-ink hover:text-white font-semibold"
                   >
-                    See what we do
+                    See our services
                   </Button>
                 </Link>
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-muted2">
-                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> 4 markets · 6 marketplaces</div>
-                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> India-to-West specialists</div>
-                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Fixed-fee pilots</div>
+                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Senior operator on every account</div>
+                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Weekly ops calls</div>
+                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> 3-month rolling contracts</div>
               </div>
             </div>
 
@@ -90,13 +86,14 @@ export default function Home() {
                 <div className="absolute -inset-4 bg-amber -z-10 hidden lg:block" />
                 <img
                   src="https://images.unsplash.com/photo-1684610529682-553625a1ffed"
-                  alt="Abstract global commerce"
+                  alt="Global commerce"
                   className="w-full h-[420px] lg:h-[520px] object-cover border border-ink"
+                  loading="eager"
                 />
                 <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur border border-ink p-4">
-                  <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">Live client outcome</div>
-                  <div className="mt-1 font-serif text-2xl font-bold text-ink">+312% GMV in 9 months</div>
-                  <div className="text-xs text-muted2">Home & textiles brand · India → Amazon UK</div>
+                  <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">Operating model</div>
+                  <div className="mt-1 font-serif text-2xl font-bold text-ink">Operators, not consultants.</div>
+                  <div className="text-xs text-muted2">Retail brains. Ecommerce hands. Birmingham desk.</div>
                 </div>
               </div>
             </div>
@@ -105,15 +102,16 @@ export default function Home() {
       </section>
 
       <MarketplaceMarquee />
+      <BrandStrip />
 
       {/* SERVICES CARDS */}
       <section className="bg-white py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">What we do</div>
-              <h2 className="mt-3 font-serif text-4xl md:text-5xl font-bold text-ink max-w-2xl">
-                Marketplace growth, end-to-end.
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Services ]</div>
+              <h2 className="mt-3 font-serif text-4xl md:text-5xl font-bold text-ink max-w-2xl leading-tight">
+                Everything a brand needs to<br />sell online successfully.
               </h2>
             </div>
             <Link to="/services" className="text-sm font-semibold text-ink hover:text-amber flex items-center gap-1">
@@ -121,24 +119,137 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
-            {SERVICES.map((s) => (
-              <Link
-                to={`/services#${s.id}`}
-                key={s.id}
-                data-testid={`home-service-card-${s.id}`}
-                className="p-8 border border-border hover:border-ink transition-all hover:-translate-y-1 hover:sharp-shadow group bg-white block"
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SERVICES.map((s) => {
+              const Icon = ICONS[s.id] || Sparkles;
+              return (
+                <Link
+                  to={`/services#${s.id}`}
+                  key={s.id}
+                  data-testid={`home-service-card-${s.id}`}
+                  className="p-8 border border-border hover:border-ink transition-all hover:-translate-y-1 hover:sharp-shadow group bg-white block"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="font-mono text-xs text-muted2">{s.number}</div>
+                    <Icon className="h-6 w-6 text-amber" />
+                  </div>
+                  <h3 className="mt-4 font-serif text-2xl font-bold text-ink group-hover:text-amber transition-colors leading-snug">
+                    {s.title}
+                  </h3>
+                  <p className="mt-3 text-muted2 text-sm leading-relaxed">{s.short}</p>
+                  <div className="mt-6 text-sm font-semibold text-ink flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Explore <ArrowUpRight className="h-4 w-4" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <HowItWorks />
+
+      {/* INTERNATIONAL TEASER */}
+      <section className="bg-slate950 text-white py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30 grain" />
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative grid lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-7">
+            <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ International expansion ]</div>
+            <h2 className="mt-3 font-serif text-4xl md:text-5xl font-bold leading-tight">
+              Ready to cross borders?<br />We run that too.
+            </h2>
+            <p className="mt-4 text-white/70 max-w-2xl">
+              For brands ready to expand, we launch and operate marketplaces across the UK, US, Middle East,
+              and Southeast Asia — and open retail doors from Waitrose to Chalhoub Group.
+            </p>
+            <Link to="/international-expansion">
+              <Button
+                data-testid="home-intl-cta"
+                className="mt-6 rounded-none bg-amber text-ink hover:bg-white border border-amber font-semibold"
               >
-                <div className="flex items-start justify-between">
-                  <div className="font-mono text-xs text-muted2">{s.number}</div>
-                  <ServiceIcon id={s.id} />
+                See our international offer <ArrowUpRight className="ml-1 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+          <div className="lg:col-span-5 grid grid-cols-2 gap-3">
+            {[
+              { v: "UK", k: "Amazon · eBay · Etsy · TikTok Shop" },
+              { v: "US", k: "Amazon · Walmart · Shopify" },
+              { v: "ME", k: "Noon · Amazon.ae · Amazon.sa" },
+              { v: "SEA", k: "Lazada · Zalora · Shopee" },
+            ].map((x, i) => (
+              <div key={i} className="p-6 border border-white/20 bg-white/5 backdrop-blur">
+                <div className="font-serif text-5xl font-bold text-amber tracking-tight">{x.v}</div>
+                <div className="mt-2 text-xs text-white/70 leading-snug">{x.k}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PHILOSOPHY STRIP */}
+      <section className="bg-white py-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Our philosophy ]</div>
+          <h2 className="mt-3 font-serif text-4xl md:text-5xl font-bold text-ink max-w-3xl leading-tight">
+            Retail thinking. Ecommerce hands.
+          </h2>
+          <div className="mt-12 grid md:grid-cols-3 gap-0 border-t border-l border-ink">
+            {[
+              {
+                t: "Own it like operators",
+                d: "We treat client accounts like our own. Daily P&L ownership. No monthly-deck detachment.",
+              },
+              {
+                t: "Senior on every account",
+                d: "You get a named senior operator, not a rotating junior. That's the whole reason we exist.",
+              },
+              {
+                t: "Aligned incentives",
+                d: "Fixed retainers, no commission-based deals. Our job is your growth, not your ad spend.",
+              },
+            ].map((p, i) => (
+              <div key={i} className="p-8 border-r border-b border-ink">
+                <div className="font-mono text-xs text-muted2">0{i + 1}</div>
+                <div className="mt-3 font-serif text-2xl font-bold text-ink">{p.t}</div>
+                <div className="mt-3 text-sm text-muted2 leading-relaxed">{p.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BLOG TEASER */}
+      <section className="bg-secondary/40 py-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Insights ]</div>
+              <h2 className="mt-3 font-serif text-4xl md:text-5xl font-bold text-ink">
+                Playbooks from the desk.
+              </h2>
+            </div>
+            <Link to="/blog" className="text-sm font-semibold text-ink hover:text-amber flex items-center gap-1">
+              All insights <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="mt-10 grid md:grid-cols-3 gap-6">
+            {featuredPosts.map((p) => (
+              <Link
+                to={`/blog/${p.slug}`}
+                key={p.slug}
+                data-testid={`home-blog-card-${p.slug}`}
+                className="group border border-border bg-white hover:border-ink transition-all block"
+              >
+                <div className="aspect-[16/10] overflow-hidden bg-secondary">
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy" />
                 </div>
-                <h3 className="mt-4 font-serif text-2xl font-bold text-ink group-hover:text-amber transition-colors">
-                  {s.title}
-                </h3>
-                <p className="mt-3 text-muted2 leading-relaxed">{s.short}</p>
-                <div className="mt-6 text-sm font-semibold text-ink flex items-center gap-1 group-hover:gap-2 transition-all">
-                  Explore <ArrowUpRight className="h-4 w-4" />
+                <div className="p-6">
+                  <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">{p.category}</div>
+                  <div className="mt-2 font-serif text-xl font-bold text-ink leading-snug group-hover:text-amber transition-colors">
+                    {p.title}
+                  </div>
+                  <div className="mt-3 text-sm text-muted2 line-clamp-2">{p.excerpt}</div>
                 </div>
               </Link>
             ))}
@@ -146,86 +257,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RESULTS */}
-      <section className="bg-slate950 text-white py-24 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30 grain" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-6">
-              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">The Proof</div>
-              <h2 className="mt-3 font-serif text-4xl md:text-5xl font-bold leading-tight">
-                Numbers investors actually reward.
-              </h2>
-              <p className="mt-4 text-white/70 max-w-xl">
-                We don't ship monthly PowerPoints. We ship compounding GMV, tightening TACoS, and a review flywheel.
-                Here's what happens when we own the account.
-              </p>
-            </div>
-            <div className="lg:col-span-6 grid grid-cols-2 gap-3">
-              {[
-                { v: "+312%", k: "GMV lift · UK textile brand · 9 mo", i: 0 },
-                { v: "6.4x", k: "Blended ROAS · Noon Ramadan window", i: 1 },
-                { v: "-38%", k: "TACoS reduction · avg. across roster", i: 2 },
-                { v: "45d", k: "Time-to-first-sale · UK VAT included", i: 3 },
-              ].map((s) => (
-                <div key={s.i} className="p-6 border border-white/20 bg-white/5 backdrop-blur">
-                  <div className="font-serif text-4xl md:text-5xl font-bold text-amber tracking-tight">
-                    {s.v}
-                  </div>
-                  <div className="mt-2 text-xs text-white/70 leading-snug">{s.k}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY US STRIP */}
-      <section className="bg-white py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-5">
-              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">Why GlobiSync</div>
-              <h2 className="mt-3 font-serif text-4xl md:text-5xl font-bold text-ink">
-                Operators, not consultants.
-              </h2>
-              <p className="mt-4 text-muted2">
-                We are a Birmingham-based team of ex-marketplace operators. We've launched Indian brands into
-                the UK, US, Singapore, Hong Kong and the GCC. We own the P&L with you.
-              </p>
-              <Link
-                to="/about"
-                data-testid="home-about-link"
-                className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-ink hover:text-amber"
-              >
-                Meet the team <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-              {[
-                { t: "Fixed-fee pilots", d: "First 90 days at a defined price. No surprise invoices." },
-                { t: "Weekly ops calls", d: "You get a real operator on Zoom every Wednesday." },
-                { t: "In-market payment rails", d: "UK VAT/EORI, US LLC/nexus — we've done the paperwork." },
-                { t: "Amazon, Noon, Lazada, Zalora, Etsy", d: "One team, six platforms, four countries." },
-              ].map((x, i) => (
-                <div key={i} className="p-6 border-l-2 border-amber bg-secondary/50">
-                  <div className="font-serif text-xl font-bold text-ink">{x.t}</div>
-                  <div className="mt-1 text-sm text-muted2">{x.d}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <FAQSection />
 
       {/* FINAL CTA */}
       <section className="bg-amber py-20">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="font-serif text-4xl md:text-6xl font-bold text-ink leading-[1.05]">
-            Let's map your marketplace roadmap in 30 minutes.
+            Let's map your growth plan in 30 minutes.
           </h2>
           <p className="mt-4 text-ink/80 text-lg max-w-2xl mx-auto">
-            Free, no obligation. If we can't help, we'll tell you who can.
+            One conversation. One clear next step. No pressure.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link to="/contact">
@@ -233,7 +274,7 @@ export default function Home() {
                 data-testid="home-final-cta-btn"
                 className="h-12 px-6 rounded-none bg-ink text-white hover:bg-white hover:text-ink border border-ink font-semibold hover:-translate-y-0.5 transition-all"
               >
-                Book Your Free Call →
+                {SITE.cta} →
               </Button>
             </Link>
             <a

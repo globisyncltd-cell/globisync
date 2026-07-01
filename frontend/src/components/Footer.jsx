@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { SITE, NAV } from "@/lib/content";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -12,17 +12,17 @@ export default function Footer() {
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
             <div className="font-serif text-3xl md:text-4xl leading-tight">
-              Ready to sell across borders — <span className="text-amber">the right way?</span>
+              Ready to grow your ecommerce brand — <span className="text-amber">the right way?</span>
             </div>
             <p className="mt-4 text-white/70 max-w-md">
-              Book a free 30-minute strategy call with our Birmingham desk. No decks, no fluff — just a clear next step.
+              Book a discovery call with our Birmingham team. No decks, no fluff — just a clear next step.
             </p>
             <Link
               to="/contact"
               data-testid="footer-cta-book-btn"
               className="inline-flex items-center gap-2 mt-6 bg-amber text-ink font-semibold px-6 py-3 border border-amber hover:bg-white hover:border-white transition-all hover:-translate-y-0.5"
             >
-              Book a Free Strategy Call →
+              {SITE.cta} →
             </Link>
           </div>
 
@@ -79,9 +79,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-white/50 font-mono uppercase tracking-[0.15em]">
           <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Agency · Birmingham</div>
-          <div className="flex items-center gap-4">
-            <span>Not affiliated with GlobeSync Technologies / Tech / Limited</span>
-          </div>
+          <div>{SITE.companyReg}</div>
         </div>
       </div>
     </footer>

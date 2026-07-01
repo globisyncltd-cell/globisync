@@ -1,261 +1,295 @@
-// Central site content — edit copy here.
+// Central site content
 export const SITE = {
   name: "GlobiSync",
-  tagline: "UK Ecommerce Agency · Birmingham",
+  tagline: "UK Ecommerce Agency",
   phone: "+44 7309 721673",
   whatsapp: "447309721673",
   email: "globisyncltd@gmail.com",
   address: "296 Pershore Road, Birmingham, B5 7SH, United Kingdom",
   city: "Birmingham",
   founded: "2019",
+  companyReg: "Company registration coming soon",
+  cta: "Book a Discovery Call",
 };
+
+export const NAV = [
+  { to: "/", label: "Home" },
+  { to: "/services", label: "Services" },
+  { to: "/international-expansion", label: "International" },
+  { to: "/case-studies", label: "Case Studies" },
+  { to: "/about", label: "About" },
+  { to: "/team", label: "Team" },
+  { to: "/blog", label: "Insights" },
+  { to: "/contact", label: "Contact" },
+];
 
 export const MARKETPLACES = [
   { name: "Amazon", color: "#FF9900" },
   { name: "eBay", color: "#E53238" },
   { name: "Etsy", color: "#F16521" },
-  { name: "Lazada", color: "#0F156D" },
-  { name: "Zalora", color: "#000000" },
+  { name: "Shopify", color: "#96BF48" },
+  { name: "TikTok Shop", color: "#000000" },
   { name: "Noon", color: "#FEEE00" },
+  { name: "Lazada", color: "#0F156D" },
 ];
 
+// UK-focused primary services
 export const SERVICES = [
   {
-    id: "strategy",
+    id: "marketplace-management",
     number: "01",
-    title: "Marketplace Strategy & Market Entry",
+    title: "Marketplace Management",
     short:
-      "Which market, which marketplace, which SKU-first? We build the plan before you spend a pound.",
+      "Amazon, eBay and Etsy — daily operator control, not monthly decks. We own listings, buy-box, ads, inventory and cases.",
     problem:
-      "Brand owners burn six-figure budgets launching on the wrong marketplace with the wrong catalogue. Choosing between Amazon UK, US, Noon, or Lazada is not a gut decision.",
+      "Marketplace ops needs a daily rhythm. Most sellers plateau because listings, ads, and inventory are managed by three different people who never talk.",
     approach:
-      "We audit your product-market fit country-by-country, map competitor pricing, forecast landed unit economics, and hand you a phased entry roadmap with owned KPIs.",
+      "A dedicated pod owns your account: listings and A+ content, PPC/DSP, replenishment, brand protection, promo calendar, and executive reporting.",
     included: [
-      "Category & competitor deep-dive",
-      "Landed-cost & margin modelling",
-      "Marketplace prioritisation matrix",
-      "6 & 12 month growth roadmap",
-    ],
-    outcome:
-      "You launch in the right market first — protecting cash and compounding early reviews into ranking.",
-  },
-  {
-    id: "storefront",
-    number: "02",
-    title: "Storefront Setup & Listing Optimization",
-    short: "Conversion-grade storefronts on Amazon, Etsy, Noon, Lazada, and Zalora.",
-    problem:
-      "80% of listings under-index on the first three variables buyers see. Sellers lose the sale before it becomes a click.",
-    approach:
-      "Keyword-driven copy, native SEO for each locale, A+/EBC modules, brand-store builds, and CRO tested with real search impression share.",
-    included: [
-      "Amazon A+/Brand Story modules",
-      "Locale-specific keyword sets (UK, US, SG, HK, GCC)",
-      "Studio-grade product imagery direction",
-      "Variation strategy & backend attributes",
-    ],
-    outcome:
-      "Higher CTR, higher CVR, lower TACoS — measurable within the first 30 days.",
-  },
-  {
-    id: "management",
-    number: "03",
-    title: "Full-Service Marketplace Management",
-    short:
-      "We run the account like operators, not consultants — daily P&L ownership.",
-    problem:
-      "Marketplace ops needs a daily rhythm — advertising, buy-box, inventory, reviews, cases, promos. It's a full team, not a monthly retainer of decks.",
-    approach:
-      "A dedicated account team owns your KPIs — advertising, replenishment, promo calendar, brand protection, and weekly executive reporting.",
-    included: [
-      "PPC & DSP campaign management",
-      "Inventory & replenishment planning",
-      "Brand-protection & IP enforcement",
-      "Buy-box & pricing automation",
+      "Amazon SP/SB/SD & DSP campaigns",
+      "eBay Promoted Listings & storefront",
+      "Etsy Ads & seasonal calendars",
+      "A+ / Brand Story / Storefront design",
       "Weekly performance readouts",
     ],
     outcome:
-      "GMV growth with tightening ACoS — the two curves marketplace investors actually reward.",
+      "GMV growth with tightening TACoS — the two curves marketplaces actually reward.",
   },
   {
-    id: "logistics",
-    number: "04",
-    title: "Cross-Border Logistics & Compliance",
+    id: "shopify-optimization",
+    number: "02",
+    title: "Shopify & Website Optimisation",
     short:
-      "India-to-UK, India-to-US, India-to-GCC — the paperwork we've done a hundred times.",
+      "Your DTC website should be your best-performing store. We rebuild, tune, and CRO the funnel until it is.",
     problem:
-      "VAT registration, EORI, IOR partners, product safety marking (UKCA/CE), and FDA labelling stop 40% of Indian brands at the border.",
+      "Most Shopify stores convert at 1.4%. Great ones sit above 3.5%. The difference is theme quality, speed, and merchandising — none of which happen by accident.",
     approach:
-      "We plug you into pre-vetted freight, 3PL, IOR and VAT partners; own the compliance calendar; and de-risk your first shipment door-to-warehouse.",
+      "We audit the funnel end-to-end, ship a conversion-first theme (or fix yours), and run a monthly CRO backlog with real experiments.",
     included: [
-      "UK VAT & EORI registration",
-      "US sales-tax & FDA/FCC labelling",
-      "FBA / MCF / 3PL selection",
-      "UKCA / CE / customs classification",
-      "Duty & landed-cost modelling",
+      "Shopify / Shopify Plus builds",
+      "Speed & Core Web Vitals",
+      "PDP, PLP, cart & checkout CRO",
+      "Klaviyo email & SMS flows",
+      "Merchandising & upsell strategy",
     ],
     outcome:
-      "First container lands compliant, on time, and stocked into FBA before your ad spend goes live.",
+      "Higher CVR, higher AOV, higher LTV — measurable in the first quarter.",
+  },
+  {
+    id: "seo",
+    number: "03",
+    title: "Ecommerce SEO",
+    short:
+      "The compounding channel. Content, technical, and marketplace SEO working as one system.",
+    problem:
+      "Ads stop when the budget stops. SEO compounds — but only if technical, on-page, and content moves happen in the same quarter.",
+    approach:
+      "Full technical audit, keyword mapping, content roadmap, and internal linking programme. Same rigour applied to Amazon and Etsy listings.",
+    included: [
+      "Technical SEO audit & remediation",
+      "Keyword & topic-cluster strategy",
+      "Content production (in-house)",
+      "Digital PR & link acquisition",
+      "Marketplace listing SEO",
+    ],
+    outcome:
+      "Compounding organic revenue — a channel that pays you back for years.",
+  },
+  {
+    id: "social",
+    number: "04",
+    title: "Social Media Marketing",
+    short:
+      "Content that builds an audience, not just a feed. Instagram, TikTok, Pinterest — planned and produced.",
+    problem:
+      "Most brands post because they feel they must. That's not a strategy — and it's why the ROI feels invisible.",
+    approach:
+      "Monthly editorial calendar, in-house content production, community management, and a paid-social amplification plan tied to commerce goals.",
+    included: [
+      "Content strategy & calendar",
+      "Reels / TikTok / Shorts production",
+      "Community management",
+      "Influencer / creator partnerships",
+      "Social listening & reporting",
+    ],
+    outcome:
+      "A brand that actually shows up — and turns social attention into orders.",
+  },
+  {
+    id: "paid-ads",
+    number: "05",
+    title: "Paid Advertising",
+    short:
+      "Meta, Google, TikTok, Amazon Ads — one team, one MER target, weekly optimisation.",
+    problem:
+      "Paid platforms fight for the same customer. Managed in silos, they cannibalise each other and inflate CAC.",
+    approach:
+      "One team runs your entire paid stack against a blended MER target — Meta, Google, TikTok, and Amazon PPC — with unified reporting.",
+    included: [
+      "Meta / Instagram ads",
+      "Google Ads (Search, PMax, Shopping)",
+      "TikTok Ads & TikTok Shop",
+      "Amazon PPC & DSP",
+      "Creative testing framework",
+    ],
+    outcome:
+      "Falling CAC. Rising MER. A paid stack you can actually predict.",
+  },
+  {
+    id: "account-management",
+    number: "06",
+    title: "Full Account Management",
+    short:
+      "Prefer to hand us the whole thing? We become your outsourced ecommerce team.",
+    problem:
+      "Founders end up doing customer service on Sunday night. That's the moment to bring in an ops partner.",
+    approach:
+      "We become your ecommerce team — a senior operator, marketplace manager, marketer, and designer running your accounts day-to-day.",
+    included: [
+      "Named senior operator",
+      "Marketplace + DTC ops",
+      "Marketing & content execution",
+      "Weekly ops call + written report",
+      "Quarterly business review",
+    ],
+    outcome:
+      "You go back to founding. We do the operating.",
   },
 ];
 
-export const MARKETS = [
+// International expansion — secondary offer, globally neutral tone
+export const REGIONS = [
   {
     code: "UK",
     name: "United Kingdom",
+    marketplaces: ["Amazon UK", "eBay UK", "Etsy UK", "TikTok Shop UK"],
     hero:
-      "The UK is the most brand-friendly marketplace in Europe — high AOV, mature Prime base, and a proven route for Indian D2C brands to test Europe.",
-    stats: [
-      { k: "Amazon UK Prime members", v: "~15M" },
-      { k: "Avg. category CVR", v: "9–13%" },
-      { k: "Typical launch runway", v: "60–90 days" },
-    ],
+      "The most mature ecommerce market in Europe — high AOV, high Prime penetration, and a strong test-bed for global brands.",
     playbook: [
-      "UK VAT & EORI setup (India-based sellers)",
-      "UKCA/CE compliance & IOR",
-      "Amazon UK, eBay UK, Etsy UK listings",
-      "Sponsored Products + DSP for repeat buyers",
+      "UK VAT, EORI, IOR registration",
+      "UKCA / CE compliance",
+      "Amazon FBA / MCF / 3PL setup",
+      "PPC & DSP acquisition",
     ],
-    seoLine:
-      "Searching how to sell on Amazon UK from India? We handle VAT, EORI, IOR, freight, listing, PPC — the full stack.",
+  },
+  {
+    code: "SEA",
+    name: "Southeast Asia",
+    marketplaces: ["Lazada", "Zalora", "Shopee"],
+    hero:
+      "The fastest-growing ecommerce region on earth. Singapore is the anchor; Malaysia, Indonesia, and the Philippines the scale.",
+    playbook: [
+      "LazMall & Zalora onboarding",
+      "SG GST & regional 3PL",
+      "Localisation across 4 markets",
+      "Regional PPC + KOL launch",
+    ],
+  },
+  {
+    code: "ME",
+    name: "Middle East",
+    marketplaces: ["Noon", "Amazon.ae", "Amazon.sa"],
+    hero:
+      "Premium AOV, Ramadan and White Friday velocity, and a marketplace duopoly that's easy to enter with the right partner.",
+    playbook: [
+      "Noon Express onboarding",
+      "Arabic + English creative",
+      "Ramadan / White Friday planning",
+      "IOR & FCL logistics setup",
+    ],
   },
   {
     code: "US",
     name: "United States",
+    marketplaces: ["Amazon US", "Walmart", "Etsy US", "Shopify"],
     hero:
-      "The single largest ecommerce economy — but the most competitive. We enter with a niche-first, review-velocity playbook.",
-    stats: [
-      { k: "Amazon US GMV share", v: "~38%" },
-      { k: "Avg. review velocity target", v: "40+/mo" },
-      { k: "Typical launch runway", v: "75–120 days" },
-    ],
+      "The single largest online market. We enter niche-first with a review-velocity + brand-defence playbook.",
     playbook: [
-      "US LLC / sales-tax nexus guidance",
-      "FDA / FCC / Prop 65 labelling review",
-      "Amazon US, Etsy US, Walmart-ready SKUs",
-      "PPC + Amazon DSP retargeting",
+      "US LLC / sales-tax nexus",
+      "FDA / FCC / Prop 65 review",
+      "Amazon US launch + DSP",
+      "Walmart-ready SKU setup",
     ],
-    seoLine:
-      "For Indian brands entering the US, our Birmingham team acts as your operating layer from day one.",
-  },
-  {
-    code: "SG",
-    name: "Singapore",
-    hero:
-      "Southeast Asia's testbed — high-income, high-trust, and the perfect entry point for Lazada and Zalora regional expansion.",
-    stats: [
-      { k: "Digital buyer penetration", v: "~85%" },
-      { k: "Cross-border ecommerce share", v: "55%+" },
-      { k: "Typical launch runway", v: "45–75 days" },
-    ],
-    playbook: [
-      "Lazada LazMall onboarding",
-      "Zalora brand-partner listing",
-      "SG GST & customs guidance",
-      "Regional 3PL & last-mile setup",
-    ],
-    seoLine:
-      "Selling in Singapore is our springboard for scaling clients into Malaysia, Indonesia, and the Philippines.",
-  },
-  {
-    code: "HK",
-    name: "Hong Kong",
-    hero:
-      "A duty-friendly gateway with disproportionate purchasing power — ideal for premium apparel, beauty, and lifestyle brands.",
-    stats: [
-      { k: "Ecomm penetration", v: "~78%" },
-      { k: "Zero import duty on most SKUs", v: "✓" },
-      { k: "Typical launch runway", v: "45–60 days" },
-    ],
-    playbook: [
-      "HKTVmall & Zalora HK onboarding",
-      "Local warehousing partners",
-      "Traditional Chinese localisation",
-      "Meta + KOL launch package",
-    ],
-    seoLine:
-      "Hong Kong lets premium Indian brands earn Western AOV without Western compliance overhead.",
   },
 ];
 
-export const CASE_STUDIES = [
+export const RETAIL_MARKETS = [
   {
-    slug: "handloom-to-amazon-uk",
-    title: "From Handloom Studio to Amazon UK Bestseller",
-    industry: "Home & Textiles · India → UK",
-    metric: "+312%",
-    metricLabel: "GMV in 9 months",
-    challenge:
-      "A Jaipur-based handloom brand was reaching Indian D2C ceiling. They wanted the UK, but had zero VAT footprint, zero listings, and zero reviews.",
-    approach:
-      "We handled UK VAT and EORI, shipped a pilot container to Amazon FBA UK, launched 22 SKUs with locale-native copy, and ran a phased Sponsored Products + Vine strategy.",
-    outcome:
-      "Bestseller badge in two subcategories inside 6 months. TACoS settled at 11.4% by month 9.",
-    stack: ["Amazon UK", "FBA", "Vine", "Sponsored Products"],
+    country: "United Kingdom",
+    retailers: ["Selfridges", "John Lewis", "Waitrose", "Boots", "Holland & Barrett", "Fenwick"],
+    note: "Buyer intros, distributor selection, EPOS + PIM readiness, UK compliance.",
   },
   {
-    slug: "wellness-brand-noon-gcc",
-    title: "Ayurvedic Wellness Brand — Noon GCC Launch",
-    industry: "Wellness · India → UAE/KSA",
-    metric: "6.4x",
-    metricLabel: "ROAS in Q1",
-    challenge:
-      "Founder-led wellness brand had strong Instagram traction in India but no infrastructure to sell in the GCC.",
-    approach:
-      "Set up Noon Express onboarding, ran locale-specific Arabic + English creatives, and layered Meta paid to Noon landing pages during Ramadan.",
-    outcome:
-      "6.4x blended ROAS across Ramadan window; 3 SKUs stocked into Noon FCs by month 2.",
-    stack: ["Noon", "Meta Ads", "Arabic localisation"],
+    country: "Middle East (UAE / KSA)",
+    retailers: ["Chalhoub Group", "Landmark Group", "Al-Futtaim", "Lulu Hypermarket", "Carrefour UAE"],
+    note: "Duty-free channel entry, Ramadan planning, IOR and Arabic-market packaging.",
   },
   {
-    slug: "premium-jewellery-etsy-us",
-    title: "Premium Silver Jewellery — Etsy US Scale-Up",
-    industry: "Jewellery · India → US",
-    metric: "+184%",
-    metricLabel: "MoM revenue in 4 months",
-    challenge:
-      "Small Etsy US store stuck at $8k/month for 18 months, poor listing SEO, and no ad strategy.",
-    approach:
-      "Full listing rebuild, Etsy Ads structuring, seasonal campaign calendar, and off-Etsy Pinterest traffic funnel.",
-    outcome:
-      "Crossed $22k/month by month 4; conversion rate lifted from 1.9% to 4.7%.",
-    stack: ["Etsy", "Etsy Ads", "Pinterest", "Listing SEO"],
+    country: "Southeast Asia",
+    retailers: ["FairPrice (SG)", "Watsons (regional)", "Sephora SEA", "Guardian", "Robinsons"],
+    note: "Distributor structuring, halal / HALAL / MOH clearance where relevant, KOL launch.",
   },
 ];
 
-export const TEAM = [
+// Brands strip (logos only — no descriptions, no metrics)
+export const BRANDS = [
+  { name: "London RAG" },
+  { name: "Shaze" },
+  { name: "Livetech" },
+  { name: "Tvam" },
+  { name: "PlayPanda" },
+];
+
+export const HOW_IT_WORKS = [
   {
-    name: "Shweta Chauhan",
-    role: "Founder & CEO",
-    linkedin: "https://www.linkedin.com/in/shwetachauhanuk/",
-    bio: "Shweta founded GlobiSync to bridge ambitious Indian brands with global marketplace opportunity. She leads client strategy, partnerships, and the Birmingham operations desk.",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+    n: "01",
+    t: "Discovery Call",
+    d: "A 30-minute conversation. We understand your product, current channels, and what growth means to you.",
   },
   {
-    name: "Sunny Chauhan",
-    role: "Lead Consultant · Marketplace Operations",
-    linkedin: "https://www.linkedin.com/in/sunnychauhanuk/",
-    bio: "Ten-plus years running marketplace P&Ls across Amazon UK, US, and Noon. Sunny owns client account performance, ad efficiency, and inventory strategy.",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
+    n: "02",
+    t: "Strategy",
+    d: "A tailored roadmap — channels, priorities, budget, and 90-day milestones. Delivered in a single working session.",
   },
   {
-    name: "Zain Alvi",
-    role: "Advisor · Cross-Border Growth",
-    linkedin: "https://www.linkedin.com/in/zainalvi/",
-    bio: "Ecommerce operator and advisor with deep GCC and Southeast Asia expertise. Zain guides market-entry sequencing and premium-brand positioning for our roster.",
-    image:
-      "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?auto=format&fit=crop&w=800&q=80",
+    n: "03",
+    t: "Execution",
+    d: "A senior operator and a specialist pod run the work. Weekly ops calls, one Slack channel, no offshored handoffs.",
+  },
+  {
+    n: "04",
+    t: "Reporting",
+    d: "Written weekly readout. Monthly performance review. Quarterly business review with the founder.",
   },
 ];
 
-export const NAV = [
-  { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/markets", label: "Markets" },
-  { to: "/case-studies", label: "Case Studies" },
-  { to: "/about", label: "About" },
-  { to: "/team", label: "Team" },
-  { to: "/contact", label: "Contact" },
+export const FAQ = [
+  {
+    q: "How do you price your engagements?",
+    a: "We run two commercial models: a fixed monthly retainer scaled to scope (typical range £2.5k – £15k/month), or a fixed-scope project fee for one-off builds. No performance-only or commission-based deals — they misalign incentives.",
+  },
+  {
+    q: "What's the contract length?",
+    a: "Retainers begin with a 3-month pilot (fixed fee, fixed scope). After the pilot we move to a rolling monthly agreement with 30 days' notice either side. No 12-month lock-ins.",
+  },
+  {
+    q: "Do you work with brands based outside the UK?",
+    a: "Yes. Our primary focus is UK-based brands, but we run international expansion engagements for brands globally — see our International Expansion page. Our team operates across UK, US, Middle East, and Southeast Asia hours.",
+  },
+  {
+    q: "How does getting started actually work?",
+    a: "Book a discovery call. If we're a fit, we send a proposal within 3 working days. Signed contract typically leads to a kick-off within 10 working days. We do not push anyone to sign — long relationships start with the right fit.",
+  },
+  {
+    q: "Which platforms and marketplaces do you specialise in?",
+    a: "Amazon (UK/US/EU/ME), eBay, Etsy, TikTok Shop, Shopify / Shopify Plus, Noon, Lazada, and Zalora. Ad platforms: Meta, Google, TikTok, Klaviyo, Amazon Ads.",
+  },
+  {
+    q: "Do you do one-off projects or only long-term partnerships?",
+    a: "Both. We handle Shopify migrations, marketplace launches, SEO audits, and international expansion projects as fixed-scope engagements. Most clients then move into a retainer for ongoing operations.",
+  },
+  {
+    q: "Where are you based?",
+    a: "Our head office is on Pershore Road, Birmingham. We work with clients across the UK and internationally.",
+  },
 ];

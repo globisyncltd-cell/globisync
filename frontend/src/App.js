@@ -8,21 +8,20 @@ import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
-import Markets from "@/pages/Markets";
+import InternationalExpansion from "@/pages/InternationalExpansion";
 import CaseStudies from "@/pages/CaseStudies";
 import About from "@/pages/About";
 import Team from "@/pages/Team";
 import Contact from "@/pages/Contact";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     if (hash) {
       const el = document.getElementById(hash.replace("#", ""));
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
+      if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
     }
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname, hash]);
@@ -40,10 +39,13 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
-              <Route path="/markets" element={<Markets />} />
+              <Route path="/international-expansion" element={<InternationalExpansion />} />
+              <Route path="/markets" element={<InternationalExpansion />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/about" element={<About />} />
               <Route path="/team" element={<Team />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<Home />} />
             </Routes>

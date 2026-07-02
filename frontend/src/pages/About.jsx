@@ -28,7 +28,7 @@ export default function About() {
             </p>
             <p className="mt-4 text-muted2 leading-relaxed">
               Our home is on Pershore Road in Birmingham — a city with a long trading history and no
-              patience for hot air. Our team blends ex-marketplace managers, DTC growth marketers,
+              patience for hot air. Our team blends ex-marketplace experts, DTC growth strategists,
               and international-expansion specialists. We put that muscle directly into our clients' accounts.
             </p>
             <p className="mt-4 text-muted2 leading-relaxed">
@@ -53,7 +53,7 @@ export default function About() {
                 <MapPin className="h-4 w-4 flex-none mt-1 text-amber" />
                 <div>{SITE.address}</div>
               </div>
-              <div className="mt-4 text-xs text-muted2">{SITE.companyReg}</div>
+              <div className="mt-4 text-xs text-muted2">Registered in England · HMRC</div>
             </div>
           </div>
         </div>

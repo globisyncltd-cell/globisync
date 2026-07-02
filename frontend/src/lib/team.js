@@ -5,7 +5,7 @@ export const TEAM = [
     name: "Shweta Chauhan",
     role: "Founder & Director",
     linkedin: "https://www.linkedin.com/in/shwetachauhanuk/",
-    image: "/team/shweta.png",
+    image: "/team/sunny.jpg",
     bio: "Shweta founded GlobiSync to build the ecommerce partner she wished existed as an operator herself. She leads client strategy, commercial partnerships, and the Birmingham desk. Her focus: turning ambitious brands into serious online businesses.",
   },
   {
@@ -21,7 +21,7 @@ export const TEAM = [
     name: "Sunny Chauhan",
     role: "Lead Consultant",
     linkedin: "https://www.linkedin.com/in/sunnychauhanuk/",
-    image: "/team/sunny.jpg",
-    bio: "Sunny leads client account performance day-to-day. He has ten-plus years running marketplace P&Ls across Amazon UK, US and Noon, and owns advertising, replenishment, and reporting for the GlobiSync roster.",
+    image: "/team/shweta.png",
+    bio: "Sunny is an MBA from a UK university with 15+ years of ecommerce experience across Amazon UK, US and Noon. He owns client account performance day-to-day — advertising, replenishment, and reporting for the entire GlobiSync roster.",
   },
 ];

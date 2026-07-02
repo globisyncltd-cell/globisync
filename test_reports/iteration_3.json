@@ -1,0 +1,62 @@
+{
+  "summary": "Iteration 3 regression: 9/9 backend pytest passes (health, dynamic + static sitemap/robots, contact + booking POST/GET persistence, 422 validation). Sitemap includes /fee-calculator and no longer references /case-studies. Raw HTML curl of / includes the exact H1 'We help brands and Amazon sellers grow online sales — end to end.' inside the initial #root SSR fallback, title tag contains 'GlobiSync' + 'UK Ecommerce' and does NOT contain 'Birmingham'. Home hero (rendered): H1 correct, pill 'UK Ecommerce Growth Agency' (no 'Est. 2019'), earth image removed and replaced by 'Operating model' card (6/4 stats), checkmark 'Retainers from £300/month' present, no '3-month rolling contracts', second CTA links to /fee-calculator with 'Free Fee Calculator' label. /fee-calculator page: H1 'UK Marketplace Fee Calculator', defaults cost=10 / price=29.99 / shipping=3.5 / marketplace=amazon compute net profit £11.99 (data-testid=fc-net-profit) and margin 40.0% (data-testid=fc-margin-pct); lead form (name+email) submits to /api/contact and shows fc-lead-success. /case-studies now renders Home content (no 404). Team page order Shweta (Founder & Director) → Zain (Strategic Advisor) → Sunny (Lead Consultant); Sunny bio contains 'MBA' and '15+ years'; image mapping per team.js: Shweta→/team/sunny.jpg, Zain→/team/zain.png, Sunny→/team/shweta.png (all render). Footer contains 'Registered in England · HMRC', has no 'Company registration coming soon' and no 'not affiliated with GlobeSync' text. Nav (desktop + mobile 390x844) shows 8 items including 'Fee Calculator' and no 'Case Studies'. WhatsApp FAB wa.me/447309721673 still present. All /brands/*.png assets (londonrag/tvam/shaze/livetech/playpanda) return HTTP 200. International Expansion page: UK shows Shopify + Not On The High Street, US shows eBay US + TikTok Shop US, SEA shows Tokopedia — HOWEVER ME region is MISSING Namshi and TikTok (only shows Noon, Amazon.ae, Amazon.sa) because /app/frontend/src/lib/content.js REGIONS.ME.marketplaces was not expanded (Home.jsx has the correct 5-tag hard-coded list, but the International Expansion page reads REGIONS and therefore under-reports).",
+  "tested_scope": ["backend", "frontend", "integration", "seo"],
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "International Expansion page (Middle East region)",
+        "issue": "content.js REGIONS.ME.marketplaces only contains ['Noon','Amazon.ae','Amazon.sa'] — Namshi and TikTok Shop ME were requested but not added. Home.jsx has the correct 5-tag list hard-coded, so the home mini-map is fine, but /international-expansion shows only 3 tags for ME. Expected 5 (Noon, Amazon.ae, Amazon.sa, Namshi, TikTok Shop ME).",
+        "affected_selectors": ["/international-expansion ME region card"]
+      }
+    ],
+    "design_issues": []
+  },
+  "passed_checks": [
+    "Raw curl / contains H1 'We help brands and Amazon sellers grow online sales — end to end.' inside <div id=root> static fallback (SSR-friendly)",
+    "Raw curl / title tag = 'GlobiSync | UK Ecommerce Growth Agency — Marketplace, Shopify & SEO' (no Birmingham)",
+    "Home hero H1 rendered = 'We help brands and Amazon sellers grow online sales — end to end.'",
+    "Home hero pill = 'UK Ecommerce Growth Agency' (no 'Est. 2019')",
+    "Home hero earth-image removed; 'Operating model' card visible with 6 service pillars / 4 global regions stats",
+    "Home hero checkmarks: 'Senior operator', 'Weekly ops calls', 'Retainers from £300/month' (no '3-month rolling contracts')",
+    "Home hero second CTA text 'Free Fee Calculator' linking to /fee-calculator",
+    "/fee-calculator loads with H1 'UK Marketplace Fee Calculator', 3 marketplace options (amazon/ebay/etsy)",
+    "Fee calc math (amazon defaults 10/29.99/3.5): fc-net-profit=£11.99, fc-margin-pct=40.0%",
+    "Fee calc lead form POST /api/contact → 200; fc-lead-success renders",
+    "/case-studies redirect renders Home content (no 404, no crash)",
+    "Nav (desktop + mobile) includes 'Fee Calculator' and does NOT include 'Case Studies'",
+    "Team order Shweta → Zain → Sunny with roles Founder & Director / Strategic Advisor / Lead Consultant",
+    "Sunny bio contains 'MBA' and '15+ years'",
+    "Team images: Shweta uses /team/sunny.jpg, Zain uses /team/zain.png, Sunny uses /team/shweta.png (all render)",
+    "Footer contains 'Registered in England · HMRC'; no 'Company registration coming soon'; no 'not affiliated with GlobeSync'",
+    "International Expansion UK card shows Shopify + Not On The High Street (6 tags)",
+    "International Expansion US card shows eBay US + TikTok Shop US (6 tags)",
+    "International Expansion SEA card shows Tokopedia (5 tags)",
+    "GET /api/sitemap.xml contains /fee-calculator and no /case-studies",
+    "All /brands/*.png return 200 (londonrag, tvam, shaze, livetech, playpanda)",
+    "Mobile 390x844 hamburger opens 8-item menu; WhatsApp FAB wa.me/447309721673 present",
+    "No banned CTA phrases (free strategy/free audit/free consultation/book a strategy call/book a free) anywhere on scanned pages"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/iteration_3.xml"
+  ],
+  "action_items": [
+    "Update /app/frontend/src/lib/content.js REGIONS entry for code:'ME' to include 'Namshi' and 'TikTok Shop ME' so /international-expansion page ME card shows 5 tags (currently only 3). Home.jsx already has the correct list — this only affects the standalone International Expansion page."
+  ],
+  "critical_code_review_comments": [
+    "content.js REGIONS ME marketplaces list was NOT updated for iteration 3 while Home.jsx hardcoded region strip was — recommend using a single source of truth to avoid this drift.",
+    "team.js image paths are intentionally swapped file names (Shweta uses sunny.jpg, Sunny uses shweta.png) — per problem statement this is correct because the underlying asset files were mis-named. Consider renaming the actual files in public/team/ to their true subjects so future maintainers aren't confused."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (STATIC_ROUTES updated: /case-studies removed, /fee-calculator added)"
+  ],
+  "success_rate": { "backend": "100%", "frontend": "96%" },
+  "test_credentials": "N/A — public site, no auth",
+  "seed_data_creation": "Backend regression created TEST_-prefixed records via POST /api/contact and /api/bookings; fee-calculator lead form also creates a /api/contact record with 'TEST_FC_Lead_<epoch>' name. Not cleaned (public site).",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Only pending item is expanding REGIONS.ME.marketplaces in /app/frontend/src/lib/content.js to include Namshi + TikTok Shop ME. Backend regression at /app/backend/tests/backend_test.py — 9 tests, run with `pytest backend/tests/backend_test.py -v`. Sitemap now has 8 static routes (with /fee-calculator, no /case-studies) + 35 blog URLs. Fee calc uses data-testid=fc-net-profit and fc-margin-pct; lead form uses fc-lead-name, fc-lead-email, fc-lead-submit, fc-lead-success. /case-studies route is now aliased to Home component (SPA-only, does not redirect at network level).",
+  "rca of the issue": "Middle East marketplace list divergence — Home.jsx line 183 was hardcoded with the correct 5 tags ('Noon · Amazon.ae · Amazon.sa · Namshi · TikTok') during iteration 3 but the REGIONS[].marketplaces array in /app/frontend/src/lib/content.js line 190 (used by /international-expansion via .map render) was not updated in parallel. Fix: change to marketplaces: ['Noon','Amazon.ae','Amazon.sa','Namshi','TikTok Shop ME']. Reproduction: visit /international-expansion → scroll to ME card → tag list shows only 3 entries."
+}

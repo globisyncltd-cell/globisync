@@ -78,8 +78,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-white/50 font-mono uppercase tracking-[0.15em]">
-          <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Agency · Birmingham</div>
-          <div>{SITE.companyReg}</div>
+          <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Agency</div>
+          <div>Registered in England · HMRC</div>
         </div>
       </div>
     </footer>

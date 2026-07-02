@@ -1,5 +1,12 @@
 import React from "react";
-import { BRANDS } from "@/lib/content";
+
+const BRANDS = [
+  { name: "London RAG", logo: "/brands/londonrag.png", url: "https://londonrag.com" },
+  { name: "Shaze", logo: "/brands/shaze.png", url: null },
+  { name: "Livetech", logo: "/brands/livetech.png", url: "https://live-tech.in" },
+  { name: "Tvam", logo: "/brands/tvam.png", url: "https://tvamnaturals.com" },
+  { name: "PlayPanda", logo: "/brands/playpanda.png", url: "https://playpandatoys.in" },
+];
 
 export default function BrandStrip() {
   return (
@@ -18,9 +25,16 @@ export default function BrandStrip() {
             <div
               key={b.name}
               data-testid={`brand-logo-${i}`}
-              className="aspect-[3/2] flex items-center justify-center border-r border-b border-border p-4 hover:bg-secondary/50 transition-colors group"
+              className="aspect-[3/2] flex flex-col items-center justify-center gap-3 border-r border-b border-border p-6 hover:bg-secondary/40 transition-colors group"
             >
-              <div className="font-serif text-xl md:text-2xl font-bold text-muted2 group-hover:text-ink transition-colors text-center tracking-tight">
+              <img
+                src={b.logo}
+                alt={`${b.name} logo`}
+                className="max-h-12 md:max-h-14 w-auto object-contain grayscale group-hover:grayscale-0 transition-all"
+                loading="lazy"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
+              <div className="font-serif text-sm md:text-base font-semibold text-muted2 group-hover:text-ink transition-colors text-center tracking-tight">
                 {b.name}
               </div>
             </div>

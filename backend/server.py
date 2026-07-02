@@ -161,7 +161,7 @@ _STATIC_ROUTES = [
     ("/", "1.0", "weekly"),
     ("/services", "0.8", "monthly"),
     ("/international-expansion", "0.8", "monthly"),
-    ("/case-studies", "0.7", "monthly"),
+    ("/fee-calculator", "0.8", "monthly"),
     ("/about", "0.6", "monthly"),
     ("/team", "0.6", "monthly"),
     ("/blog", "0.8", "weekly"),

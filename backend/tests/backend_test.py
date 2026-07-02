@@ -13,7 +13,7 @@ BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://globisync-new-site.p
 
 # ---------- Static route list expected in sitemap ----------
 STATIC_ROUTES = [
-    "/", "/services", "/international-expansion", "/case-studies",
+    "/", "/services", "/international-expansion", "/fee-calculator",
     "/about", "/team", "/blog", "/contact",
 ]
 

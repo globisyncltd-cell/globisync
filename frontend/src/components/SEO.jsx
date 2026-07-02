@@ -3,11 +3,11 @@ import { Helmet } from "react-helmet-async";
 
 export default function SEO({ title, description, path = "" }) {
   const fullTitle = title
-    ? `${title} | GlobiSync — UK Ecommerce Agency in Birmingham`
-    : "GlobiSync | UK Ecommerce Agency in Birmingham — Cross-Border Marketplace Growth";
+    ? `${title} | GlobiSync — UK Ecommerce Agency`
+    : "GlobiSync | UK Ecommerce Agency — Marketplace, Shopify & SEO Growth";
   const desc =
     description ||
-    "GlobiSync is a Birmingham-based UK ecommerce agency helping ambitious brands sell profitably on Amazon, eBay, Etsy, Lazada, Zalora and Noon across the UK, US, Singapore and Hong Kong.";
+    "GlobiSync is a UK ecommerce agency helping brands and Amazon sellers grow across Amazon, eBay, Etsy, Shopify, TikTok Shop and international marketplaces.";
   return (
     <Helmet>
       <title>{fullTitle}</title>

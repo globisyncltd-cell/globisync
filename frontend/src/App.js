@@ -9,12 +9,12 @@ import WhatsAppFAB from "@/components/WhatsAppFAB";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import InternationalExpansion from "@/pages/InternationalExpansion";
-import CaseStudies from "@/pages/CaseStudies";
 import About from "@/pages/About";
 import Team from "@/pages/Team";
 import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
+import FeeCalculator from "@/pages/FeeCalculator";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -41,7 +41,8 @@ function App() {
               <Route path="/services" element={<Services />} />
               <Route path="/international-expansion" element={<InternationalExpansion />} />
               <Route path="/markets" element={<InternationalExpansion />} />
-              <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/fee-calculator" element={<FeeCalculator />} />
+              <Route path="/case-studies" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/team" element={<Team />} />
               <Route path="/blog" element={<Blog />} />

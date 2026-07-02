@@ -38,13 +38,13 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32 relative">
           <div className="grid lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7 animate-fade-up">
+            <div className="lg:col-span-8 animate-fade-up">
               <div className="inline-flex items-center gap-2 px-3 py-1 border border-ink text-xs font-mono uppercase tracking-[0.2em]">
-                <span className="h-2 w-2 bg-amber" /> UK Ecommerce Agency · Est. 2019
+                <span className="h-2 w-2 bg-amber" /> UK Ecommerce Growth Agency
               </div>
               <h1 className="mt-6 font-serif text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-ink">
-                We help UK brands<br />
-                grow{" "}
+                We help brands<br />
+                and Amazon sellers grow{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10">online sales</span>
                   <span className="absolute left-0 right-0 bottom-1 h-3 bg-amber -z-0" />
@@ -64,36 +64,41 @@ export default function Home() {
                     {SITE.cta} <ArrowUpRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Link to="/services">
+                <Link to="/fee-calculator">
                   <Button
-                    data-testid="hero-see-services-btn"
+                    data-testid="hero-fee-calc-btn"
                     variant="outline"
                     className="h-12 px-6 rounded-none border-ink hover:bg-ink hover:text-white font-semibold"
                   >
-                    See our services
+                    Free Fee Calculator →
                   </Button>
                 </Link>
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-muted2">
                 <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Senior operator on every account</div>
                 <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Weekly ops calls</div>
-                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> 3-month rolling contracts</div>
+                <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Retainers from £300/month</div>
               </div>
             </div>
 
-            <div className="lg:col-span-5">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-amber -z-10 hidden lg:block" />
-                <img
-                  src="https://images.unsplash.com/photo-1684610529682-553625a1ffed"
-                  alt="Global commerce"
-                  className="w-full h-[420px] lg:h-[520px] object-cover border border-ink"
-                  loading="eager"
-                />
-                <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur border border-ink p-4">
-                  <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">Operating model</div>
-                  <div className="mt-1 font-serif text-2xl font-bold text-ink">Operators, not consultants.</div>
-                  <div className="text-xs text-muted2">Retail brains. Ecommerce hands. Birmingham desk.</div>
+            <div className="lg:col-span-4">
+              <div className="relative border-l-4 border-amber pl-6 py-4">
+                <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">Operating model</div>
+                <div className="mt-3 font-serif text-3xl font-bold text-ink leading-tight">
+                  Operators. Not consultants.
+                </div>
+                <div className="mt-4 text-muted2">
+                  Retail brains. Ecommerce hands. A Birmingham desk that runs your online business like our own.
+                </div>
+                <div className="mt-6 grid grid-cols-2 gap-3">
+                  <div className="p-4 border border-border">
+                    <div className="font-serif text-3xl font-bold text-ink">6</div>
+                    <div className="text-xs text-muted2 mt-1">Service pillars</div>
+                  </div>
+                  <div className="p-4 border border-border">
+                    <div className="font-serif text-3xl font-bold text-ink">4</div>
+                    <div className="text-xs text-muted2 mt-1">Global regions</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -173,10 +178,10 @@ export default function Home() {
           </div>
           <div className="lg:col-span-5 grid grid-cols-2 gap-3">
             {[
-              { v: "UK", k: "Amazon · eBay · Etsy · TikTok Shop" },
-              { v: "US", k: "Amazon · Walmart · Shopify" },
-              { v: "ME", k: "Noon · Amazon.ae · Amazon.sa" },
-              { v: "SEA", k: "Lazada · Zalora · Shopee" },
+              { v: "UK", k: "Amazon · eBay · Etsy · TikTok · Shopify · NOTHS" },
+              { v: "US", k: "Amazon · Walmart · Shopify · Etsy · eBay · TikTok" },
+              { v: "ME", k: "Noon · Amazon.ae · Amazon.sa · Namshi · TikTok" },
+              { v: "SEA", k: "Lazada · Zalora · Shopee · TikTok · Tokopedia" },
             ].map((x, i) => (
               <div key={i} className="p-6 border border-white/20 bg-white/5 backdrop-blur">
                 <div className="font-serif text-5xl font-bold text-amber tracking-tight">{x.v}</div>

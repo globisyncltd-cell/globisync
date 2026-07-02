@@ -8,7 +8,6 @@ export const SITE = {
   address: "296 Pershore Road, Birmingham, B5 7SH, United Kingdom",
   city: "Birmingham",
   founded: "2019",
-  companyReg: "Company registration coming soon",
   cta: "Book a Discovery Call",
 };
 
@@ -16,7 +15,7 @@ export const NAV = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/international-expansion", label: "International" },
-  { to: "/case-studies", label: "Case Studies" },
+  { to: "/fee-calculator", label: "Fee Calculator" },
   { to: "/about", label: "About" },
   { to: "/team", label: "Team" },
   { to: "/blog", label: "Insights" },
@@ -144,7 +143,7 @@ export const SERVICES = [
     problem:
       "Founders end up doing customer service on Sunday night. That's the moment to bring in an ops partner.",
     approach:
-      "We become your ecommerce team — a senior operator, marketplace manager, marketer, and designer running your accounts day-to-day.",
+      "We become your ecommerce team — a senior operator, marketplace expert, marketer, and designer running your accounts day-to-day.",
     included: [
       "Named senior operator",
       "Marketplace + DTC ops",
@@ -162,7 +161,7 @@ export const REGIONS = [
   {
     code: "UK",
     name: "United Kingdom",
-    marketplaces: ["Amazon UK", "eBay UK", "Etsy UK", "TikTok Shop UK"],
+    marketplaces: ["Amazon UK", "eBay UK", "Etsy UK", "TikTok Shop UK", "Shopify", "Not On The High Street"],
     hero:
       "The most mature ecommerce market in Europe — high AOV, high Prime penetration, and a strong test-bed for global brands.",
     playbook: [
@@ -175,7 +174,7 @@ export const REGIONS = [
   {
     code: "SEA",
     name: "Southeast Asia",
-    marketplaces: ["Lazada", "Zalora", "Shopee"],
+    marketplaces: ["Lazada", "Zalora", "Shopee", "TikTok Shop SEA", "Tokopedia"],
     hero:
       "The fastest-growing ecommerce region on earth. Singapore is the anchor; Malaysia, Indonesia, and the Philippines the scale.",
     playbook: [
@@ -201,7 +200,7 @@ export const REGIONS = [
   {
     code: "US",
     name: "United States",
-    marketplaces: ["Amazon US", "Walmart", "Etsy US", "Shopify"],
+    marketplaces: ["Amazon US", "Walmart", "Etsy US", "Shopify", "eBay US", "TikTok Shop US"],
     hero:
       "The single largest online market. We enter niche-first with a review-velocity + brand-defence playbook.",
     playbook: [
@@ -266,7 +265,7 @@ export const HOW_IT_WORKS = [
 export const FAQ = [
   {
     q: "How do you price your engagements?",
-    a: "We run two commercial models: a fixed monthly retainer scaled to scope (typical range £2.5k – £15k/month), or a fixed-scope project fee for one-off builds. No performance-only or commission-based deals — they misalign incentives.",
+    a: "We run two commercial models: a fixed monthly retainer scaled to scope (starting from £300/month for focused engagements and typically ranging up to £5k/month for full account management), or a fixed-scope project fee for one-off builds. No performance-only or commission-based deals — they misalign incentives.",
   },
   {
     q: "What's the contract length?",
@@ -293,3 +292,4 @@ export const FAQ = [
     a: "Our head office is on Pershore Road, Birmingham. We work with clients across the UK and internationally.",
   },
 ];
+

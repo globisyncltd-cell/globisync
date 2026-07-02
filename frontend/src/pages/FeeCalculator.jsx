@@ -191,7 +191,7 @@ export default function FeeCalculator() {
                   <SelectContent className="max-h-72">
                     {m.categories.map((c) => (
                       <SelectItem key={c.id} value={c.id} data-testid={`fc-cat-${c.id}`}>
-                        {c.label} · {(c.ref * 100).toFixed(1)}%
+                        {c.label} · {(Math.round(c.ref * 1000) / 10).toFixed(1)}%
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -12,7 +12,7 @@ export const TEAM = [
   {
     slug: "sunny",
     name: "Sunny Chauhan",
-    role: "Lead Consultant · Head of Marketplace Operations",
+    role: "Lead Consultant",
     linkedin: "https://www.linkedin.com/in/sunnychauhanuk/",
     image: "/team/shweta.png",
     tagline: "Data before decks. Discipline before delight.",

@@ -41,7 +41,7 @@ const EBAY_CATEGORIES = [
   { id: "general", label: "Most categories", ref: 0.128, perOrder: 0.30 },
   { id: "electronics", label: "Consumer Electronics", ref: 0.128, perOrder: 0.30 },
   { id: "clothing", label: "Clothing / Shoes / Accessories", ref: 0.128, perOrder: 0.30 },
-  { id: "books", label: "Books, DVDs, Music, Video Games", ref: 0.1435, perOrder: 0.30 },
+  { id: "books", label: "Books, DVDs, Music, Video Games", ref: 0.144, perOrder: 0.30 },
   { id: "business", label: "Business & Industrial", ref: 0.128, perOrder: 0.30 },
   { id: "watches", label: "Watches", ref: 0.15, perOrder: 0.30 },
   { id: "jewellery", label: "Jewellery & Watches", ref: 0.15, perOrder: 0.30 },

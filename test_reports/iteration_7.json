@@ -1,0 +1,61 @@
+{
+  "summary": "Iteration 7 PASS: New /careers page + POST /api/careers/apply endpoint fully verified. 16/16 pytest cases green (health, sitemap /careers, 6 careers/apply cases: happy path, missing cv, invalid content-type, empty file, oversized 9MB, plus full iter6 regression). Backend logs confirmed TWO 'Email sent' lines per happy-path POST (Resend IDs 27f470dd + 953368b3 & dd5ebe59 + b02333c3), zero 'Email send failed'. Frontend: /careers renders H1 'Build the ecommerce agency you wish existed.', kicker [ Careers ], UK=6 IN=5 FREELANCE=2, group '(6/5/2 open)' text, Apply dialog opens with title 'Apply · Senior Amazon Account Manager', PDF upload + submit shows career-apply-success with 'Thanks {name}.', close resets dialog. Team page order Shweta→Sunny→Zain confirmed; Sunny role = 'Lead Consultant · Head of Marketplace Operations'; taglines contain 'Ambitious brands' / 'Data before decks' / 'win here first'; Sunny bio contains UK-MBA, 15+, architect. About H1 = 'Where ambitious brands become serious online businesses.' (no longer 'A UK ecommerce agency...'). Footer data-testid=footer-careers-link points to /careers with text 'CAREERS · WE'RE HIRING'. Sitemap /api/sitemap.xml has exactly 1 /careers URL.",
+  "tested_scope": ["backend", "frontend", "email_attachments", "team_page_order", "regression"],
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/careers hero side card", "issues": ["Copy 'Salaries are competitive and role-specific. We discuss the number honestly on the first call.' contradicts the design brief 'no salaries shown' — technically no numbers are shown, but the sentence still references salary. Minor tone note only."]}
+    ]
+  },
+  "passed_checks": [
+    "GET /api/health → {status:ok, email_configured:true}",
+    "POST /api/careers/apply (valid PDF, multipart) → 200 with {id, name, position, cv_filename}. Backend logs show TWO Email sent lines per POST (admin+ack). x-resend-daily-quota advances by 2.",
+    "POST /api/careers/apply WITHOUT cv → 422 (FastAPI missing-field)",
+    "POST /api/careers/apply with text/plain file → 400 with 'PDF or Word' detail",
+    "POST /api/careers/apply with 0-byte PDF → 400 'CV file is empty.'",
+    "POST /api/careers/apply with 9MB PDF → 400 'CV file exceeds 8 MB limit.'",
+    "GET /api/sitemap.xml has exactly 1 /careers URL match",
+    "/careers hero H1 = 'Build the ecommerce agency you wish existed.'; kicker '[ Careers ]' present",
+    "careers-group-uk / -in / -freelance children counts = 6 / 5 / 2 exactly",
+    "'(6 open)', '(5 open)', '(2 open)' visible next to group headings",
+    "Apply on first UK role opens Radix dialog data-testid=career-apply-dialog with title 'Apply · Senior Amazon Account Manager'. Form fields name/email/phone/linkedin/cv/cover_letter all present with correct testids.",
+    "Submit with valid PDF → success state data-testid=career-apply-success with 'Thanks TEST UI Applicant.' + 'sent your CV' copy. Dialog dismissable via career-apply-close.",
+    "Team card 0 = Shweta Chauhan / Founder & Director; card 1 = Sunny Chauhan / Lead Consultant · Head of Marketplace Operations; card 2 = Zain Alvi / Strategic Advisor",
+    "team-tagline-0 contains 'Ambitious brands'; team-tagline-1 contains 'Data before decks'; team-tagline-2 contains 'win here first'",
+    "Sunny bio (card 1) contains UK-MBA AND 15+ AND architect",
+    "About H1 = 'Where ambitious brands become serious online businesses.' — no longer starts with 'A UK ecommerce agency'",
+    "Footer data-testid=footer-careers-link text 'CAREERS · WE'RE HIRING' href='/careers'",
+    "Regression iter6 pytest suite (9 tests) still green: health, dynamic + static sitemap/robots, contact + booking persistence, 422 validation"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_careers.py",
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/iteration_7.xml"
+  ],
+  "action_items": [
+    "NONE for this iteration's changes — all functional checks pass.",
+    "OPTIONAL (LOW, cosmetic): Reconsider the 'Salaries are competitive and role-specific...' line on /careers hero card — brief said 'no salaries shown' and this copy still references salaries.",
+    "OPTIONAL (LOW): Add data-testid='team-name-{i}' / 'team-role-{i}' / 'team-bio-{i}' to Team.jsx (currently only card + tagline + linkedin have testids). Not blocking — inner_text of the card wrapper is sufficient.",
+    "OPTIONAL (LOW carry-over from iter6): eBay Books referral label still renders '14.3%' via toFixed(1) on 0.144 (float precision). Not this iteration's change."
+  ],
+  "critical_code_review_comments": [
+    "server.py:452 — cv: UploadFile = File(...) enforces multipart requirement; 422 auto-returned on missing file. Confirmed via test.",
+    "server.py:455 — ALLOWED_CV_TYPES set exactly matches spec (pdf, doc, docx). Rejection returns 400 with informative detail. Confirmed.",
+    "server.py:457-461 — Reads full body before size check. For a 9MB file this is fine, but for very large uploads consider streaming size check. Non-blocking for this feature.",
+    "server.py:473-474 — Base64 encoding + Resend attachments array structure is correct (single object with filename+content). Confirmed by successful Email sent log with quota advance.",
+    "server.py:477-487 — asyncio.create_task returns before emails send; endpoint returns 200 even if the fire-and-forget email later fails. That mirrors the existing /api/contact + /api/bookings pattern and is acceptable, but worth noting for future SLA discussions.",
+    "Careers.jsx dialog correctly resets state on close (setDone(false), setForm({}), setFile(null)). Verified.",
+    "team.js re-ordered Shweta→Sunny→Zain and Sunny's bio now includes 'architect of GlobiSync's next chapter'. Verified.",
+    "No new lint issues. No 500s in backend logs during test run."
+  ],
+  "updated_files": ["/app/backend/tests/test_careers.py"],
+  "success_rate": { "backend": "100%", "frontend": "100%" },
+  "test_credentials": "N/A — public site. Resend key remains only in backend/.env.",
+  "seed_data_creation": "iter7 test POSTs inserted 6 rows into db.career_applications: 1 UI applicant (TEST UI Applicant, ui-test-apply@example.com) + 1 pytest happy-path (TEST_Applicant_iter7, test-apply-iter7@example.com). The 4 validation POSTs (missing/badtype/empty/big) all returned 4xx before insert and left no rows. Not cleaned.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Careers endpoint POST /api/careers/apply uses multipart/form-data. Required fields: name, email, position, cv (file). Optional: phone, linkedin, cover_letter. Validation order: content-type first (400 wrong type), then read + empty check (400 empty), then size check (400 >8MB). Missing cv returns 422 (FastAPI-level). Careers page testids: careers-group-{uk|in|freelance}, career-card-{id}, career-apply-btn-{id}, career-apply-dialog, career-apply-{name|email|phone|linkedin|cv|cover|submit|close|success|form}. Team page testids: team-card-{0..2}, team-tagline-{0..2}, team-linkedin-{i}, team-final-cta — no separate name/role/bio testids (use inner_text of the card).",
+  "rca of the issue": "N/A — no bugs this iteration."
+}

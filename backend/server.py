@@ -1,8 +1,9 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, UploadFile, File, Form
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import base64
 import asyncio
 import logging
 import resend
@@ -84,7 +85,7 @@ class BookingCreate(BaseModel):
 
 
 # ---------- Helpers ----------
-async def _send_email_async(subject: str, html: str, to_email: str = None):
+async def _send_email_async(subject: str, html: str, to_email: str = None, attachments: list = None):
     """Send email via Resend. Silently no-op if API key not configured."""
     if not RESEND_API_KEY:
         logger.info("RESEND_API_KEY not set; skipping email send.")
@@ -97,6 +98,8 @@ async def _send_email_async(subject: str, html: str, to_email: str = None):
             "subject": subject,
             "html": html,
         }
+        if attachments:
+            params["attachments"] = attachments
         result = await asyncio.to_thread(resend.Emails.send, params)
         logger.info(f"Email sent: {result}")
         return result
@@ -266,6 +269,7 @@ _STATIC_ROUTES = [
     ("/services", "0.8", "monthly"),
     ("/international-expansion", "0.8", "monthly"),
     ("/fee-calculator", "0.8", "monthly"),
+    ("/careers", "0.7", "weekly"),
     ("/about", "0.6", "monthly"),
     ("/team", "0.6", "monthly"),
     ("/blog", "0.8", "weekly"),
@@ -378,6 +382,110 @@ async def list_bookings():
         if isinstance(d.get('created_at'), str):
             d['created_at'] = datetime.fromisoformat(d['created_at'])
     return docs
+
+
+# ---------- Careers ----------
+MAX_CV_BYTES = 8 * 1024 * 1024  # 8 MB
+ALLOWED_CV_TYPES = {"application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
+
+
+def _career_admin_html(name: str, email: str, phone: str, position: str, linkedin: str, cover_letter: str, cv_filename: str) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
+      <h2 style="border-bottom:2px solid #FF9900;padding-bottom:8px">New Job Application — GlobiSync</h2>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:6px 0;font-weight:600">Name</td><td>{name}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Email</td><td>{email}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Phone</td><td>{phone or '-'}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Position</td><td>{position}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">LinkedIn</td><td>{linkedin or '-'}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">CV attached</td><td>{cv_filename}</td></tr>
+      </table>
+      <h3 style="margin-top:16px">Cover letter</h3>
+      <p style="white-space:pre-wrap;background:#f8f9fa;padding:12px;border-left:3px solid #FF9900">{cover_letter or '-'}</p>
+    </div>
+    """
+
+
+def _career_ack_html(name: str, position: str) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
+      <div style="background:#0b0f19;color:#fff;padding:24px">
+        <div style="font-size:12px;letter-spacing:3px;color:#FF9900;text-transform:uppercase">GlobiSync · Careers</div>
+        <div style="font-size:22px;font-weight:700;margin-top:8px">Thanks, {name} — application received.</div>
+      </div>
+      <div style="padding:24px">
+        <p>We've received your application for <strong>{position}</strong>. Our team will review it within 5 working days and get in touch if there's a fit.</p>
+        <p>In the meantime, feel free to look through what we do at <a href="https://www.globisync.com" style="color:#0b0f19;font-weight:600">globisync.com</a>.</p>
+        <p style="margin-top:24px">— The GlobiSync team</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
+        <p style="color:#4B5563;font-size:12px">
+          GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
+          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+        </p>
+      </div>
+    </div>
+    """
+
+
+class CareerApplication(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    phone: Optional[str] = None
+    position: str
+    linkedin: Optional[str] = None
+    cover_letter: Optional[str] = None
+    cv_filename: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+@api_router.post("/careers/apply", response_model=CareerApplication)
+async def careers_apply(
+    name: str = Form(...),
+    email: EmailStr = Form(...),
+    phone: str = Form(""),
+    position: str = Form(...),
+    linkedin: str = Form(""),
+    cover_letter: str = Form(""),
+    cv: UploadFile = File(...),
+):
+    # Validate CV
+    if cv.content_type not in ALLOWED_CV_TYPES:
+        raise HTTPException(status_code=400, detail="CV must be a PDF or Word document (.pdf, .doc, .docx).")
+    cv_bytes = await cv.read()
+    if len(cv_bytes) == 0:
+        raise HTTPException(status_code=400, detail="CV file is empty.")
+    if len(cv_bytes) > MAX_CV_BYTES:
+        raise HTTPException(status_code=400, detail=f"CV file exceeds {MAX_CV_BYTES // (1024*1024)} MB limit.")
+
+    application = CareerApplication(
+        name=name, email=email, phone=phone or None, position=position,
+        linkedin=linkedin or None, cover_letter=cover_letter or None,
+        cv_filename=cv.filename or "cv",
+    )
+    doc = application.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.career_applications.insert_one(doc)
+
+    # Encode CV once for attachment
+    cv_b64 = base64.b64encode(cv_bytes).decode()
+    attachment = [{"filename": cv.filename or "cv.pdf", "content": cv_b64}]
+
+    # 1) Admin notification with CV attached
+    asyncio.create_task(_send_email_async(
+        subject=f"New job application: {application.position} — {application.name}",
+        html=_career_admin_html(application.name, application.email, application.phone or "", application.position, application.linkedin or "", application.cover_letter or "", application.cv_filename),
+        attachments=attachment,
+    ))
+    # 2) Acknowledgement to applicant
+    asyncio.create_task(_send_email_async(
+        subject="Application received — GlobiSync",
+        html=_career_ack_html(application.name, application.position),
+        to_email=application.email,
+    ))
+    return application
 
 
 app.include_router(api_router)

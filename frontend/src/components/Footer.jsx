@@ -80,7 +80,16 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-white/50 font-mono uppercase tracking-[0.15em]">
           <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Agency</div>
-          <div>Registered in England · HMRC</div>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/careers"
+              data-testid="footer-careers-link"
+              className="hover:text-amber transition-colors"
+            >
+              Careers · We're hiring
+            </Link>
+            <span>Registered in England · HMRC</span>
+          </div>
         </div>
       </div>
     </footer>

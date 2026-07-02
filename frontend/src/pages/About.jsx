@@ -19,7 +19,7 @@ export default function About() {
           <div className="lg:col-span-7">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ About GlobiSync ]</div>
             <h1 className="mt-3 font-serif text-5xl md:text-6xl font-bold text-ink leading-[1.05]">
-              A UK ecommerce agency, built in Birmingham.
+              Where ambitious brands<br />become serious online businesses.
             </h1>
             <p className="mt-6 text-muted2 text-lg leading-relaxed">
               GlobiSync was founded to build the ecommerce partner most brands can't find — one that combines

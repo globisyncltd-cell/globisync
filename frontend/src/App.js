@@ -15,6 +15,7 @@ import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import FeeCalculator from "@/pages/FeeCalculator";
+import Careers from "@/pages/Careers";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -47,6 +48,7 @@ function App() {
               <Route path="/team" element={<Team />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/careers" element={<Careers />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<Home />} />
             </Routes>

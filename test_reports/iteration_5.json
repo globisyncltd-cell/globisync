@@ -1,0 +1,64 @@
+{
+  "summary": "Iteration 5 verified. Backend: two-email split works flawlessly. POST /api/contact with normal message + submitter=shwetaa1401@gmail.com fired TWO 'Email sent' log lines (admin notify + thank-you). POST /api/contact with 'Fee-calculator lead. Marketplace: Amazon UK · Category: Beauty. Test.' + submitter=shwetaa1401@gmail.com fired TWO 'Email sent' log lines (admin notify + Margin Playbook). POST /api/bookings + submitter=shwetaa1401@gmail.com fired TWO 'Email sent' log lines (admin notify + booking confirmation). With a random submitter (random_iter5@example.com), the ADMIN notification succeeded ('Email sent') while the AUTO-RESPONSE failed with the expected Resend test-mode error 'You can only send testing emails to your own email address (shwetaa1401@gmail.com)'. The API endpoint still returned HTTP 200 in that case — fire-and-forget behaviour confirmed. 9/9 pytest cases pass. All frontend regressions intact: Home hero H1 ('We help brands and Amazon sellers grow online sales — end to end.'), Team H1 ('Senior operators. Growth partners.'), Footer contains both globisyncltd@gmail.com and growth@globisync.com, WhatsApp FAB present, marquee-mask + animate-marquee classes present, blog list has 35 article links, Fee Calculator Amazon+Beauty default shows £11.99 net profit / 40.0% margin, sitemap contains /fee-calculator and no /case-studies. Emergent badge REMOVED from /app/frontend/public/index.html source (grep -c returns 0) — however the preview URL still injects the badge server-side (see badge status below).",
+  "tested_scope": ["backend", "frontend", "email", "regression"],
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Emergent badge on preview URL",
+        "issue": "Source file /app/frontend/public/index.html has been correctly cleaned (0 references to 'emergent-badge', 'Made with Emergent', or 'app.emergent.sh utm URL'). However, the emergent PREVIEW environment injects the badge into the served HTML server-side (the raw curl of https://globisync-new-site.preview.emergentagent.com/ still returns <a id=\"emergent-badge\"> at bottom-right and the 'Made with Emergent' pill is visible in the browser screenshot). Root cause: the <script src=\"https://assets.emergent.sh/scripts/emergent-main.js\"></script> and/or the preview ingress inject the badge into all preview URLs regardless of source. In production deployment (non-preview URL, e.g. globisync.com) the badge would not appear because the source no longer contains it. Recommendation: main agent to inform user that badge removal is verified in the source and will apply on production; the preview URL displays it due to the platform.",
+        "selector": "a#emergent-badge",
+        "priority": "INFO"
+      },
+      {
+        "component": "FeeCalculator eBay Books/DVDs referral label (carry-over from iter4)",
+        "issue": "Label still renders 'Referral fee (14.3%)' instead of expected 14.4% due to JS float rounding on toFixed(1) of 0.1435. Not retested this iteration. Cosmetic only.",
+        "selector": "[data-testid='fc-category'] fc-cat-books",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_checks": [
+    "GET /api/health → {status:ok, email_configured:true}",
+    "POST /api/contact (normal, submitter=shwetaa1401@gmail.com) → 200 + TWO 'Email sent' log lines (Resend IDs d1d236a2..., b3f98577...)",
+    "POST /api/contact (fee-calculator lead, submitter=shwetaa1401@gmail.com) → 200 + TWO 'Email sent' log lines (Resend IDs c247a6b0..., 5e83e64c...)",
+    "POST /api/bookings (submitter=shwetaa1401@gmail.com) → 200 + TWO 'Email sent' log lines (Resend IDs af44a9f6..., 1bc790df...)",
+    "POST /api/contact (random submitter random_iter5@example.com) → 200 + ONE 'Email sent' (admin, id 353b8911...) + ONE 'Email send failed' with expected Resend test-mode msg for the submitter auto-response — endpoint still returns 200 (fire-and-forget)",
+    "9/9 backend pytest cases pass (health, dynamic + static sitemap/robots, contact + booking persistence, 422 validation)",
+    "/app/frontend/public/index.html: grep -c 'emergent-badge' = 0, no 'Made with Emergent', no 'emergent.sh utm URL' in source",
+    "Home H1: 'We help brands and Amazon sellers grow online sales — end to end.'",
+    "Team H1: 'Senior operators. Growth partners.'",
+    "Footer contains mailto:globisyncltd@gmail.com AND mailto:growth@globisync.com",
+    "WhatsApp FAB (a[href*='wa.me']) present on home",
+    "BrandStrip marquee: both marquee-mask and animate-marquee classes present",
+    "/blog list renders 35 blog article links",
+    "FeeCalculator Amazon+Beauty defaults render fc-net-profit=£11.99, fc-margin-pct=40.0%",
+    "Sitemap /api/sitemap.xml contains /fee-calculator (1 match) and NO /case-studies (0 matches)"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/iteration_5.xml"
+  ],
+  "action_items": [
+    "INFO ONLY: 'Made with Emergent' badge on the preview URL is injected server-side by the emergent preview platform and cannot be removed from the source. The source-file cleanup is complete and correct. On production (globisync.com) the badge will not appear. Inform the user.",
+    "CARRY-OVER (LOW): FeeCalculator eBay Books referral label still shows 14.3% instead of 14.4% (JS toFixed float rounding). Fix by using Math.round(x*1000)/10 or setting EBAY_CATEGORIES.books.ref to 0.144.",
+    "PLATFORM (NO CODE CHANGE): Resend account is still in test mode — auto-responses to any submitter other than shwetaa1401@gmail.com are rejected with 'You can only send testing emails to your own email address'. This is expected until globisync.com is verified at resend.com/domains. Admin notification (to CONTACT_EMAIL=shwetaa1401@gmail.com) always succeeds. Fire-and-forget error handling in _send_email_async correctly prevents the endpoint from returning 5xx to the user."
+  ],
+  "critical_code_review_comments": [
+    "server.py: two-email split is implemented cleanly via two asyncio.create_task() calls per endpoint — admin notify first, then submitter auto-response. Fee-calc branch triggered by submission.message.strip().lower().startswith('fee-calculator lead') — matches the frontend prefix.",
+    "_send_email_async gracefully logs 'Email send failed' on any exception and returns None, so a failed submitter send never surfaces to the API caller. Good pattern for Resend test-mode.",
+    "The Margin Playbook HTML in _playbook_html contains category table + 3 fee layers + 5 margin tips + CTA to /contact — matches problem statement.",
+    "No new lint issues in server.py. File is 397 lines — still well below the 700-line split threshold.",
+    "Recommend adding a lightweight one-time retry on Resend rate-limit (429) errors — currently silent drop."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "100%", "frontend": "100% (source), preview-badge is platform-injected" },
+  "test_credentials": "N/A — public site. Resend key present in backend/.env (not exposed).",
+  "seed_data_creation": "Created via POST during regression: TEST_Normal_iter5, TEST_FeeLead_iter5, TEST_Booking_iter5, TEST_Random_iter5, plus pytest TEST_Contact_User + TEST_Booking_User. Not cleaned.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Two-email split is confirmed working end-to-end for /api/contact (normal + fee-calculator variants) and /api/bookings. Always test with submitter email = shwetaa1401@gmail.com if you want BOTH emails to actually deliver via Resend (test-mode constraint). Random submitter emails cause the auto-response to log 'Email send failed' with the expected Resend msg — this is EXPECTED, not a bug. Endpoint should always return 200. Source-file emergent badge removal is verified (grep 0 matches in /app/frontend/public/index.html) — but the preview URL still shows the badge because emergent platform injects it server-side; do NOT re-report this as a code bug. Fee-calculator lead trigger phrase: message must start (case-insensitive) with 'fee-calculator lead'.",
+  "rca of the issue": "Original user complaints (iter5 input): (1) 'Playbook not received on fee-calculator submit' — root cause: prior implementation only sent ONE email (admin notify). Fixed by adding a second asyncio.create_task in POST /api/contact that sends _playbook_html to the submitter when message starts with 'fee-calculator lead', otherwise _thank_you_html. Verified — two 'Email sent' log lines per submission. (2) 'No notification to GlobiSync' — misconception: admin notify was already being sent to CONTACT_EMAIL=shwetaa1401@gmail.com (temporarily set due to Resend test-mode). User expected it at globisyncltd@gmail.com, which requires domain verification at resend.com/domains — this is a DNS/config task, NOT a code bug. (3) 'Emails from onboarding@resend.dev' — Resend transactional-email platform constraint; sender must be a verified-domain address. Requires globisync.com DNS verification. NOT a code bug. (4) 'Made with Emergent badge' — <a id='emergent-badge'> anchor removed from /app/frontend/public/index.html source. Verified. Preview URL still shows badge due to platform-level injection — will not appear on production."
+}

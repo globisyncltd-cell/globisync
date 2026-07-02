@@ -143,6 +143,110 @@ def _booking_html(payload: BookingSubmission) -> str:
     """
 
 
+# ---------- Auto-response templates (to submitter) ----------
+def _thank_you_html(name: str) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
+      <div style="background:#0b0f19;color:#fff;padding:24px">
+        <div style="font-size:12px;letter-spacing:3px;color:#FF9900;text-transform:uppercase">GlobiSync</div>
+        <div style="font-size:22px;font-weight:700;margin-top:8px">Thanks, {name} — we've got your message.</div>
+      </div>
+      <div style="padding:24px">
+        <p>A senior operator from our Birmingham desk will reply within one working day.</p>
+        <p>In the meantime, if it's time-sensitive, WhatsApp us on <a href="https://wa.me/447309721673" style="color:#0b0f19;font-weight:600">+44 7309 721673</a>.</p>
+        <p style="margin-top:24px">— The GlobiSync team</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
+        <p style="color:#4B5563;font-size:12px">
+          GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
+          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+        </p>
+      </div>
+    </div>
+    """
+
+
+def _booking_confirmation_html(payload: BookingSubmission) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
+      <div style="background:#0b0f19;color:#fff;padding:24px">
+        <div style="font-size:12px;letter-spacing:3px;color:#FF9900;text-transform:uppercase">GlobiSync · Discovery Call</div>
+        <div style="font-size:22px;font-weight:700;margin-top:8px">Thanks {payload.name} — your call request is in.</div>
+      </div>
+      <div style="padding:24px">
+        <p>We've received your discovery-call request for:</p>
+        <table style="width:100%;background:#f8f9fa;padding:16px;border-left:3px solid #FF9900;margin:16px 0">
+          <tr><td style="padding:4px 0"><strong>Date:</strong></td><td>{payload.preferred_date}</td></tr>
+          <tr><td style="padding:4px 0"><strong>Time:</strong></td><td>{payload.preferred_time} {payload.timezone_name or ''}</td></tr>
+        </table>
+        <p>A senior operator will send you a calendar invite within one working day to confirm the slot.</p>
+        <p style="margin-top:24px">Any questions? Reply to this email or WhatsApp us on <a href="https://wa.me/447309721673" style="color:#0b0f19;font-weight:600">+44 7309 721673</a>.</p>
+        <p style="margin-top:24px">— The GlobiSync team</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
+        <p style="color:#4B5563;font-size:12px">
+          GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
+          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+        </p>
+      </div>
+    </div>
+    """
+
+
+def _playbook_html(name: str) -> str:
+    return f"""
+    <div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#0b0f19">
+      <div style="background:#0b0f19;color:#fff;padding:28px">
+        <div style="font-size:12px;letter-spacing:3px;color:#FF9900;text-transform:uppercase">GlobiSync · Margin Playbook</div>
+        <div style="font-size:24px;font-weight:700;margin-top:8px">Your UK Marketplace Margin Playbook</div>
+      </div>
+      <div style="padding:28px">
+        <p>Hi {name},</p>
+        <p>As promised — a one-page breakdown of how to protect margin across Amazon UK, eBay UK, and Etsy UK, plus category-specific fee tables.</p>
+
+        <h3 style="color:#0b0f19;border-bottom:2px solid #FF9900;padding-bottom:6px;margin-top:28px">The three fee layers every UK seller pays</h3>
+        <ol style="line-height:1.8">
+          <li><strong>Referral / commission</strong> — a % of the selling price. Amazon UK: 7-20% by category. eBay UK: usually 12.8%. Etsy: 6.5% flat.</li>
+          <li><strong>Payment processing</strong> — baked into Amazon and eBay's headline fee. Etsy charges ~4% + £0.20 per transaction separately.</li>
+          <li><strong>Subscription / listing</strong> — Amazon Professional £25/month, Etsy £0.20 per listing (renewed every 4 months), eBay optional store fees.</li>
+        </ol>
+
+        <h3 style="color:#0b0f19;border-bottom:2px solid #FF9900;padding-bottom:6px;margin-top:28px">Amazon UK referral rates by category</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:14px">
+          <tr style="background:#f8f9fa"><th style="text-align:left;padding:8px;border-bottom:1px solid #eee">Category</th><th style="text-align:right;padding:8px;border-bottom:1px solid #eee">Rate</th></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #eee">Computers</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">7%</td></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #eee">Consumer Electronics</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">8%</td></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #eee">Automotive &amp; Tools</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">12%</td></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #eee">Beauty · Home · Health · Toys · Sports · Grocery · Pet · Baby</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">15%</td></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #eee">Watches</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">16%</td></tr>
+          <tr><td style="padding:8px;border-bottom:1px solid #eee">Clothing &amp; Apparel</td><td style="text-align:right;padding:8px;border-bottom:1px solid #eee">17%</td></tr>
+          <tr><td style="padding:8px">Jewellery</td><td style="text-align:right;padding:8px">20%</td></tr>
+        </table>
+
+        <h3 style="color:#0b0f19;border-bottom:2px solid #FF9900;padding-bottom:6px;margin-top:28px">Five margin-protection moves that work</h3>
+        <ol style="line-height:1.8">
+          <li><strong>Bundle out of the buy-box race.</strong> Bundle SKUs don't share Buy Box competitors and defend margin.</li>
+          <li><strong>Set repricer floors and rebound rules.</strong> Never let automation ratchet price down permanently.</li>
+          <li><strong>Structure listings for A+ / Enhanced Content.</strong> Higher CVR at the same price = higher effective margin.</li>
+          <li><strong>Layer subscription / Subscribe &amp; Save.</strong> On Amazon, S&amp;S buyers pay slightly less but repurchase 3-4x more — LTV lift outweighs unit-margin dilution.</li>
+          <li><strong>Move on shipping costs, not price.</strong> Free-shipping thresholds lift AOV without eroding % margin.</li>
+        </ol>
+
+        <div style="margin-top:36px;padding:20px;background:#FF9900">
+          <div style="font-weight:700;font-size:18px">Want us to run this on your account?</div>
+          <div style="margin-top:6px">We can audit your unit economics across Amazon UK, eBay UK, Etsy, and Shopify — and give you a written margin roadmap.</div>
+          <a href="https://www.globisync.com/contact" style="display:inline-block;margin-top:12px;background:#0b0f19;color:#fff;padding:12px 20px;text-decoration:none;font-weight:600">Book a Discovery Call →</a>
+        </div>
+
+        <p style="margin-top:24px">— The GlobiSync team</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
+        <p style="color:#4B5563;font-size:12px">
+          GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
+          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+        </p>
+      </div>
+    </div>
+    """
+
+
 # ---------- Routes ----------
 @api_router.get("/")
 async def root():
@@ -216,11 +320,25 @@ async def create_contact(payload: ContactCreate):
     doc = submission.model_dump()
     doc['created_at'] = doc['created_at'].isoformat()
     await db.contact_submissions.insert_one(doc)
-    # Fire and forget email
+    # 1) Admin notification (to CONTACT_EMAIL)
     asyncio.create_task(_send_email_async(
         subject=f"New enquiry from {submission.name} — GlobiSync",
         html=_contact_html(submission),
     ))
+    # 2) Auto-response to submitter. If it's a fee-calculator lead, send the margin playbook.
+    is_fee_calc_lead = submission.message.strip().lower().startswith("fee-calculator lead")
+    if is_fee_calc_lead:
+        asyncio.create_task(_send_email_async(
+            subject="Your UK Marketplace Margin Playbook — GlobiSync",
+            html=_playbook_html(submission.name),
+            to_email=submission.email,
+        ))
+    else:
+        asyncio.create_task(_send_email_async(
+            subject="Thanks — we've received your message · GlobiSync",
+            html=_thank_you_html(submission.name),
+            to_email=submission.email,
+        ))
     return submission
 
 
@@ -239,9 +357,16 @@ async def create_booking(payload: BookingCreate):
     doc = submission.model_dump()
     doc['created_at'] = doc['created_at'].isoformat()
     await db.bookings.insert_one(doc)
+    # 1) Admin notification (to CONTACT_EMAIL)
     asyncio.create_task(_send_email_async(
         subject=f"New discovery-call booking from {submission.name} — GlobiSync",
         html=_booking_html(submission),
+    ))
+    # 2) Confirmation to the submitter
+    asyncio.create_task(_send_email_async(
+        subject="Your discovery-call request · GlobiSync",
+        html=_booking_confirmation_html(submission),
+        to_email=submission.email,
     ))
     return submission
 

@@ -1,0 +1,68 @@
+{
+  "summary": "Iteration 6 CONFIRMED: Resend domain verification (globisync.com) is fully unlocked. All three critical email tests fired TWO 'Email sent' log lines with distinct Resend IDs and ZERO 'Email send failed', proving arbitrary recipient addresses now deliver via Resend. Sender FROM address is now 'GlobiSync <noreply@globisync.com>' (verified domain) — no more 'onboarding@resend.dev'. Admin notifications route to globisyncltd@gmail.com (real inbox, no shwetaa1401 fallback). All copy/UX and regression checks pass. 9/9 pytest cases green.",
+  "tested_scope": ["backend", "email_domain_verification", "frontend_copy_changes", "regression"],
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "FeeCalculator eBay Books referral label (carry-over from iter4/5)",
+        "issue": "Cosmetic: label renders 'Referral fee (14.3%)' due to toFixed(1) on 0.1435 rounding down. Data source (EBAY_CATEGORIES.books.ref = 0.144) has been correctly set per iter5 handoff — but the JS display via (c.ref * 100).toFixed(1) still yields 14.3 due to float precision on 0.144*100=14.399... Rounding fix: use Math.round((c.ref * 100) * 10) / 10 or hardcode display.",
+        "selector": "[data-testid='fc-cat-books']",
+        "priority": "LOW"
+      },
+      {
+        "component": "Emergent badge on preview URL (INFO ONLY, unchanged from iter5)",
+        "issue": "Source /app/frontend/public/index.html is clean; preview platform still injects the badge server-side. Will not appear on production globisync.com.",
+        "selector": "a#emergent-badge",
+        "priority": "INFO"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_checks": [
+    "GET /api/health → {status:ok, email_configured:true}",
+    "POST /api/contact NORMAL (submitter=globisyncltd@gmail.com) → 200 + TWO 'Email sent' (Resend IDs c297efa8-4d7f..., 62563420-f814...) — admin notify + thank-you",
+    "POST /api/contact FEE-CALCULATOR (submitter=fee-test@example.com, arbitrary) → 200 + TWO 'Email sent' (Resend IDs 39fc6982-827a..., a9d6730d-7945...) — admin notify + Margin Playbook to arbitrary address (ZERO test-mode rejections)",
+    "POST /api/bookings (submitter=booking-test@example.com, arbitrary) → 200 + TWO 'Email sent' (Resend IDs 1d29827d-41f1..., ba1518ed-b589...) — admin notify + booking confirmation to arbitrary address",
+    "Sender FROM verified: SENDER_EMAIL='GlobiSync <noreply@globisync.com>' in backend/.env, injected as 'from' param at server.py:95. No 'onboarding@resend.dev' anywhere",
+    "CONTACT_EMAIL='globisyncltd@gmail.com' in backend/.env — admin notifications go to the real inbox (no more shwetaa1401 fallback)",
+    "Zero 'Email send failed' entries in backend logs for all iter6 test POSTs — Resend test-mode is gone",
+    "Resend response headers show x-resend-daily-quota advancing by 2 per POST (7→9→11), confirming both emails per request accepted",
+    "/fee-calculator hero micro-label reads '[ Free tool for sellers ]' (visible in screenshot). 'Lead magnet' string NOT present anywhere on the page",
+    "/team card 0 tagline: '\"Growth is a discipline, not a hope.\"' ✓ (data-testid=team-tagline-0)",
+    "/team card 1 tagline: '\"Every market has a door — the trick is knowing which one to open first.\"' ✓ (data-testid=team-tagline-1)",
+    "/team card 2 tagline: '\"Marketplaces reward operators, not observers.\"' ✓ (data-testid=team-tagline-2)",
+    "/team card 2 (Sunny) bio contains both 'MBA' and '15+' — regression intact",
+    "/api/sitemap.xml: 1 match for /fee-calculator, 0 matches for /case-studies",
+    "Footer contains BOTH globisyncltd@gmail.com AND growth@globisync.com",
+    "Home H1: 'We help brands and Amazon sellers grow online sales — end to end.'",
+    "WhatsApp FAB (a[href*='wa.me']) present on home",
+    "BrandStrip marquee: .marquee-mask AND .animate-marquee classes both present",
+    "/blog list renders exactly 35 blog article links",
+    "9/9 pytest cases pass (health, dynamic + static sitemap/robots, contact + booking persistence, 422 validation) — see /app/test_reports/pytest/iteration_6.xml"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/iteration_6.xml"
+  ],
+  "action_items": [
+    "NONE for this iteration's changes — all pass.",
+    "OPTIONAL (LOW): Fix cosmetic 14.3% vs 14.4% label on eBay Books in FeeCalculator by using Math.round((c.ref*100)*10)/10 in the option label render at /app/frontend/src/pages/FeeCalculator.jsx line ~194.",
+    "OPTIONAL: Consider adding a Resend 429 rate-limit retry (currently silent drop) in _send_email_async."
+  ],
+  "critical_code_review_comments": [
+    "server.py:95 — 'from': SENDER_EMAIL correctly wires the .env value into every Resend send. Domain-verified sender confirmed via runtime logs.",
+    "server.py:329 — is_fee_calc_lead trigger works case-insensitive on 'fee-calculator lead' prefix, matching the frontend message format at FeeCalculator.jsx line 133.",
+    "team.js: taglines added inline to each object; Team.jsx conditionally renders {t.tagline && ...} — safe against missing field.",
+    "No new lint issues introduced. server.py unchanged from iter5; only env values changed."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "100%", "frontend": "100%" },
+  "test_credentials": "N/A — public site. New Resend key re_Qm6VCUoj_* stored only in backend/.env (not logged in this report).",
+  "seed_data_creation": "iter6 test POSTs: TEST_Normal_iter6 (id 6f782c1b...), TEST_FeeLead_iter6 (id e33f5c30...), TEST_Booking_iter6 (id bd8cf3dd...), plus pytest TEST_Contact_User + TEST_Booking_User. Not cleaned.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Resend domain verification for globisync.com is CONFIRMED WORKING via runtime evidence — POST with arbitrary submitter emails (fee-test@example.com, booking-test@example.com) both delivered two 'Email sent' log lines each without any 'Email send failed'. Sender is 'GlobiSync <noreply@globisync.com>'. Admin inbox is globisyncltd@gmail.com. Fee-calc lead trigger phrase (case-insensitive): message must start with 'fee-calculator lead'. Team card taglines live at data-testid=team-tagline-{0|1|2}. Fee Calculator hero label is '[ Free tool for sellers ]' (NOT 'Lead magnet').",
+  "rca of the issue": "N/A — no bugs this iteration. Previous test-mode limitation (iter5: 'You can only send testing emails to your own email address') was purely a Resend account state and has been resolved by the user verifying globisync.com at resend.com/domains and issuing a new API key. Zero code changes required in server.py — the fix landed entirely via backend/.env values (RESEND_API_KEY, SENDER_EMAIL, CONTACT_EMAIL)."
+}

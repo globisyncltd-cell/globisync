@@ -1,25 +1,161 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, ArrowUpRight } from "lucide-react";
-import { NAV, SITE } from "@/lib/content";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { SITE } from "@/lib/content";
+import { MENUS } from "@/lib/menus";
 import { Button } from "@/components/ui/button";
 
 const Logo = () => (
-  <Link to="/" data-testid="nav-logo" className="group flex items-center gap-2">
-    <div className="relative h-9 w-9 border border-ink flex items-center justify-center bg-white group-hover:bg-amber transition-colors">
-      <span className="font-serif text-xl font-bold text-ink">G</span>
-      <span className="absolute -top-1 -right-1 h-2 w-2 bg-amber border border-ink" />
+  <Link to="/" data-testid="nav-logo" className="group flex items-center gap-3">
+    <div className="relative h-11 w-11 border-2 border-ink flex items-center justify-center bg-white group-hover:bg-amber transition-colors">
+      <span className="font-serif text-2xl font-medium text-ink leading-none">G</span>
+      <span className="absolute -top-1.5 -right-1.5 h-2.5 w-2.5 bg-amber border border-ink" />
     </div>
-    <div className="leading-none">
-      <div className="font-serif text-xl font-bold text-ink tracking-tight">GlobiSync</div>
+    <div className="leading-tight">
+      <div className="text-lg font-medium text-ink tracking-tight">GlobiSync</div>
+      <div className="text-[10px] font-light text-muted2 tracking-[0.15em] uppercase">Ecommerce Growth Partner</div>
     </div>
   </Link>
 );
 
+function DesktopMenu() {
+  const [openMenu, setOpenMenu] = useState(null);
+
+  return (
+    <nav className="hidden lg:flex items-center gap-1" onMouseLeave={() => setOpenMenu(null)} aria-label="Primary">
+      {MENUS.map((m) => {
+        const hasItems = m.items && m.items.length > 0;
+        if (!hasItems) {
+          return (
+            <NavLink
+              key={m.id}
+              to={m.to}
+              data-testid={`nav-${m.id}`}
+              className={({ isActive }) =>
+                `px-3 py-2 text-sm font-normal transition-colors ${
+                  isActive ? "text-ink" : "text-muted2 hover:text-ink"
+                }`
+              }
+            >
+              {m.label}
+            </NavLink>
+          );
+        }
+        return (
+          <div
+            key={m.id}
+            className="relative"
+            onMouseEnter={() => setOpenMenu(m.id)}
+          >
+            <button
+              data-testid={`nav-${m.id}`}
+              className={`px-3 py-2 text-sm font-normal transition-colors inline-flex items-center gap-1 ${
+                openMenu === m.id ? "text-ink" : "text-muted2 hover:text-ink"
+              }`}
+              onClick={() => setOpenMenu(openMenu === m.id ? null : m.id)}
+            >
+              {m.label}
+              <ChevronDown className={`h-3 w-3 transition-transform ${openMenu === m.id ? "rotate-180" : ""}`} />
+            </button>
+            {openMenu === m.id && (
+              <div
+                data-testid={`nav-dropdown-${m.id}`}
+                className="absolute left-0 top-full mt-0 min-w-[320px] bg-white border border-ink shadow-lg z-50"
+              >
+                <div className="py-2">
+                  {m.items.map((it) => (
+                    <Link
+                      key={it.slug}
+                      to={`/services/${it.slug}`}
+                      data-testid={`nav-item-${it.slug}`}
+                      onClick={() => setOpenMenu(null)}
+                      className="block px-5 py-2.5 text-sm font-light text-muted2 hover:text-ink hover:bg-amber/10 transition-colors"
+                    >
+                      {it.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </nav>
+  );
+}
+
+function MobileMenu({ open, setOpen }) {
+  const [expanded, setExpanded] = useState(null);
+  const loc = useLocation();
+  useEffect(() => { setOpen(false); setExpanded(null); }, [loc.pathname, setOpen]);
+
+  if (!open) return null;
+
+  return (
+    <div className="lg:hidden border-t border-border bg-white max-h-[75vh] overflow-y-auto">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
+        {MENUS.map((m) => {
+          const hasItems = m.items && m.items.length > 0;
+          if (!hasItems) {
+            return (
+              <NavLink
+                key={m.id}
+                to={m.to}
+                data-testid={`mobile-nav-${m.id}`}
+                className={({ isActive }) =>
+                  `px-3 py-3 text-base border-b border-border ${
+                    isActive ? "text-ink font-medium" : "text-muted2"
+                  }`
+                }
+              >
+                {m.label}
+              </NavLink>
+            );
+          }
+          const isExp = expanded === m.id;
+          return (
+            <div key={m.id} className="border-b border-border">
+              <button
+                data-testid={`mobile-nav-${m.id}`}
+                onClick={() => setExpanded(isExp ? null : m.id)}
+                className="w-full flex items-center justify-between px-3 py-3 text-base text-ink"
+              >
+                {m.label}
+                <ChevronDown className={`h-4 w-4 transition-transform ${isExp ? "rotate-180" : ""}`} />
+              </button>
+              {isExp && (
+                <div className="pb-3">
+                  {m.items.map((it) => (
+                    <Link
+                      key={it.slug}
+                      to={`/services/${it.slug}`}
+                      data-testid={`mobile-nav-item-${it.slug}`}
+                      className="block px-5 py-2 text-sm font-light text-muted2 hover:text-ink"
+                    >
+                      {it.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        <Link to="/contact" className="mt-4">
+          <Button
+            data-testid="mobile-nav-book-btn"
+            className="w-full rounded-none bg-amber text-ink hover:bg-amber-hover border border-ink font-medium"
+          >
+            {SITE.cta}
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const loc = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -28,42 +164,22 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setOpen(false); }, [loc.pathname]);
-
   return (
     <header
       className={`sticky top-0 z-40 w-full backdrop-blur-xl transition-colors border-b ${
-        scrolled ? "bg-white/85 border-border" : "bg-white/60 border-transparent"
+        scrolled ? "bg-white/90 border-border" : "bg-white/70 border-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
         <Logo />
-
-        <nav className="hidden lg:flex items-center gap-0" aria-label="Primary">
-          {NAV.map((n) => (
-            <NavLink
-              key={n.to}
-              to={n.to}
-              end={n.to === "/"}
-              data-testid={`nav-${n.label.toLowerCase().replace(/\s+/g, "-")}`}
-              className={({ isActive }) =>
-                `px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive ? "text-ink" : "text-muted2 hover:text-ink"
-                }`
-              }
-            >
-              {n.label}
-            </NavLink>
-          ))}
-        </nav>
-
+        <DesktopMenu />
         <div className="flex items-center gap-2">
           <Link to="/contact" className="hidden sm:block">
             <Button
               data-testid="nav-book-call-btn"
-              className="rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink transition-all hover:-translate-y-0.5 hover:sharp-shadow font-semibold"
+              className="rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium h-10"
             >
-              {SITE.cta} <ArrowUpRight className="ml-1 h-4 w-4" />
+              {SITE.cta}
             </Button>
           </Link>
           <button
@@ -76,36 +192,7 @@ export default function Nav() {
           </button>
         </div>
       </div>
-
-      {open && (
-        <div className="lg:hidden border-t border-border bg-white">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
-            {NAV.map((n) => (
-              <NavLink
-                key={n.to}
-                to={n.to}
-                end={n.to === "/"}
-                data-testid={`mobile-nav-${n.label.toLowerCase().replace(/\s+/g, "-")}`}
-                className={({ isActive }) =>
-                  `px-3 py-3 text-base border-b border-border last:border-0 ${
-                    isActive ? "text-ink font-semibold" : "text-muted2"
-                  }`
-                }
-              >
-                {n.label}
-              </NavLink>
-            ))}
-            <Link to="/contact" className="mt-3">
-              <Button
-                data-testid="mobile-nav-book-btn"
-                className="w-full rounded-none bg-amber text-ink hover:bg-amber-hover border border-ink font-semibold"
-              >
-                {SITE.cta}
-              </Button>
-            </Link>
-          </div>
-        </div>
-      )}
+      <MobileMenu open={open} setOpen={setOpen} />
     </header>
   );
 }

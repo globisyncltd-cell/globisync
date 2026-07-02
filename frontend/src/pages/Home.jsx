@@ -64,13 +64,13 @@ export default function Home() {
                     {SITE.cta} <ArrowUpRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Link to="/fee-calculator">
+                <Link to="/team">
                   <Button
                     data-testid="hero-fee-calc-btn"
                     variant="outline"
-                    className="h-12 px-6 rounded-none border-ink hover:bg-ink hover:text-white font-semibold"
+                    className="h-12 px-6 rounded-none border-ink hover:bg-ink hover:text-white font-medium"
                   >
-                    Free Fee Calculator →
+                    Meet the team →
                   </Button>
                 </Link>
               </div>
@@ -119,8 +119,8 @@ export default function Home() {
                 Everything a brand needs to<br />sell online successfully.
               </h2>
             </div>
-            <Link to="/services" className="text-sm font-semibold text-ink hover:text-amber flex items-center gap-1">
-              Every service in detail <ArrowUpRight className="h-4 w-4" />
+            <Link to="/team" className="text-sm font-normal text-ink hover:text-amber flex items-center gap-1">
+              Meet the team <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
 

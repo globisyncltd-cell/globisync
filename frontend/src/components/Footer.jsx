@@ -1,8 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { SITE, NAV } from "@/lib/content";
+import { SITE } from "@/lib/content";
+import { MENUS } from "@/lib/menus";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaLinkedin, FaInstagram, FaFacebook, FaTiktok } from "react-icons/fa";
+
+const FOOTER_LINKS = [
+  { to: "/about", label: "About" },
+  { to: "/blog", label: "Insights" },
+  { to: "/blog", label: "Blogs" },
+  { to: "/contact", label: "Contact" },
+  { to: "/privacy-policy", label: "Privacy Policy" },
+  { to: "/careers", label: "Careers" },
+];
+
+const SOCIALS = [
+  { icon: FaLinkedin, url: "https://www.linkedin.com/company/globisync/", label: "LinkedIn" },
+  { icon: FaInstagram, url: "https://www.instagram.com/globisync/", label: "Instagram" },
+  { icon: FaFacebook, url: "https://www.facebook.com/globisync/", label: "Facebook" },
+  { icon: FaTiktok, url: "https://www.tiktok.com/@globisync", label: "TikTok" },
+];
 
 export default function Footer() {
   return (
@@ -11,26 +28,42 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 relative">
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
-            <div className="font-serif text-3xl md:text-4xl leading-tight">
+            <div className="text-3xl md:text-4xl font-light leading-tight">
               Ready to grow your ecommerce brand — <span className="text-amber">the right way?</span>
             </div>
-            <p className="mt-4 text-white/70 max-w-md">
+            <p className="mt-4 text-white/70 max-w-md font-light">
               Book a discovery call with our Birmingham team. No decks, no fluff — just a clear next step.
             </p>
             <Link
               to="/contact"
               data-testid="footer-cta-book-btn"
-              className="inline-flex items-center gap-2 mt-6 bg-amber text-ink font-semibold px-6 py-3 border border-amber hover:bg-white hover:border-white transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 mt-6 bg-amber text-ink font-medium px-6 py-3 border border-amber hover:bg-white hover:border-white transition-all hover:-translate-y-0.5"
             >
               {SITE.cta} →
             </Link>
+
+            <div className="mt-8 flex items-center gap-3">
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-testid={`footer-social-${s.label.toLowerCase()}`}
+                  aria-label={s.label}
+                  className="h-9 w-9 border border-white/30 grid place-items-center hover:bg-amber hover:text-ink hover:border-amber transition-all"
+                >
+                  <s.icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
           <div className="lg:col-span-3">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">Explore</div>
-            <ul className="mt-4 space-y-2 text-white/80">
-              {NAV.map((n) => (
-                <li key={n.to}>
+            <ul className="mt-4 space-y-2 text-white/80 font-light">
+              {FOOTER_LINKS.map((n) => (
+                <li key={n.label}>
                   <Link
                     to={n.to}
                     data-testid={`footer-link-${n.label.toLowerCase().replace(/\s+/g, "-")}`}
@@ -45,7 +78,7 @@ export default function Footer() {
 
           <div className="lg:col-span-4">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">Birmingham HQ</div>
-            <ul className="mt-4 space-y-3 text-white/80 text-sm">
+            <ul className="mt-4 space-y-3 text-white/80 text-sm font-light">
               <li className="flex gap-3">
                 <MapPin className="h-4 w-4 flex-none mt-1 text-amber" />
                 <span>{SITE.address}</span>
@@ -59,33 +92,44 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <Phone className="h-4 w-4 flex-none mt-1 text-amber" />
-                <a href={`tel:${SITE.phone.replace(/\s+/g, "")}`} className="hover:text-amber">
-                  {SITE.phone}
-                </a>
+                <a href={`tel:${SITE.phone.replace(/\s+/g, "")}`} className="hover:text-amber">{SITE.phone}</a>
               </li>
               <li className="flex gap-3">
                 <FaWhatsapp className="h-4 w-4 flex-none mt-1 text-amber" />
-                <a
-                  href={`https://wa.me/${SITE.whatsapp}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-amber"
-                >
-                  Chat on WhatsApp
-                </a>
+                <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noreferrer" className="hover:text-amber">Chat on WhatsApp</a>
               </li>
             </ul>
           </div>
         </div>
 
+        {/* Service map (all subservices listed in footer for SEO + navigation) */}
+        <div className="mt-14 pt-8 border-t border-white/10 grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm font-light">
+          {MENUS.filter((m) => m.items).map((m) => (
+            <div key={m.id}>
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">{m.label}</div>
+              <ul className="mt-3 space-y-1">
+                {m.items.slice(0, 6).map((it) => (
+                  <li key={it.slug}>
+                    <Link
+                      to={`/services/${it.slug}`}
+                      className="text-white/70 hover:text-amber transition-colors"
+                    >
+                      {it.title}
+                    </Link>
+                  </li>
+                ))}
+                {m.items.length > 6 && (
+                  <li className="text-white/50 text-xs">+ {m.items.length - 6} more</li>
+                )}
+              </ul>
+            </div>
+          ))}
+        </div>
+
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-white/50 font-mono uppercase tracking-[0.15em]">
           <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Agency</div>
           <div className="flex items-center gap-4">
-            <Link
-              to="/careers"
-              data-testid="footer-careers-link"
-              className="hover:text-amber transition-colors"
-            >
+            <Link to="/careers" data-testid="footer-careers-link" className="hover:text-amber transition-colors">
               Careers · We're hiring
             </Link>
             <span>Registered in England · HMRC</span>

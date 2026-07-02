@@ -266,14 +266,13 @@ from fastapi.responses import Response
 
 _STATIC_ROUTES = [
     ("/", "1.0", "weekly"),
-    ("/services", "0.8", "monthly"),
     ("/international-expansion", "0.8", "monthly"),
-    ("/fee-calculator", "0.8", "monthly"),
     ("/careers", "0.7", "weekly"),
     ("/about", "0.6", "monthly"),
     ("/team", "0.6", "monthly"),
     ("/blog", "0.8", "weekly"),
     ("/contact", "0.7", "monthly"),
+    ("/privacy-policy", "0.3", "yearly"),
 ]
 
 _BLOG_SLUGS = [
@@ -300,12 +299,30 @@ _BLOG_SLUGS = [
 BASE_URL = "https://www.globisync.com"
 
 
+_SUBSERVICE_SLUGS = [
+    "amazon","ebay","etsy","ecommerce-strategy","ecommerce-account-management",
+    "ecommerce-product-listings","stock-inventory-management","order-management",
+    "ecommerce-training","marketplace-integration","multi-marketplace-management",
+    "marketplace-optimisation","facebook","instagram","tiktok","social-media-strategy",
+    "social-content-creatives","community-management","social-commerce",
+    "performance-marketing","paid-search","paid-social","seo","crm-email-marketing",
+    "generative-engine-optimisation","answer-engine-optimisation","strategy",
+    "conversion-optimisation","organic-search","facebook-ads","instagram-ads",
+    "tiktok-ads","google-meta-ads","google-remarketing","google-shopping",
+    "product-packaging-design","uk-warehouse-storage","uk-retail-ecommerce-access",
+    "pricing-compliance","import-customs","cross-border-logistics",
+    "international-brand-positioning","retail-to-ecommerce","retail-distribution",
+]
+
+
 @api_router.get("/sitemap.xml")
 async def sitemap():
     today = datetime.now(timezone.utc).date().isoformat()
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for path, prio, freq in _STATIC_ROUTES:
         lines.append(f'  <url><loc>{BASE_URL}{path}</loc><lastmod>{today}</lastmod><changefreq>{freq}</changefreq><priority>{prio}</priority></url>')
+    for slug in _SUBSERVICE_SLUGS:
+        lines.append(f'  <url><loc>{BASE_URL}/services/{slug}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>')
     for slug in _BLOG_SLUGS:
         lines.append(f'  <url><loc>{BASE_URL}/blog/{slug}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>')
     lines.append('</urlset>')

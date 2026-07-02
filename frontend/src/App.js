@@ -7,15 +7,15 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import Home from "@/pages/Home";
-import Services from "@/pages/Services";
 import InternationalExpansion from "@/pages/InternationalExpansion";
 import About from "@/pages/About";
 import Team from "@/pages/Team";
 import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
-import FeeCalculator from "@/pages/FeeCalculator";
 import Careers from "@/pages/Careers";
+import SubService from "@/pages/SubService";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -39,17 +39,20 @@ function App() {
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
+              <Route path="/services/:slug" element={<SubService />} />
               <Route path="/international-expansion" element={<InternationalExpansion />} />
-              <Route path="/markets" element={<InternationalExpansion />} />
-              <Route path="/fee-calculator" element={<FeeCalculator />} />
-              <Route path="/case-studies" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/team" element={<Team />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              {/* Old routes redirect to home */}
+              <Route path="/services" element={<Home />} />
+              <Route path="/fee-calculator" element={<Home />} />
+              <Route path="/case-studies" element={<Home />} />
+              <Route path="/markets" element={<InternationalExpansion />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </main>

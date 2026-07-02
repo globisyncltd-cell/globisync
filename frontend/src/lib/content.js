@@ -187,7 +187,7 @@ export const REGIONS = [
   {
     code: "ME",
     name: "Middle East",
-    marketplaces: ["Noon", "Amazon.ae", "Amazon.sa"],
+    marketplaces: ["Noon", "Amazon.ae", "Amazon.sa", "Namshi", "TikTok Shop ME"],
     hero:
       "Premium AOV, Ramadan and White Friday velocity, and a marketplace duopoly that's easy to enter with the right partner.",
     playbook: [

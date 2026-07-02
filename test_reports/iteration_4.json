@@ -1,0 +1,55 @@
+{
+  "summary": "Iteration 4 verified end-to-end. Backend: 9/9 pytest cases pass; Resend is now firing successfully — /api/health returns email_configured=true; POST /api/contact and POST /api/bookings both produced 'Email sent: {id: ...}' log lines with Resend IDs (e.g. 556c44e5-fbea-4194-8ee4-b80ab97f8c0d, c3b74716-7da5-40c1-af43-35462fe1ba93 for bookings; db18b59f... and d8dce597... for follow-up contacts). Previously seen 'RESEND_API_KEY not set; skipping email send' and 'You can only send testing emails to your own email address' errors are no longer occurring on new submissions (that error was pre-fix). Frontend: (a) hero pill 'UK Ecommerce Growth Agency' is hidden (no visible instance); H1 'We help brands and Amazon sellers grow online sales — end to end.' still rendered. (b) /team H1 = 'Senior operators. Growth partners.'; subtitle contains 'A senior team of ecommerce operators'; forbidden strings 'The three people below', 'No junior handoff', 'offshored ops' are ALL absent. (c) Footer contains both mailto:globisyncltd@gmail.com and mailto:growth@globisync.com. (d) BrandStrip now uses marquee: .marquee-mask + .animate-marquee classes present; all 5 brand names (London RAG, Shaze, Livetech, Tvam, PlayPanda) render. (e) Fee Calculator has new fc-category dropdown; Amazon UK exposes 18 categories, eBay UK 8, Etsy 1. Amazon+Beauty (15%) default: fc-net-profit=£11.99, fc-margin-pct=40.0%. Amazon+Computers (7%): fc-net-profit=£14.39, fc-margin-pct=48.0%. Etsy correctly shows both 'Referral fee (6.5%)' AND 'Payment processing (4.0%)' line items. WhatsApp FAB (wa.me) present.",
+  "tested_scope": ["backend", "frontend", "integration", "email"],
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "FeeCalculator eBay Books/DVDs referral label",
+        "issue": "Label renders 'Referral fee (14.3%)' instead of expected '(14.4%)'. Root cause: JavaScript (0.1435 * 100).toFixed(1) === '14.3' because 0.1435 in binary float is actually 0.14349999... — toFixed rounds down. To display 14.4%, change EBAY_CATEGORIES.books.ref from 0.1435 to 0.144 OR round the display using Math.round(x * 1000) / 10. Math is correct (referral fee = 29.99 * 0.1435 = £4.30 uses the true underlying rate); this is purely a display-string bug.",
+        "selector": "[data-testid='fc-category'] → fc-cat-books → results panel 'Referral fee (…%)'",
+        "priority": "LOW"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_checks": [
+    "GET /api/health → {status:ok, email_configured:true}",
+    "POST /api/contact → 200, backend log 'Email sent: {id: <uuid>}'",
+    "POST /api/bookings → 200, backend log 'Email sent: {id: <uuid>}'",
+    "Fee-calculator lead form message ('Fee-calculator lead. Marketplace: Amazon UK …') successfully persisted + emailed",
+    "9/9 backend pytest cases pass (health, dynamic + static sitemap/robots, contact + booking persistence, 422 validation)",
+    "Sitemap contains /fee-calculator and no /case-studies, 35+ blog URLs",
+    "Home hero: pill 'UK Ecommerce Growth Agency' NOT visible; H1 correct",
+    "BrandStrip on home has both .marquee-mask and .animate-marquee classes; 5 brand names visible",
+    "Team H1 = 'Senior operators. Growth partners.'",
+    "Team subtitle contains 'A senior team of ecommerce operators'; forbidden phrases ('The three people below', 'No junior handoff', 'offshored ops') all absent",
+    "Footer contains mailto:globisyncltd@gmail.com AND mailto:growth@globisync.com",
+    "FeeCalculator: fc-category dropdown present; Amazon=18 options, eBay=8 options, Etsy=1 option",
+    "FeeCalculator Amazon+Beauty defaults: fc-net-profit=£11.99, fc-margin-pct=40.0%",
+    "FeeCalculator Amazon+Computers (7%): fc-net-profit=£14.39, fc-margin-pct=48.0%; referral fee line shows (7.0%)",
+    "FeeCalculator Etsy: both 'Referral fee (6.5%)' and 'Payment processing (4.0%)' lines rendered",
+    "WhatsApp FAB (a[href*='wa.me']) present on home"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/iteration_4.xml"
+  ],
+  "action_items": [
+    "MINOR: fix eBay Books/DVDs referral label so it shows 14.4% instead of 14.3%. Either round display up (Math.round(ref*1000)/10) or set EBAY_CATEGORIES.books.ref to 0.144. Impact: cosmetic only; underlying computation is correct."
+  ],
+  "critical_code_review_comments": [
+    "Resend account is still in test mode: CONTACT_EMAIL='shwetaa1401@gmail.com' is required because Resend rejects sends to other addresses until a domain is verified. Once globisync.com is verified in resend.com/domains, restore CONTACT_EMAIL to 'globisyncltd@gmail.com' (or 'growth@globisync.com') and change SENDER_EMAIL to an @globisync.com address.",
+    "server.py _send_email_async is fire-and-forget (asyncio.create_task) with no retry — if Resend hits a rate limit the send is lost silently. Consider a lightweight retry-once wrapper or a queue for higher reliability at scale.",
+    "FeeCalculator toFixed(1) on floating point rates rounds 14.35 → 14.3. Prefer Math.round(x*10)/10 or store rates as basis points (bps) to avoid float artefacts."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "100%", "frontend": "98%" },
+  "test_credentials": "N/A — public site, no auth. Resend key present in backend/.env (not exposed here).",
+  "seed_data_creation": "Backend regression + email verification created TEST_-prefixed records via POST /api/contact and POST /api/bookings (TEST_FC_Lead_iter4, TEST_Booking_iter4, TEST_Contact_User, TEST_Booking_User). Not cleaned.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Email wiring is confirmed working. All backend regression tests are green. Only remaining cosmetic bug: eBay Books referral fee display shows 14.3% instead of 14.4% (JS float rounding on toFixed(1) for 0.1435). Fee calculator uses data-testid fc-marketplace, fc-category, fc-cat-<id>, fc-cost, fc-price, fc-shipping, fc-net-profit, fc-margin-pct, fc-lead-name, fc-lead-email, fc-lead-submit, fc-lead-success. Team H1 and BrandStrip marquee verified. Note: on Resend the CONTACT_EMAIL is temporarily shwetaa1401@gmail.com until the globisync.com domain is verified — that's a config/DNS task, not code.",
+  "rca of the issue": "The reported 'emails not getting delivered' bug from prior iterations had two contributing causes: (1) RESEND_API_KEY was not populated in backend/.env — server.py line 89 short-circuited with 'RESEND_API_KEY not set; skipping email send.' Setting the key resolved this. (2) Even after the key was set, Resend rejected sends with 'You can only send testing emails to your own email address (shwetaa1401@gmail.com). To send emails to other recipients, please verify a domain at resend.com/domains, and change the from address to an email using this domain.' — this happens because the SENDER_EMAIL is onboarding@resend.dev (shared sandbox) and the account has no verified domain. Setting CONTACT_EMAIL=shwetaa1401@gmail.com (Resend account owner) as a temporary workaround now allows the send to succeed. Long-term fix: verify globisync.com in Resend and switch SENDER_EMAIL to noreply@globisync.com and CONTACT_EMAIL back to growth@globisync.com."
+}

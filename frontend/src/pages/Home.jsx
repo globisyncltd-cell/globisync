@@ -39,10 +39,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-32 relative">
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-8 animate-fade-up">
-              <div className="inline-flex items-center gap-2 px-3 py-1 border border-ink text-xs font-mono uppercase tracking-[0.2em]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 border border-ink text-xs font-mono uppercase tracking-[0.2em]" style={{ display: "none" }}>
                 <span className="h-2 w-2 bg-amber" /> UK Ecommerce Growth Agency
               </div>
-              <h1 className="mt-6 font-serif text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-ink">
+              <h1 className="mt-2 font-serif text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-ink">
                 We help brands<br />
                 and Amazon sellers grow{" "}
                 <span className="relative inline-block">

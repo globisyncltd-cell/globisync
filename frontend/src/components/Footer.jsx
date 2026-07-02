@@ -52,9 +52,10 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <Mail className="h-4 w-4 flex-none mt-1 text-amber" />
-                <a href={`mailto:${SITE.email}`} className="hover:text-amber">
-                  {SITE.email}
-                </a>
+                <div className="flex flex-col gap-1">
+                  <a href={`mailto:${SITE.email}`} className="hover:text-amber">{SITE.email}</a>
+                  <a href="mailto:growth@globisync.com" className="hover:text-amber">growth@globisync.com</a>
+                </div>
               </li>
               <li className="flex gap-3">
                 <Phone className="h-4 w-4 flex-none mt-1 text-amber" />

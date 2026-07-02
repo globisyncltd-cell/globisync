@@ -18,10 +18,10 @@ export default function Team() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ The team ]</div>
           <h1 className="mt-3 font-serif text-5xl md:text-6xl font-bold text-ink leading-[1.05]">
-            Operators. Not slide-makers.
+            Senior operators.<br />Growth partners.
           </h1>
           <p className="mt-6 max-w-2xl text-muted2 text-lg">
-            The three people below own your outcomes. No junior handoff, no offshored ops layer.
+            A senior team of ecommerce operators, advisors, and specialists — with hands directly in your account.
           </p>
         </div>
       </section>

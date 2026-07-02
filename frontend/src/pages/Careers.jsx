@@ -8,15 +8,11 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Briefcase, MapPin, Upload, CheckCircle2, Loader2, ArrowUpRight } from "lucide-react";
+import { Briefcase, Upload, CheckCircle2, Loader2, ArrowUpRight } from "lucide-react";
 import SEO from "@/components/SEO";
 import { JOBS } from "@/lib/jobs";
-import { SITE } from "@/lib/content";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
-const REGION_LABEL = { UK: "United Kingdom", IN: "India", FREELANCE: "Freelance" };
-const REGION_COLOR = { UK: "#012169", IN: "#FF9933", FREELANCE: "#0b0f19" };
 
 function ApplyDialog({ open, onOpenChange, job }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", linkedin: "", cover_letter: "" });
@@ -71,19 +67,19 @@ function ApplyDialog({ open, onOpenChange, job }) {
     >
       <DialogContent className="max-w-2xl rounded-none border-ink" data-testid="career-apply-dialog">
         <DialogHeader>
-          <DialogTitle className="font-serif text-2xl">
+          <DialogTitle className="text-2xl font-light">
             {done ? "Application received" : `Apply · ${job?.title}`}
           </DialogTitle>
           <DialogDescription>
-            {done ? "" : `${job?.location} · ${job?.type}`}
+            {done ? "" : `${job?.team} · ${job?.type}`}
           </DialogDescription>
         </DialogHeader>
 
         {done ? (
           <div data-testid="career-apply-success" className="text-center py-6">
             <CheckCircle2 className="mx-auto h-12 w-12 text-amber" />
-            <div className="mt-4 font-serif text-2xl font-bold text-ink">Thanks {form.name || "—"}.</div>
-            <p className="mt-2 text-muted2">
+            <div className="mt-4 text-2xl font-light text-ink">Thanks {form.name || "—"}.</div>
+            <p className="mt-2 text-muted2 font-light">
               We've sent your CV to our hiring team and a confirmation to your inbox. Expect a response
               within 5 working days if there's a fit.
             </p>
@@ -122,7 +118,7 @@ function ApplyDialog({ open, onOpenChange, job }) {
               <div className="mt-1 flex items-center gap-3">
                 <label
                   htmlFor="ca-cv"
-                  className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 border border-ink bg-white hover:bg-secondary/50 text-sm font-semibold"
+                  className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 border border-ink bg-white hover:bg-secondary/50 text-sm font-medium"
                 >
                   <Upload className="h-4 w-4" /> Choose file
                 </label>
@@ -157,7 +153,7 @@ function ApplyDialog({ open, onOpenChange, job }) {
                 type="submit"
                 disabled={loading}
                 data-testid="career-apply-submit"
-                className="rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-semibold"
+                className="rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium"
               >
                 {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending…</> : "Submit application →"}
               </Button>
@@ -169,144 +165,78 @@ function ApplyDialog({ open, onOpenChange, job }) {
   );
 }
 
-function JobsGroup({ title, kicker, region, jobs, onApply }) {
-  return (
-    <div data-testid={`careers-group-${region.toLowerCase()}`} className="mb-16">
-      <div className="flex items-baseline gap-4 mb-6">
-        <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">{kicker}</div>
-        <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">{title}</h2>
-        <div className="text-sm text-muted2 font-mono">({jobs.length} open)</div>
-      </div>
-      <div className="grid gap-0 border-t border-l border-ink">
-        {jobs.map((j) => (
-          <article
-            key={j.id}
-            data-testid={`career-card-${j.id}`}
-            className="border-r border-b border-ink p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-6 hover:bg-secondary/40 transition-colors"
-          >
-            <div
-              className="flex-none w-16 h-16 grid place-items-center text-white font-serif font-bold text-lg border border-ink"
-              style={{ backgroundColor: REGION_COLOR[region] || "#0b0f19" }}
-            >
-              {region === "FREELANCE" ? "FL" : region}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{j.team}</span>
-                <span className="text-muted2">·</span>
-                <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{j.type}</span>
-              </div>
-              <div className="mt-1 font-serif text-xl md:text-2xl font-bold text-ink leading-snug">{j.title}</div>
-              <div className="mt-1 flex items-center gap-1 text-sm text-muted2">
-                <MapPin className="h-3 w-3 text-amber" /> {j.location}
-              </div>
-              <p className="mt-2 text-sm text-muted2 leading-relaxed max-w-2xl">{j.summary}</p>
-            </div>
-            <Button
-              data-testid={`career-apply-btn-${j.id}`}
-              onClick={() => onApply(j)}
-              className="flex-none rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-semibold"
-            >
-              Apply <ArrowUpRight className="ml-1 h-4 w-4" />
-            </Button>
-          </article>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function Careers() {
   const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
 
   const onApply = (job) => { setSelected(job); setOpen(true); };
 
-  const uk = JOBS.filter((j) => j.region === "UK");
-  const india = JOBS.filter((j) => j.region === "IN");
-  const freelance = JOBS.filter((j) => j.region === "FREELANCE");
-
   return (
     <>
       <SEO
         title="Careers · Join GlobiSync"
-        description="Open roles at GlobiSync — a UK ecommerce agency. Full-time positions in the UK and India, plus freelance opportunities across marketplaces, Shopify, SEO, paid media, and design."
+        description="Open roles at GlobiSync — a UK ecommerce growth partner. Join our team across marketplaces, performance marketing, and social media."
         path="/careers"
       />
 
       <section className="bg-white pt-20 pb-14">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-7">
-            <div className="flex items-center gap-3">
-              <Briefcase className="h-5 w-5 text-amber" />
-              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Careers ]</div>
-            </div>
-            <h1 className="mt-3 font-serif text-5xl md:text-6xl font-bold text-ink leading-[1.05]">
-              Build the ecommerce agency<br />you wish existed.
-            </h1>
-            <p className="mt-6 text-muted2 text-lg leading-relaxed max-w-2xl">
-              We hire operators — not observers. People who love the daily rhythm of running marketplace,
-              Shopify, and paid-media accounts. If that sounds like you, we'd like to meet.
-            </p>
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <Briefcase className="h-5 w-5 text-amber" />
+            <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Careers ]</div>
           </div>
-          <div className="lg:col-span-5">
-            <div className="border border-ink p-6 bg-secondary/40">
-              <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">Locations</div>
-              <div className="mt-3 grid grid-cols-3 gap-3 text-center">
-                <div className="p-3 border border-border bg-white">
-                  <div className="font-serif text-2xl font-bold text-ink">{uk.length}</div>
-                  <div className="text-xs text-muted2 mt-1">UK</div>
-                </div>
-                <div className="p-3 border border-border bg-white">
-                  <div className="font-serif text-2xl font-bold text-ink">{india.length}</div>
-                  <div className="text-xs text-muted2 mt-1">India</div>
-                </div>
-                <div className="p-3 border border-border bg-white">
-                  <div className="font-serif text-2xl font-bold text-ink">{freelance.length}</div>
-                  <div className="text-xs text-muted2 mt-1">Freelance</div>
-                </div>
-              </div>
-              <div className="mt-4 text-xs text-muted2 leading-relaxed">
-                Salaries are competitive and role-specific. We discuss the number honestly on the first call.
-              </div>
-            </div>
-          </div>
+          <h1 className="mt-4 text-5xl md:text-6xl font-light text-ink leading-[1.05]">
+            Build the ecommerce agency<br />you wish existed.
+          </h1>
+          <p className="mt-6 text-muted2 text-lg font-light leading-relaxed max-w-2xl">
+            We hire operators — not observers. People who love the daily rhythm of running marketplace,
+            paid-media, and social accounts. If that sounds like you, we'd like to meet.
+          </p>
         </div>
       </section>
 
       <section className="pb-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <JobsGroup
-            title="United Kingdom"
-            kicker="[ 01 · UK — Birmingham & Remote UK ]"
-            region="UK"
-            jobs={uk}
-            onApply={onApply}
-          />
-          <JobsGroup
-            title="India"
-            kicker="[ 02 · India — Remote ]"
-            region="IN"
-            jobs={india}
-            onApply={onApply}
-          />
-          <JobsGroup
-            title="Freelance"
-            kicker="[ 03 · Freelance & Contract ]"
-            region="FREELANCE"
-            jobs={freelance}
-            onApply={onApply}
-          />
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="flex items-baseline gap-4 mb-6">
+            <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Open roles ]</div>
+            <div className="text-sm text-muted2 font-mono">({JOBS.length} open)</div>
+          </div>
+          <div className="grid gap-0 border-t border-l border-ink">
+            {JOBS.map((j) => (
+              <article
+                key={j.id}
+                data-testid={`career-card-${j.id}`}
+                className="border-r border-b border-ink p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-6 hover:bg-secondary/40 transition-colors"
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{j.team}</span>
+                    <span className="text-muted2">·</span>
+                    <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{j.type}</span>
+                  </div>
+                  <div className="mt-2 text-xl md:text-2xl font-light text-ink leading-snug">{j.title}</div>
+                  <p className="mt-2 text-sm text-muted2 leading-relaxed max-w-2xl font-light">{j.summary}</p>
+                </div>
+                <Button
+                  data-testid={`career-apply-btn-${j.id}`}
+                  onClick={() => onApply(j)}
+                  className="flex-none rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium"
+                >
+                  Apply <ArrowUpRight className="ml-1 h-4 w-4" />
+                </Button>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="bg-slate950 text-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-30 grain" />
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-          <h2 className="font-serif text-3xl md:text-5xl font-bold leading-tight">
+          <h2 className="text-3xl md:text-5xl font-light leading-tight">
             Don't see your role? Send us your CV anyway.
           </h2>
-          <p className="mt-4 text-white/70">
+          <p className="mt-4 text-white/70 font-light">
             We're always keen to meet strong ecommerce operators. Drop us a note at{" "}
             <a href="mailto:globisyncltd@gmail.com" className="text-amber underline">
               globisyncltd@gmail.com

@@ -60,7 +60,7 @@ function DesktopMenu() {
             {openMenu === m.id && (
               <div
                 data-testid={`nav-dropdown-${m.id}`}
-                className="absolute left-0 top-full mt-0 min-w-[320px] bg-white border border-ink shadow-lg z-50"
+                className="absolute left-0 top-full mt-0 min-w-[340px] bg-white border border-ink shadow-lg z-50"
               >
                 <div className="py-2">
                   {m.items.map((it) => (
@@ -74,6 +74,16 @@ function DesktopMenu() {
                       {it.title}
                     </Link>
                   ))}
+                  {m.overviewSlug && (
+                    <Link
+                      to={`/${m.overviewSlug}`}
+                      data-testid={`nav-viewall-${m.overviewSlug}`}
+                      onClick={() => setOpenMenu(null)}
+                      className="block px-5 py-3 mt-1 text-sm font-medium text-ink border-t border-border bg-amber/5 hover:bg-amber hover:text-ink transition-colors"
+                    >
+                      View All {m.label} Services →
+                    </Link>
+                  )}
                 </div>
               </div>
             )}
@@ -135,6 +145,15 @@ function MobileMenu({ open, setOpen }) {
                       {it.title}
                     </Link>
                   ))}
+                  {m.overviewSlug && (
+                    <Link
+                      to={`/${m.overviewSlug}`}
+                      data-testid={`mobile-nav-viewall-${m.overviewSlug}`}
+                      className="block mx-3 mt-2 px-3 py-2 text-sm font-medium text-ink border-t border-border bg-amber/10"
+                    >
+                      View All {m.label} Services →
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

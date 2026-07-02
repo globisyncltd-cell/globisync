@@ -10,8 +10,8 @@ const FOOTER_LINKS = [
   { to: "/blog", label: "Insights" },
   { to: "/blog", label: "Blogs" },
   { to: "/contact", label: "Contact" },
-  { to: "/privacy-policy", label: "Privacy Policy" },
   { to: "/careers", label: "Careers" },
+  { to: "/privacy-policy", label: "Privacy Policy" },
 ];
 
 const SOCIALS = [
@@ -22,6 +22,8 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
+  const categories = MENUS.filter((m) => m.items && m.overviewSlug);
+
   return (
     <footer className="relative bg-slate950 text-white overflow-hidden">
       <div className="absolute inset-0 opacity-40 grain" />
@@ -73,6 +75,15 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/team"
+                  data-testid="footer-link-team"
+                  className="hover:text-amber transition-colors"
+                >
+                  Team
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -102,32 +113,26 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Service map (all subservices listed in footer for SEO + navigation) */}
-        <div className="mt-14 pt-8 border-t border-white/10 grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm font-light">
-          {MENUS.filter((m) => m.items).map((m) => (
-            <div key={m.id}>
-              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">{m.label}</div>
-              <ul className="mt-3 space-y-1">
-                {m.items.slice(0, 6).map((it) => (
-                  <li key={it.slug}>
-                    <Link
-                      to={`/services/${it.slug}`}
-                      className="text-white/70 hover:text-amber transition-colors"
-                    >
-                      {it.title}
-                    </Link>
-                  </li>
-                ))}
-                {m.items.length > 6 && (
-                  <li className="text-white/50 text-xs">+ {m.items.length - 6} more</li>
-                )}
-              </ul>
-            </div>
-          ))}
+        {/* Service categories — 4 overview links only */}
+        <div className="mt-14 pt-8 border-t border-white/10">
+          <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber mb-5">Services</div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm font-light">
+            {categories.map((m) => (
+              <Link
+                key={m.id}
+                to={`/${m.overviewSlug}`}
+                data-testid={`footer-category-${m.overviewSlug}`}
+                className="group block p-4 border border-white/15 hover:border-amber hover:bg-white/5 transition-all"
+              >
+                <div className="text-white group-hover:text-amber font-medium">{m.label}</div>
+                <div className="text-xs text-white/50 mt-1">{m.items.length} services</div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-white/50 font-mono uppercase tracking-[0.15em]">
-          <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Agency</div>
+          <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Growth Partner</div>
           <div className="flex items-center gap-4">
             <Link to="/careers" data-testid="footer-careers-link" className="hover:text-amber transition-colors">
               Careers · We're hiring

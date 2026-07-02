@@ -15,6 +15,7 @@ import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Careers from "@/pages/Careers";
 import SubService from "@/pages/SubService";
+import CategoryOverview from "@/pages/CategoryOverview";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
 function ScrollToTop() {
@@ -40,6 +41,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/services/:slug" element={<SubService />} />
+              <Route path="/ecommerce" element={<CategoryOverview />} />
+              <Route path="/social-digital" element={<CategoryOverview />} />
+              <Route path="/cross-border" element={<CategoryOverview />} />
+              <Route path="/retail" element={<CategoryOverview />} />
               <Route path="/international-expansion" element={<InternationalExpansion />} />
               <Route path="/about" element={<About />} />
               <Route path="/team" element={<Team />} />

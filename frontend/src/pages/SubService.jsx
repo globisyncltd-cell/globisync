@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { getSubservice } from "@/lib/menus";
 import { SITE } from "@/lib/content";
@@ -10,6 +10,9 @@ export default function SubService() {
   const { slug } = useParams();
   const s = getSubservice(slug);
   if (!s) return <Navigate to="/" replace />;
+
+  const bullets = Array.isArray(s.bullets) ? s.bullets : [];
+  const hasBullets = bullets.length > 0;
 
   return (
     <>
@@ -24,15 +27,14 @@ export default function SubService() {
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">
             [ {s.parent} ]
           </div>
-          <h1 className="mt-4 text-5xl md:text-6xl font-light text-ink leading-[1.05] tracking-tight">
+          <h1
+            data-testid="subservice-title"
+            className="mt-4 text-5xl md:text-6xl font-light text-ink leading-[1.05] tracking-tight"
+          >
             {s.title}
           </h1>
 
-          {s.minimal ? (
-            <p className="mt-6 max-w-2xl text-muted2 text-lg font-light leading-relaxed">
-              Connect with us to discover more.
-            </p>
-          ) : (
+          {s.description && (
             <p className="mt-6 max-w-3xl text-muted2 text-lg font-light leading-relaxed">
               {s.description}
             </p>
@@ -59,14 +61,14 @@ export default function SubService() {
         </div>
       </section>
 
-      {!s.minimal && (
+      {hasBullets && (
         <section className="bg-secondary/40 py-16 border-t border-border">
           <div className="max-w-5xl mx-auto px-6 lg:px-8">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">
-              [ How we help ]
+              [ What's included ]
             </div>
-            <div className="mt-6 grid md:grid-cols-3 gap-4">
-              {["Senior operator on the account", "Weekly ops calls", "Written monthly reporting", "Fixed-fee pilot available", "Quarterly business review", "One team, one point of contact"].map((p, i) => (
+            <div className="mt-6 grid md:grid-cols-2 gap-4">
+              {bullets.map((p, i) => (
                 <div key={i} className="p-5 bg-white border border-border flex gap-3">
                   <Check className="h-4 w-4 mt-1 text-amber flex-none" />
                   <div className="text-sm text-ink font-light">{p}</div>

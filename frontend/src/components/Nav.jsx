@@ -60,7 +60,7 @@ function DesktopMenu() {
             {openMenu === m.id && (
               <div
                 data-testid={`nav-dropdown-${m.id}`}
-                className="absolute left-0 top-full mt-0 min-w-[340px] bg-white border border-ink shadow-lg z-50"
+                className="absolute left-0 top-full mt-0 min-w-[340px] bg-white border border-ink shadow-lg z-50 max-h-[75vh] overflow-y-auto"
               >
                 <div className="py-2">
                   {m.items.map((it) => (
@@ -79,7 +79,7 @@ function DesktopMenu() {
                       to={`/${m.overviewSlug}`}
                       data-testid={`nav-viewall-${m.overviewSlug}`}
                       onClick={() => setOpenMenu(null)}
-                      className="block px-5 py-3 mt-1 text-sm font-medium text-ink border-t border-border bg-amber/5 hover:bg-amber hover:text-ink transition-colors"
+                      className="sticky bottom-0 block px-5 py-3 mt-1 text-sm font-medium text-ink border-t border-border bg-amber hover:bg-amber-hover transition-colors"
                     >
                       View All {m.label} Services →
                     </Link>

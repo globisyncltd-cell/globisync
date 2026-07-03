@@ -189,7 +189,7 @@ export default function Careers() {
             Build the ecommerce agency<br />you wish existed.
           </h1>
           <p className="mt-6 text-muted2 text-lg font-light leading-relaxed max-w-2xl">
-            We hire operators — not observers. People who love the daily rhythm of running marketplace,
+            We hire experts — not observers. People who love the daily rhythm of running marketplace,
             paid-media, and social accounts. If that sounds like you, we'd like to meet.
           </p>
         </div>
@@ -237,7 +237,7 @@ export default function Careers() {
             Don't see your role? Send us your CV anyway.
           </h2>
           <p className="mt-4 text-white/70 font-light">
-            We're always keen to meet strong ecommerce operators. Drop us a note at{" "}
+            We're always keen to meet strong ecommerce experts. Drop us a note at{" "}
             <a href="mailto:globisyncltd@gmail.com" className="text-amber underline">
               globisyncltd@gmail.com
             </a>{" "}

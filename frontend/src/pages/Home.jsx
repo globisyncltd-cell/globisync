@@ -8,7 +8,6 @@ import { BLOG } from "@/lib/blog";
 import SEO from "@/components/SEO";
 import MarketplaceMarquee from "@/components/MarketplaceMarquee";
 import BrandStrip from "@/components/BrandStrip";
-import HowItWorks from "@/components/HowItWorks";
 import FAQSection from "@/components/FAQSection";
 import StructuredData from "@/components/StructuredData";
 
@@ -45,10 +44,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-20 lg:pt-28 lg:pb-24 relative">
           <div className="max-w-4xl animate-fade-up">
-            <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">
-              [ UK Ecommerce Growth Partner ]
-            </div>
-            <h1 className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02] tracking-tight text-ink">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02] tracking-tight text-ink">
               We help brands and Amazon sellers grow{" "}
               <span className="relative inline-block">
                 <span className="relative z-10">online sales</span>
@@ -57,8 +53,7 @@ export default function Home() {
               — end to end.
             </h1>
             <p className="mt-6 text-lg text-muted2 max-w-2xl font-light leading-relaxed">
-              Marketplaces, DTC, social, paid media, cross-border logistics and retail distribution.
-              One senior team. One monthly report. One number that matters — your growth.
+              Marketplaces. Social. Paid Media. Cross-Border. One team. One goal — your growth.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/contact">
@@ -80,7 +75,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-muted2 font-light">
-              <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Senior operator on every account</div>
+              <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Senior expert on every account</div>
               <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Weekly ops calls</div>
               <div className="flex items-center gap-2"><Check className="h-4 w-4 text-amber" /> Retainers from £300/month</div>
             </div>
@@ -143,7 +138,29 @@ export default function Home() {
         </div>
       </section>
 
-      <HowItWorks />
+      {/* WHO WE WORK WITH */}
+      <section className="bg-white py-16 border-t border-border">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber text-center">[ We help ]</div>
+          <h2 className="mt-3 text-3xl md:text-4xl font-light text-ink text-center leading-tight">
+            Brands at every stage.
+          </h2>
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-l border-ink">
+            {[
+              { k: "01", t: "SMEs", d: "Small and mid-sized businesses ready to scale online." },
+              { k: "02", t: "Startups & D2C", d: "Early-stage brands finding product-market fit." },
+              { k: "03", t: "Emerging brands", d: "Growing labels ready to expand across channels." },
+              { k: "04", t: "Enterprise brands", d: "Established names optimising global ecommerce." },
+            ].map((x) => (
+              <div key={x.t} data-testid={`home-audience-${x.k}`} className="border-r border-b border-ink p-6 md:p-8">
+                <div className="font-mono text-xs text-muted2">{x.k}</div>
+                <div className="mt-3 text-xl md:text-2xl font-light text-ink leading-tight">{x.t}</div>
+                <div className="mt-2 text-sm text-muted2 font-light leading-relaxed">{x.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* BLOG TEASER */}
       <section className="bg-secondary/40 py-20">

@@ -1,43 +1,74 @@
-# GlobiSync — PRD
+# GlobiSync PRD
 
 ## Original Problem Statement
-Build the best UK ecommerce agency website for GlobiSync. Primary focus: UK-based brands and Amazon sellers. Services: Marketplace Management, Shopify/website optimisation, SEO, Social, Paid Ads, Full Account Management. Secondary: International expansion (UK/US/ME/SEA marketplaces + retail).
+Build and iteratively redesign the website for **GlobiSync**, a UK-based cross-border ecommerce growth partner. The site must be professional, engaging, and conversion-focused — acting as an ecommerce growth partner rather than a consultancy. Aesthetic must be inspired by havasmarket.co.uk (clean, white + amber, DM Sans, grid layouts, no popups on nav dropdowns).
 
-## Architecture
-- Backend: FastAPI + MongoDB + Resend (email fire-and-forget)
-- Frontend: React 19 SPA (CRA) + Tailwind + Shadcn UI
-- SEO: sitemap.xml + robots.txt + JSON-LD structured data + static SEO fallback content in index.html #root so raw HTML response contains H1 + description for crawlers (React hydrates and takes over)
+## Core Requirements
+- 5-item consolidated nav: Ecommerce Support, Social & Digital Marketing, Cross Border Ecommerce, Retail, Team
+- Dropdowns link to full standalone pages with "View All [Category] Services →" links
+- Category overview pages at `/ecommerce`, `/social-digital`, `/cross-border`, `/retail`
+- Retail subpages with exact custom intro text (Retail to Ecommerce, Retail Distribution)
+- 3-role Careers portal with CV upload → email (Marketplace Manager, Marketing Ninja, Social Media Management)
+- Contact + Booking + Careers forms routed via Resend to `globisyncltd@gmail.com`
+- WhatsApp FAB, dynamic SEO (sitemap + raw HTML injection), programmatic subservice pages
 
-## What's implemented
-### V1 — MVP
-- 7-page marketing site + WhatsApp FAB + booking + contact forms
+## Tech Stack
+- **Frontend**: React (CRA), Tailwind, Shadcn UI, DM Sans (light/medium weights only)
+- **Backend**: FastAPI + MongoDB
+- **Email**: Resend (domain-verified, key in backend/.env)
 
-### V2 — UK Reposition
-- Reworked to UK-first agency positioning; new /international-expansion + /blog (35 SEO posts) + How It Works + FAQ + Brand Strip
+## What's Implemented (as of Feb 2026)
+- ✅ Full site structure with SEO-friendly routing (dynamic /services/:slug + 4 category overviews)
+- ✅ Resend email delivery for Contact, Booking, Playbook Lead Magnet, and Careers CV upload
+- ✅ WhatsApp FAB + full contact panel
+- ✅ 3-role Careers portal with 8MB CV upload → email attachment
+- ✅ Nav with hover dropdowns (scrollable), sticky "View All" button, mobile menu
+- ✅ 4-card homepage category grid (Ecommerce Support, Social & Digital, Cross Border, Retail)
+- ✅ "Brands at every stage" audience strip (SMEs, Startups/D2C, Emerging, Enterprise)
+- ✅ Footer consolidated — no "+N more" hidden links, all footer links clickable, service section shows 4 category overview cards only
+- ✅ Contact page displays both `globisyncltd@gmail.com` and `growth@globisync.com`
+- ✅ Hero updated: no kicker, tighter tagline ("Marketplaces. Social. Paid Media. Cross-Border. One team. One goal — your growth.")
+- ✅ "operators" → "experts" language throughout Careers + Home
 
-### V3 — Current iteration
-- Hero copy → "We help brands and Amazon sellers grow online sales — end to end"
-- Removed Est. 2019 pill, earth-model image, 3-month rolling contract chip
-- Added "Retainers from £300/month" and "Free Fee Calculator" secondary CTA
-- Removed Birmingham from title tag + meta description (kept only where physical HQ address is shown)
-- Team reordered + real photos: Shweta (Founder & Director), Zain (Strategic Advisor), Sunny (Lead Consultant — MBA UK, 15+ years)
-- Brand Strip now uses actual logo images from `/brands/*.png` (London RAG, Shaze, Livetech, Tvam, PlayPanda)
-- Footer: removed "Company registration coming soon"; now says "Registered in England · HMRC"
-- FAQ pricing starts from £300/month
-- Case Studies removed from Nav; `/case-studies` route redirects to Home
-- New `/fee-calculator` page (interactive Amazon/eBay/Etsy fee calculator with lead-capture email form)
-- International Expansion regions expanded to 5-6 marketplaces each (UK adds Shopify + NOTHS, US adds eBay + TikTok, ME adds Namshi + TikTok, SEA adds TikTok + Tokopedia)
-- SSR-lite: injected H1 + hero copy + nav + contact info into `<div id="root">` in public/index.html so crawlers see content in raw HTML response
-- "Managers" terminology → "experts" across site
-- Testing agent iteration_3: 100% backend / 96%→100% frontend after Middle East region fix
+## Data Model (MongoDB)
+- `contacts`: { id, name, email, message, created_at }
+- `bookings`: { id, name, email, company, phone, preferred_date, preferred_time, timezone_name, notes, created_at }
+- `applications`: { id, name, email, position, cv_filename, created_at }
 
-## Deferred / Backlog
-- **P0:** Provide **Resend API key** (add to `/app/backend/.env` RESEND_API_KEY=re_xxx and `sudo supervisorctl restart backend`) so contact + booking + fee-calculator lead emails actually deliver to globisyncltd@gmail.com
-- P1: True per-route SSR = migrate to Next.js (current SSR-lite injects same content on all routes until React takes over)
-- P2: Higher-resolution brand logos (current favicons are 256×256 for LondonRag/PlayPanda/Shaze/Livetech; Tvam has proper 21KB logo)
-- P2: Rename actual image files in `/team/` folder so filename matches subject (currently intentionally cross-mapped since asset upload order was mixed)
-- P2: OG image, Google Analytics / GTM
-- P2: Admin page to view submitted bookings/contacts/fee-calc leads
+## Key API Endpoints
+- `POST /api/contact` — send contact message
+- `POST /api/bookings` — book a discovery call
+- `POST /api/careers/apply` — multipart CV upload → email
+- `POST /api/lead-magnet` — playbook delivery
+- `GET /api/sitemap.xml` — programmatic sitemap
+- `GET /api/health` — health check
 
-## Test Credentials
-No auth on site.
+## Priority Backlog
+
+### P0 (Done)
+- ✅ Havas-inspired redesign + 5-item nav
+- ✅ Category overview pages
+- ✅ Retail subpages with exact copy
+- ✅ Homepage: 4-card grid, remove HowItWorks, add "Brands at every stage"
+- ✅ 3-role Careers, no locations/salary
+- ✅ Footer cleanup
+- ✅ Add growth@globisync.com to Contact
+- ✅ Hero updates (kicker removed, tagline updated, "expert" language)
+- ✅ Social & Digital dropdown scrollable with sticky View All
+
+### P1 (Next)
+- Enrich SubService pages further (rich content sections, testimonials, related services) to fully match havas amazon-support depth
+- Add case studies / testimonials section to homepage
+- Delete deprecated pages (InternationalExpansion.jsx if unused, Fee Calculator remnants)
+
+### P2 (Backlog)
+- Structured data enhancement for local SEO (Birmingham)
+- Blog article expansion for programmatic SEO
+- A/B test the homepage hero variants
+
+## Integrations
+- **Resend** (domain-verified) — Contact, Booking, Careers CV, Lead Magnet emails all route to globisyncltd@gmail.com
+
+## Assets & Docs
+- Test credentials file: N/A (no auth in site)
+- Test reports: `/app/test_reports/iteration_1.json` → `iteration_8.json`

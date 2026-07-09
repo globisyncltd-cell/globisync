@@ -53,7 +53,7 @@ export default function Home() {
               — end to end.
             </h1>
             <p className="mt-6 text-lg text-muted2 max-w-2xl font-light leading-relaxed">
-              Marketplaces. Social. Paid Media. Cross-Border. One team. One goal — your growth.
+              One senior team. Every channel that matters — marketplaces, social, paid media, cross-border. One promise: measurable growth, month after month.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/contact">

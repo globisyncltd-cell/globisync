@@ -125,6 +125,38 @@ export const JOBS = [
     location: "UK preferred · Birmingham office / hybrid",
   },
   {
+    id: "bda-india",
+    type: "Full-time · Part-time · Freelance",
+    team: "Growth & Partnerships",
+    title: "Business Development Associate — India (Remote)",
+    summary:
+      "Onboard Indian marketplace sellers and brands onto our platform for UK expansion. Fully remote from India. Flexible hours. Future UK visa sponsorship possible for high performers.",
+    about:
+      "We're seeking a dynamic, results-driven Business Development Associate (BDA) to join our team in India on a fully remote basis. This role is pivotal in expanding our client base and onboarding new Indian marketplace sellers and brands onto GlobiSync's technology platform to expand their presence into the UK. You'll develop strategic relationships, guide sellers through successful onboarding, and coordinate with our UK-based team to facilitate international shipments. We offer ultimate flexibility and trust — this role is available on a full-time, part-time, or professional freelance basis. We don't micro-manage hours or schedules; we're focused on your professional growth and achieving mutual business goals. For high performers who successfully scale this business unit, we offer future UK visa sponsorship opportunities to join our team directly in the United Kingdom.",
+    responsibilities: [
+      "Seller onboarding (primary focus): identify, pitch, and onboard new Indian marketplace sellers and brands looking to expand into the UK market",
+      "Platform integration: guide sellers through integrating with GlobiSync's technology platform and setting up their international shipments",
+      "Relationship management: develop and maintain strong relationships with existing clients to ensure high levels of satisfaction and retention",
+      "Proactive partner support: maintain professional client relations, listen deeply to sellers' needs, and proactively offer solutions to maintain 100% partner satisfaction",
+      "Strategic planning: build comprehensive monthly business development plans and manage your day-to-day outreach routine",
+      "Client meetings: represent the company professionally during virtual and occasional in-person meetings with brand owners and manufacturers",
+    ],
+    requirements: [
+      "Industry experience: former employee of an Indian ecommerce marketplace with a proven track record in seller onboarding (ideally Amazon India, Snapdeal or Flipkart), OR direct experience working with a UK/international ecommerce brand or agency onboarding online sellers",
+      "Proven track record in business development, outbound prospecting, and closing deals within an ecommerce environment",
+      "Communication: fluency in Hindi and English is essential — you must be able to speak with Indian vendors natively while seamlessly collaborating with our UK office",
+      "Work ethic: a proactive, self-motivated approach with the ability to work independently in a remote environment",
+      "Technical & presentation: basic proficiency in Microsoft Excel to prepare, analyze, and present seller data",
+      "Work setup: reliable laptop/desktop and stable internet connection for regular video calls and team meetings",
+    ],
+    niceToHave: [
+      "Existing relationships with Indian D2C brands or export-ready manufacturers",
+      "Prior exposure to Amazon Global Selling / cross-border seller programmes",
+      "Familiarity with UK ecommerce landscape and marketplace ecosystems",
+    ],
+    location: "India · Fully remote · UK visa sponsorship potential for top performers",
+  },
+  {
     id: "freelance-business-development",
     type: "Freelance · Project basis",
     team: "Growth & Partnerships",

@@ -1,33 +1,14 @@
 import React from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { getSubservice, getRelated } from "@/lib/menus";
+import { getSubservice, getRelated, CATEGORY_CONTENT } from "@/lib/menus";
 import { SITE } from "@/lib/content";
 import SEO from "@/components/SEO";
 import { ArrowUpRight, Check, Target, Users, LineChart, ArrowRight } from "lucide-react";
 
 const BRANDS = ["London RAG", "Shaze", "Livetech", "Tvam", "PlayPanda"];
 
-const APPROACH = [
-  {
-    icon: Target,
-    step: "01",
-    title: "Audit & baseline",
-    desc: "We map your current position, unit economics, and category dynamics — in writing — before recommending a single change.",
-  },
-  {
-    icon: Users,
-    step: "02",
-    title: "Named senior expert",
-    desc: "A senior specialist owns your account day-to-day. One Slack channel. Weekly ops calls. No offshored handoffs.",
-  },
-  {
-    icon: LineChart,
-    step: "03",
-    title: "Ship, measure, iterate",
-    desc: "We execute against a 90-day plan, review weekly, and reforecast monthly. Written monthly readouts, quarterly business reviews.",
-  },
-];
+const STEP_ICONS = [Target, Users, LineChart];
 
 export default function SubService() {
   const { slug } = useParams();
@@ -37,6 +18,8 @@ export default function SubService() {
   const bullets = Array.isArray(s.bullets) ? s.bullets : [];
   const hasBullets = bullets.length > 0;
   const related = getRelated(slug, 6);
+  const catContent = CATEGORY_CONTENT[s.parentId] || {};
+  const approach = catContent.approach || [];
 
   return (
     <>
@@ -115,11 +98,11 @@ export default function SubService() {
                 [ What's included ]
               </div>
               <h2 className="mt-3 text-3xl md:text-4xl font-light text-ink leading-tight">
-                The full scope of what we run for you.
+                {catContent.includedHeadline || "The full scope of what we run for you."}
               </h2>
               <p className="mt-4 text-muted2 font-light leading-relaxed">
-                No hidden extras. No "that's out of scope" surprises three months in.
-                What's on this list is what we own end-to-end.
+                {catContent.includedIntro ||
+                  "No hidden extras. No 'that's out of scope' surprises three months in. What's on this list is what we own end-to-end."}
               </p>
             </div>
             <div className="lg:col-span-8 grid sm:grid-cols-2 gap-3">
@@ -139,38 +122,40 @@ export default function SubService() {
       )}
 
       {/* HOW WE DELIVER */}
-      <section className="bg-white py-20 border-t border-border">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">
-            [ How we deliver ]
-          </div>
-          <h2 className="mt-3 text-3xl md:text-4xl font-light text-ink leading-tight max-w-2xl">
-            A rhythm that compounds, not a project that ends.
-          </h2>
+      {approach.length > 0 && (
+        <section className="bg-white py-20 border-t border-border">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
+            <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">
+              [ How we deliver ]
+            </div>
+            <h2 className="mt-3 text-3xl md:text-4xl font-light text-ink leading-tight max-w-2xl">
+              {catContent.deliveryHeadline || "A rhythm that compounds, not a project that ends."}
+            </h2>
 
-          <div className="mt-12 grid md:grid-cols-3 gap-0 border-t border-l border-ink">
-            {APPROACH.map((a) => {
-              const Icon = a.icon;
-              return (
-                <div
-                  key={a.step}
-                  data-testid={`subservice-approach-${a.step}`}
-                  className="border-r border-b border-ink p-6 lg:p-8 group hover:bg-amber transition-colors"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="font-mono text-xs text-muted2 group-hover:text-ink/70">{a.step}</div>
-                    <Icon className="h-5 w-5 text-amber group-hover:text-ink transition-colors" />
+            <div className="mt-12 grid md:grid-cols-3 gap-0 border-t border-l border-ink">
+              {approach.map((a, i) => {
+                const Icon = STEP_ICONS[i] || Target;
+                return (
+                  <div
+                    key={a.step}
+                    data-testid={`subservice-approach-${a.step}`}
+                    className="border-r border-b border-ink p-6 lg:p-8 group hover:bg-amber transition-colors"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="font-mono text-xs text-muted2 group-hover:text-ink/70">{a.step}</div>
+                      <Icon className="h-5 w-5 text-amber group-hover:text-ink transition-colors" />
+                    </div>
+                    <div className="mt-6 text-2xl font-light text-ink leading-tight">{a.title}</div>
+                    <p className="mt-3 text-sm text-muted2 font-light leading-relaxed group-hover:text-ink/80">
+                      {a.desc}
+                    </p>
                   </div>
-                  <div className="mt-6 text-2xl font-light text-ink leading-tight">{a.title}</div>
-                  <p className="mt-3 text-sm text-muted2 font-light leading-relaxed group-hover:text-ink/80">
-                    {a.desc}
-                  </p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* TRUSTED BY */}
       <section className="bg-slate950 text-white py-16 relative overflow-hidden">

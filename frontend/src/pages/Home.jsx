@@ -123,12 +123,27 @@ export default function Home() {
                   <p className="mt-4 text-muted2 group-hover:text-ink/80 font-light leading-relaxed">
                     {cat.overview}
                   </p>
-                  <div className="mt-8 flex items-center justify-between">
+                  {cat.pitch && (
+                    <p className="mt-3 text-sm text-ink font-medium leading-relaxed">
+                      {cat.pitch}
+                    </p>
+                  )}
+                  {cat.stats && (
+                    <div className="mt-6 grid grid-cols-3 gap-0 border-t border-l border-ink/40 group-hover:border-ink/60">
+                      {cat.stats.map((s, i) => (
+                        <div key={i} className="p-3 border-r border-b border-ink/40 group-hover:border-ink/60">
+                          <div className="text-lg font-light text-ink leading-none">{s.k}</div>
+                          <div className="text-[10px] text-muted2 group-hover:text-ink/70 font-mono uppercase tracking-[0.15em] mt-1">{s.v}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="mt-6 flex items-center justify-between">
                     <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2 group-hover:text-ink/70">
                       {cat.items.length} services
                     </div>
                     <div className="text-sm font-medium text-ink flex items-center gap-1 group-hover:gap-2 transition-all">
-                      View all <ArrowUpRight className="h-4 w-4" />
+                      Explore <ArrowUpRight className="h-4 w-4" />
                     </div>
                   </div>
                 </Link>

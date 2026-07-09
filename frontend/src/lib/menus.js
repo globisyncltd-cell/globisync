@@ -60,7 +60,13 @@ export const MENUS = [
   {
     id: "ecommerce-support",
     label: "Ecommerce Support",
-    overview: "Every marketplace and DTC operation we run for our clients — end to end.",
+    overview: "Amazon, eBay, Etsy, Shopify and every marketplace in between — run as one senior team. Listings, PPC, inventory, buy-box discipline. Not a monthly deck. A daily operating cadence.",
+    pitch: "From launch to £10m — the full marketplace ops rhythm most brands never get from an agency.",
+    stats: [
+      { k: "12", v: "Services" },
+      { k: "£45m+", v: "GMV managed" },
+      { k: "Named", v: "Senior owner" },
+    ],
     overviewSlug: "ecommerce",
     items: [
       { slug: "amazon", title: "Amazon" },
@@ -80,7 +86,13 @@ export const MENUS = [
   {
     id: "social-digital",
     label: "Social & Digital Marketing",
-    overview: "Content, community and paid growth — under one integrated team.",
+    overview: "Content that stops the scroll. Paid media that scales past the platform's suggestion. SEO that compounds while you sleep. Every digital growth lever under one integrated team.",
+    pitch: "21 services. One blended MER target. Meta, Google, TikTok, SEO, CRM — one team, no platform-vs-platform blame.",
+    stats: [
+      { k: "21", v: "Services" },
+      { k: "8+", v: "Ad platforms" },
+      { k: "Weekly", v: "Creative testing" },
+    ],
     overviewSlug: "social-digital",
     items: [
       { slug: "facebook-management", title: "Facebook Management" },
@@ -109,7 +121,13 @@ export const MENUS = [
   {
     id: "cross-border",
     label: "Cross Border Ecommerce",
-    overview: "For international brands entering the UK — logistics, compliance, distribution.",
+    overview: "For international brands entering the UK: warehousing, compliance, distribution, freight, brand positioning. We handle every step from your factory door to a UK customer's doormat.",
+    pitch: "One partner. Every border crossing. Free UK warehousing to launch. VAT, EORI, UKCA — handled. Buyer intros — earned.",
+    stats: [
+      { k: "Free", v: "UK warehousing" },
+      { k: "6", v: "Cross-border services" },
+      { k: "10+", v: "Countries served" },
+    ],
     overviewSlug: "cross-border",
     items: [
       { slug: "uk-warehouse-storage", title: "Access to UK Warehouse & Free Storage" },
@@ -123,7 +141,13 @@ export const MENUS = [
   {
     id: "retail",
     label: "Retail",
-    overview: "Bridging the gap between ecommerce and physical retail.",
+    overview: "Bridging ecommerce and physical retail. Whether you're a shelf-first brand launching online, or a DTC brand ready to walk into Waitrose — we know both sides of the till.",
+    pitch: "Retail-to-online. Online-to-retail. Same trading DNA. Warm intros. Buyer meetings. Real distribution.",
+    stats: [
+      { k: "2", v: "Retail programmes" },
+      { k: "6+", v: "UK retailer relationships" },
+      { k: "Warm", v: "Buyer introductions" },
+    ],
     overviewSlug: "retail",
     items: [
       {
@@ -147,6 +171,102 @@ export const MENUS = [
     items: null,
   },
 ];
+
+// Per-category content for SubService pages (What's included intro + How we deliver steps)
+export const CATEGORY_CONTENT = {
+  "ecommerce-support": {
+    includedHeadline: "The full marketplace ops stack — under one roof.",
+    includedIntro:
+      "Marketplaces reward a daily operating rhythm, not monthly decks. Everything below is what we own, day-in, day-out, for every marketplace account we run.",
+    approach: [
+      {
+        step: "01",
+        title: "Marketplace audit & unit economics",
+        desc: "We map your current listings, ad spend, TACoS, and buy-box share against category benchmarks — and quantify the growth opportunity in writing.",
+      },
+      {
+        step: "02",
+        title: "A senior marketplace expert owns it",
+        desc: "A named specialist runs the account. Weekly ops calls. One Slack channel. No offshored PPC handoffs, no revolving juniors.",
+      },
+      {
+        step: "03",
+        title: "Ship, measure, iterate",
+        desc: "90-day roadmap. Weekly velocity checks against TACoS + review count + Buy Box share. Monthly written readouts. Quarterly business reviews.",
+      },
+    ],
+    deliveryHeadline: "A weekly operating cadence — not a monthly retainer performance.",
+  },
+  "social-digital": {
+    includedHeadline: "One integrated stack. Every growth lever aligned.",
+    includedIntro:
+      "Content, paid, SEO, CRM, and CRO — run by one team against one blended MER target. Nothing gets siloed. Nothing gets ignored.",
+    approach: [
+      {
+        step: "01",
+        title: "Full-funnel audit & creative baseline",
+        desc: "We audit your paid stack, organic footprint, and creative library — then map where lost demand is hiding (usually in creative fatigue or attribution gaps).",
+      },
+      {
+        step: "02",
+        title: "Weekly creative testing framework",
+        desc: "Meta + TikTok run against a rolling test/learn/scale queue. New assets shipped every week. Winners scaled by day 10. Losers killed by day 5.",
+      },
+      {
+        step: "03",
+        title: "Blended MER, unified reporting",
+        desc: "One dashboard. One north-star metric. Weekly readouts. No more platform-reported ROAS lies — everything reconciles to your P&L.",
+      },
+    ],
+    deliveryHeadline: "Creative velocity. Media discipline. Compounding organic.",
+  },
+  "cross-border": {
+    includedHeadline: "Everything between your factory and a UK customer.",
+    includedIntro:
+      "We handle the cross-border logistics, tax, and market-entry work that most brands underestimate — and most agencies quietly outsource.",
+    approach: [
+      {
+        step: "01",
+        title: "Market-entry audit",
+        desc: "Landed-cost model, UK VAT / EORI status, UKCA compliance check, category-specific import rules. In writing, before you commit inventory.",
+      },
+      {
+        step: "02",
+        title: "Free UK warehousing to launch",
+        desc: "Your first inventory lands in our UK warehouse — free — while we set up FBA prep, 3PL routing, and marketplace onboarding.",
+      },
+      {
+        step: "03",
+        title: "Retail + ecommerce distribution",
+        desc: "Warm introductions to UK buyers (Waitrose, John Lewis, Boots, Ocado) alongside marketplace launch. One partner, both channels.",
+      },
+    ],
+    deliveryHeadline: "One partner across every border, buyer and box.",
+  },
+  retail: {
+    includedHeadline: "Both sides of the till.",
+    includedIntro:
+      "Whether you're a retail-first brand ready to build a genuine online channel, or an ecommerce brand chasing shelf space — we've done both sides of the trade.",
+    approach: [
+      {
+        step: "01",
+        title: "Category & retailer mapping",
+        desc: "We identify the retailers where your brand actually belongs — and the ones you should politely walk past. Buyer research, category health checks, competitive intel.",
+      },
+      {
+        step: "02",
+        title: "Warm introductions & buyer prep",
+        desc: "Our network of UK buyers and distributors opens doors — but only after your brand deck, pricing structure, and packaging are retail-ready. We prep both sides.",
+      },
+      {
+        step: "03",
+        title: "Ongoing retail account management",
+        desc: "Landing a listing is 20% of the work. Trade-marketing, promotional planning, and account management make up the other 80% — and we run that alongside you.",
+      },
+    ],
+    deliveryHeadline: "From ecommerce ambition to shelf-ready reality — or the reverse.",
+  },
+};
 
 // Short descriptions for subservice pages
 const DESC = {

@@ -8,7 +8,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Briefcase, Upload, CheckCircle2, Loader2, ArrowUpRight } from "lucide-react";
+import { Briefcase, Upload, CheckCircle2, Loader2, ArrowUpRight, ChevronDown } from "lucide-react";
 import SEO from "@/components/SEO";
 import { JOBS } from "@/lib/jobs";
 
@@ -165,12 +165,108 @@ function ApplyDialog({ open, onOpenChange, job }) {
   );
 }
 
+function JobRow({ job, onApply }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <article
+      data-testid={`career-card-${job.id}`}
+      className="border-r border-b border-ink hover:bg-secondary/40 transition-colors"
+    >
+      <div className="p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{job.team}</span>
+            <span className="text-muted2">·</span>
+            <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{job.type}</span>
+          </div>
+          <div className="mt-2 text-xl md:text-2xl font-light text-ink leading-snug">{job.title}</div>
+          <p className="mt-2 text-sm text-muted2 leading-relaxed max-w-2xl font-light">{job.summary}</p>
+        </div>
+        <div className="flex flex-col md:flex-row gap-2 flex-none">
+          <button
+            data-testid={`career-details-btn-${job.id}`}
+            onClick={() => setExpanded((v) => !v)}
+            className="rounded-none bg-white text-ink border border-ink px-4 h-10 text-sm font-medium hover:bg-ink hover:text-white transition-colors inline-flex items-center gap-1"
+          >
+            {expanded ? "Hide details" : "Full description"}
+            <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} />
+          </button>
+          <Button
+            data-testid={`career-apply-btn-${job.id}`}
+            onClick={() => onApply(job)}
+            className="rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium"
+          >
+            Apply <ArrowUpRight className="ml-1 h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      {expanded && (
+        <div
+          data-testid={`career-details-${job.id}`}
+          className="border-t border-ink bg-white p-6 md:p-8 grid md:grid-cols-2 gap-8"
+        >
+          {job.about && (
+            <div className="md:col-span-2">
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ The role ]</div>
+              <p className="mt-3 text-muted2 font-light leading-relaxed">{job.about}</p>
+            </div>
+          )}
+          {job.responsibilities && (
+            <div>
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ What you'll own ]</div>
+              <ul className="mt-3 space-y-2 text-sm text-ink font-light">
+                {job.responsibilities.map((r, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="text-amber flex-none">→</span>
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {job.requirements && (
+            <div>
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ What we need ]</div>
+              <ul className="mt-3 space-y-2 text-sm text-ink font-light">
+                {job.requirements.map((r, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="text-amber flex-none">→</span>
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {job.niceToHave && job.niceToHave.length > 0 && (
+            <div className="md:col-span-2">
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Nice to have ]</div>
+              <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-muted2 font-light">
+                {job.niceToHave.map((r, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="text-amber flex-none">◇</span>
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {job.location && (
+            <div className="md:col-span-2 pt-4 border-t border-border">
+              <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">Location · {job.location}</div>
+            </div>
+          )}
+        </div>
+      )}
+    </article>
+  );
+}
+
 export default function Careers() {
   const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
 
   const onApply = (job) => { setSelected(job); setOpen(true); };
-
   return (
     <>
       <SEO
@@ -203,28 +299,7 @@ export default function Careers() {
           </div>
           <div className="grid gap-0 border-t border-l border-ink">
             {JOBS.map((j) => (
-              <article
-                key={j.id}
-                data-testid={`career-card-${j.id}`}
-                className="border-r border-b border-ink p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-6 hover:bg-secondary/40 transition-colors"
-              >
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap gap-2 items-center">
-                    <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{j.team}</span>
-                    <span className="text-muted2">·</span>
-                    <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{j.type}</span>
-                  </div>
-                  <div className="mt-2 text-xl md:text-2xl font-light text-ink leading-snug">{j.title}</div>
-                  <p className="mt-2 text-sm text-muted2 leading-relaxed max-w-2xl font-light">{j.summary}</p>
-                </div>
-                <Button
-                  data-testid={`career-apply-btn-${j.id}`}
-                  onClick={() => onApply(j)}
-                  className="flex-none rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium"
-                >
-                  Apply <ArrowUpRight className="ml-1 h-4 w-4" />
-                </Button>
-              </article>
+              <JobRow key={j.id} job={j} onApply={onApply} />
             ))}
           </div>
         </div>

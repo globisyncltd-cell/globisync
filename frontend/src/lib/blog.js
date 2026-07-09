@@ -19,6 +19,591 @@ const IMG = {
 
 export const BLOG = [
   {
+    slug: "ai-agents-ecommerce-2026",
+    title: "AI agents for ecommerce: what's actually shipping in 2026",
+    excerpt: "The hype cycle for AI agents has finally started delivering shippable tools. Here's what we're using across client accounts — and what's still vapourware.",
+    category: "Operations",
+    keywords: ["AI agents ecommerce", "ecommerce automation 2026", "ChatGPT ecommerce"],
+    author: A, date: "2026-02-06", readTime: "7 min", image: IMG.ops,
+    body: `In 2024, "AI agent" meant a demo. In 2026, it means a working part of the ecommerce ops stack for brands that were early. Here's what's actually shipping — and what's still vapourware.
+
+## What genuinely works today
+
+Customer service triage (Zendesk AI, Intercom Fin) is the single most mature use case. It handles 40-60% of tier-one queries reliably in most DTC categories.
+
+Amazon listing generation from a product brief works — but requires human editing before publishing. It saves 60% of the time, not 90%.
+
+PPC bid management via native platform AI (Amazon Advertising, Google PMax) outperforms hand-tuning for accounts with clean baseline data.
+
+## What still isn't ready
+
+Fully autonomous copywriting agents at brand-voice level. They can produce competent listings but not distinctive ones.
+
+Multi-step ops automations (order → inventory → replenishment) still need human-in-the-loop.
+
+Creative production via Sora 2 / Runway is beginning to feed the ad testing framework, but human curation of outputs is essential.
+
+## Where the leverage actually sits
+
+Founders who use AI to compress their own senior time — writing briefs, summarising reports, drafting responses — get compounding returns. Founders who try to replace teams get compounding regret. Choose accordingly.`
+  },
+  {
+    slug: "tiktok-shop-uk-2026-state-of-play",
+    title: "TikTok Shop UK in 2026: mid-year state of play",
+    excerpt: "TikTok Shop UK grew faster than any marketplace we've tracked. Here's where it stands mid-2026 — and what to change if you launched in 2024.",
+    category: "Paid Ads",
+    keywords: ["TikTok Shop UK 2026", "TikTok Shop growth", "sell on TikTok UK"],
+    author: A, date: "2026-02-04", readTime: "6 min", image: IMG.ads,
+    body: `TikTok Shop UK has now scaled past most people's early-adopter thesis. Categories that once felt marginal on the platform now do six-figure days consistently. Here's the mid-2026 snapshot.
+
+## The three category tiers
+
+Tier 1 (breakout): beauty, food, home fragrance, apparel. Live selling is the norm. Affiliates dominate.
+
+Tier 2 (growing): supplements, pet, small electricals, kitchenware. Affiliate seeding still cheap.
+
+Tier 3 (still hard): high-consideration or high-price. Buyers scroll past.
+
+## What's changed since 2024
+
+Take-rate discipline: TikTok's platform fee climbed. Model your unit economics again.
+
+Affiliate saturation in beauty and food: commissions have crept up to 20-25% to attract quality creators.
+
+Live selling professionalisation: brands with two-hour weekly lives dominate.
+
+## What still works
+
+Affiliate seeding to sub-100k-follower TikTokers. Cheap, plentiful, honest conversion.
+
+Boosting affiliate content via Spark Ads. Compounds on organic reach.
+
+## What's stopped working
+
+Cold Meta-style creative that tries to sell in 15 seconds. TikTok buyers reward native-feeling content.
+
+Live selling from an office desk with poor lighting and no scripting. Amateur hour is over.
+
+## The one thing every UK brand should do
+
+Enrol in the TikTok Shop Affiliate programme today, even if you don't sell heavily on the platform. It's the fastest-to-scale growth channel of the year.`
+  },
+  {
+    slug: "amazon-rufus-changing-discovery",
+    title: "Amazon Rufus: how the AI assistant is changing product discovery",
+    excerpt: "Amazon Rufus quietly became one of the most impactful ranking shifts on the platform. Here's how it works and how to optimise for it.",
+    category: "Amazon",
+    keywords: ["Amazon Rufus", "Amazon AI assistant", "Amazon listing optimisation"],
+    author: A, date: "2026-02-02", readTime: "7 min", image: IMG.amazon,
+    body: `Amazon Rufus — the AI shopping assistant embedded in the Amazon UK app and site — is now driving a meaningful share of product-detail-page visits. It's also quietly changed what a "good listing" looks like.
+
+## What Rufus actually is
+
+An LLM-powered assistant that answers shopper questions in natural language, referencing your listing content (title, bullets, A+, reviews, Q&A) to compose responses.
+
+## Why it matters
+
+Rufus recommends products conversationally. That means your listing content needs to answer buying questions — not just describe features. If your bullets read like a spec sheet, Rufus can't pitch you.
+
+## What to change in your listings
+
+Bullets need concrete use cases and buyer language, not spec bullets.
+A+ content needs question-answer framing.
+Q&A section needs seeding from actual buyer questions.
+Reviews with detailed use-case comments outperform short ones.
+
+## The compounding effect
+
+Rufus rewards listings with structured, question-first content — which is also what human buyers reward. There's no trade-off. Do the work once, both channels win.
+
+## Where sellers are missing the boat
+
+Still writing keyword-stuffed bullets. Rufus reads them, discards them, and picks the competitor with clean content.
+
+Ignoring Q&A. Even seeded Q&A (from your own team, disclosed) meaningfully improves Rufus discoverability.`
+  },
+  {
+    slug: "google-ai-overviews-ecommerce-seo",
+    title: "How Google's AI Overviews are hitting ecommerce SEO",
+    excerpt: "AI Overviews eat search real estate at the top of the SERP. Here's what we're seeing across UK ecommerce clients — and how to adapt.",
+    category: "SEO",
+    keywords: ["Google AI Overviews", "AI Overviews SEO", "ecommerce SEO 2026"],
+    author: B, date: "2026-01-30", readTime: "6 min", image: IMG.seo,
+    body: `Google's AI Overviews now appear on a large chunk of ecommerce-adjacent queries. For informational content, they've compressed click-through rates significantly. For transactional queries, they're barely a factor. Here's what we're seeing.
+
+## Where AI Overviews hurt
+
+"How to" and "best" queries lose 30-50% of clicks to AI Overview summaries. If your top-of-funnel content strategy relied on these, it's under structural pressure.
+
+## Where AI Overviews barely register
+
+Direct product searches ("[brand] [product]") and comparison queries with brand names in them. AI Overviews rarely surface — the SERP still favours direct commercial results.
+
+## What to do
+
+Rebalance your content mix: less "10 best X" content, more genuine comparison, buying guides, and category deep-dives that AI Overviews cite (and therefore drive brand awareness) even when they don't drive direct clicks.
+
+Structure content for citation: numbered lists, clear H2s, direct answers in the first paragraph. Ranked citations in AI Overviews look and feel like credibility.
+
+## The hidden opportunity
+
+Being cited in an AI Overview is a brand-visibility win even without the click. If your brand appears as a source across a dozen relevant queries, it becomes the default consideration.
+
+## Measurement
+
+Track "cited-in AI Overview" as a KPI, not just organic clicks. Tools like Semrush and Ahrefs now flag this. Report it monthly alongside brand-search volume.`
+  },
+  {
+    slug: "post-brexit-vat-changes-2026",
+    title: "Post-Brexit VAT changes affecting UK ecommerce sellers in 2026",
+    excerpt: "Two significant VAT adjustments landed in 2026. Here's what changed, who it affects, and how to update your accounting.",
+    category: "International",
+    keywords: ["UK VAT 2026", "post-Brexit VAT", "UK ecommerce compliance"],
+    author: C, date: "2026-01-28", readTime: "6 min", image: IMG.intl,
+    body: `Two VAT changes in 2026 matter for UK ecommerce sellers — one affecting overseas sellers, one affecting UK-based B2B trade. Here's the plain-English version.
+
+## Change one: the £135 threshold
+
+The old £135 rule (below which marketplaces collect VAT on behalf of overseas sellers) has been reviewed. Higher-value B2B orders now have a clarified process — check your marketplace's updated seller policy for details.
+
+## Change two: reverse charge for B2B services
+
+Reverse charge rules for cross-border services have been tightened. If you're a UK business receiving marketing, agency, or software services from outside the UK, the accounting treatment has changed.
+
+## Who's affected
+
+Overseas sellers into the UK marketplace: broadly unchanged for orders under £135. Above that, clearer rules.
+
+UK businesses buying international services: reverse charge accounting is now required for a broader range of digital and marketing services.
+
+## What to do
+
+Update your bookkeeping software's default VAT treatment on international invoices.
+Ask your accountant to run a VAT compliance review before filing your next return.
+If you're an overseas seller, revisit your marketplace onboarding guides — they now reflect the updated rules.
+
+## The compliance risk
+
+HMRC continues to actively enforce VAT compliance for ecommerce sellers. A three-year backdated assessment for missed VAT can end a small business. Investing £500 in an accountant review now is cheaper than any alternative.`
+  },
+  {
+    slug: "sustainable-packaging-uk-dtc",
+    title: "Sustainable packaging for UK DTC brands: what buyers actually want",
+    excerpt: "Consumer research keeps saying sustainability matters. Their purchasing behaviour is more nuanced. Here's what we're seeing in practice.",
+    category: "Operations",
+    keywords: ["sustainable packaging DTC", "eco packaging UK", "sustainable ecommerce"],
+    author: B, date: "2026-01-26", readTime: "6 min", image: IMG.ops,
+    body: `Sustainability is a marketing lever every brand claims to care about. The purchasing reality across our UK DTC roster is more nuanced.
+
+## What buyers reward with money
+
+Recyclable outer packaging: universally expected. Not doing this loses trust; doing it doesn't win business.
+
+Genuine reduced-plastic messaging: measurable CVR lift for beauty, pet, and food brands.
+
+Reusable inner packaging: rewarded in gifting and premium categories.
+
+## What buyers don't reward
+
+Compostable packaging that requires industrial composting. Buyers can't compost it and know it.
+
+"Carbon neutral" claims without documentation. Buyers now recognise greenwashing patterns.
+
+Reduced-packaging that damages the product experience. Unboxing still matters.
+
+## The middle path
+
+Right-size boxes for the product. Kill void fill unless necessary. Use recycled kraft paper. Print less. Recyclable everywhere. Document the changes clearly on the PDP.
+
+## What actually moves needle
+
+A one-sentence PDP claim: "Ships in fully recyclable, plastic-free packaging" moves CVR 0.3-0.8% across categories we've tested. It's specific, credible, and buyer-friendly.
+
+## The one thing to stop
+
+Adding a "sustainability" page to your website and then never touching it. Buyers audit it in 30 seconds. If it's thin, they discount the whole brand claim.`
+  },
+  {
+    slug: "end-of-cookies-ecommerce-adapting",
+    title: "The end of third-party cookies: how ecommerce brands are adapting",
+    excerpt: "Chrome finally deprecated third-party cookies. Here's what actually broke, what didn't, and how the sharpest ecommerce brands are re-architecting attribution.",
+    category: "Paid Ads",
+    keywords: ["third party cookies", "cookieless tracking", "GA4 ecommerce"],
+    author: A, date: "2026-01-24", readTime: "7 min", image: IMG.ads,
+    body: `Chrome's phased deprecation of third-party cookies is now largely complete. The internet did not, in fact, break. Here's what actually changed.
+
+## What broke
+
+Cross-site retargeting is meaningfully less effective. Frequency capping across platforms is harder. Some third-party attribution tools (older ones) lost accuracy.
+
+## What didn't break
+
+First-party tracking on your own site works exactly as before. Server-side tagging via GTM Server or Elevar continues to work well. Platform-side pixels (Meta CAPI, TikTok Events API) have quietly become the primary attribution layer.
+
+## What the sharpest brands are doing
+
+Server-side tagging: 90%+ of our clients are now running conversions API + server-side GTM.
+
+First-party data enrichment: sending Meta CAPI enriched customer data (hashed email, phone, address) alongside events, dramatically improving match rate.
+
+Modelled attribution: accepting that platform ROAS numbers are estimated, and reconciling to MER (Marketing Efficiency Ratio) as the source of truth.
+
+## What to stop doing
+
+Trusting last-click GA4 attribution. Trusting platform ROAS in isolation. Believing there's a "single source of truth" attribution tool — there isn't.
+
+## The tactical implication
+
+Your ad account structures matter less than ever. Your creative and your first-party data matter more than ever. Reallocate budget accordingly.`
+  },
+  {
+    slug: "shopify-markets-vs-headless",
+    title: "Shopify Markets vs headless: choosing your international architecture",
+    excerpt: "Two credible paths for international ecommerce on Shopify — Markets or headless. Here's how to decide.",
+    category: "Shopify",
+    keywords: ["Shopify Markets", "headless Shopify", "international ecommerce architecture"],
+    author: A, date: "2026-01-22", readTime: "7 min", image: IMG.shopify,
+    body: `When you're ready to scale a Shopify brand internationally, two architectures now compete: Shopify Markets (native multi-currency + geolocation) or headless (custom frontend with Shopify as the commerce engine). Both work. Neither is right for everyone.
+
+## When Shopify Markets is right
+
+You want speed to market. You value first-party support and easy internal training. You're launching 2-5 markets with mostly-consistent SKUs. You can live with theme-level design constraints.
+
+## When headless is right
+
+You have a demanding brand-design requirement. You need edge-cached performance for a global audience. You're integrating multiple systems (loyalty, CMS, custom checkout) at scale. You have engineering resource to maintain it.
+
+## The cost comparison, honestly
+
+Shopify Markets: your existing Plus licence + theme work + Markets Pro fees. Total incremental cost: £5k-£25k depending on complexity.
+
+Headless: platform cost (Vercel/Netlify), CMS (Sanity/Contentful), dev team (£30k-£120k build, ongoing maintenance).
+
+## The middle path
+
+Shopify Markets to prove international demand. Migrate to headless when the traffic and revenue justify the engineering investment.
+
+## Where founders regret their choice
+
+Going headless before proving demand ("we might scale, so let's build for it"). Staying on Markets after outgrowing it ("we've customised so much we're de facto headless now").
+
+Match architecture to today's problem, not next year's ambition.`
+  },
+  {
+    slug: "amazon-business-uk-b2b-marketplace",
+    title: "Amazon Business (B2B) UK: the underrated marketplace for 2026",
+    excerpt: "Most sellers focus on Amazon consumer. But Amazon Business UK is quietly a serious B2B channel. Here's what to know.",
+    category: "Amazon",
+    keywords: ["Amazon Business UK", "B2B Amazon", "Amazon B2B seller"],
+    author: A, date: "2026-01-20", readTime: "6 min", image: IMG.amazon,
+    body: `Amazon Business UK is the B2B version of the Amazon marketplace — and it's grown quietly into a serious revenue channel for the right sellers.
+
+## What Amazon Business actually is
+
+A B2B marketplace layer on top of standard Amazon. Businesses register, get access to B2B-specific pricing, tiered quantity discounts, tax-free invoicing, and specialist categories (industrial, medical, office).
+
+## Why it's underrated
+
+Higher AOV than consumer Amazon. Lower CAC than typical B2B channels. Less price-sensitive buyers (they're spending company money). Repeat purchase rate is genuinely high in office/consumables categories.
+
+## Who it works for
+
+Products with genuine B2B use cases: office supplies, industrial equipment, cleaning products, healthcare, safety.
+
+Products where volume discounts make sense.
+
+Established consumer brands looking to expand into commercial channels.
+
+## Who it doesn't work for
+
+Purely consumer-lifestyle brands. Products with no realistic B2B use. Sellers unwilling to offer tiered quantity pricing.
+
+## The tactical setup
+
+Enable Amazon Business Seller Program in Seller Central. Set B2B-specific pricing (typically 5-15% below consumer for volume). Enable quantity discounts at 2, 5, 10, 25 unit tiers. Update titles/bullets to reflect B2B use cases where applicable.
+
+## The one thing to know
+
+Amazon Business buyers behave differently — they research more, buy larger, and repeat-buy predictably. Adjust your listing content, service level, and post-purchase experience to reflect that.`
+  },
+  {
+    slug: "instagram-vs-tiktok-uk-brands-2026",
+    title: "Instagram vs TikTok in 2026: where UK brands should invest first",
+    excerpt: "Both platforms matter. But not equally, and not for every brand. Here's the framework we use across client engagements.",
+    category: "Paid Ads",
+    keywords: ["Instagram vs TikTok", "social media UK brands", "TikTok Shop Instagram Shopping"],
+    author: A, date: "2026-01-18", readTime: "6 min", image: IMG.ads,
+    body: `Instagram vs TikTok isn't a religious choice. It's a category and life-stage decision.
+
+## Where TikTok wins outright
+
+Beauty, food, fashion under £80 AOV, novelty categories. Younger demographics (under 35). Products that demo well in 15 seconds.
+
+## Where Instagram wins outright
+
+Higher AOV lifestyle (over £150), interiors, wellness, considered categories. Older demographics (35+). Products that need story and context.
+
+## Where they compete
+
+Mid-AOV DTC (£40-£100). Fashion, accessories, home. Here you should run both, but with different creative playbooks.
+
+## The Instagram edge that's underrated
+
+Reels are now more effective than posts. Instagram Shopping has quietly become better-integrated than it was in 2023. Stories drive intent-heavy traffic.
+
+## The TikTok edge that's underrated
+
+TikTok Shop's affiliate programme scales in a way Instagram can't match. Live selling drives measurable GMV. Creator-led content converts.
+
+## The decision framework
+
+If you're under-25 skewed and under-£80 AOV, TikTok first, Instagram support.
+
+If you're over-30 skewed and over-£100 AOV, Instagram first, TikTok test.
+
+If you're in between, run both — but resource them differently. TikTok is content-volume-driven; Instagram is craft-driven.`
+  },
+  {
+    slug: "warehouse-automation-3pl-vs-inhouse-2026",
+    title: "Warehouse automation for SMEs: 3PL vs in-house in 2026",
+    excerpt: "Warehouse automation for SMEs is finally viable, but the decision to insource or outsource has changed. Here's the current calculus.",
+    category: "Operations",
+    keywords: ["warehouse automation ecommerce", "3PL vs in-house", "SME logistics"],
+    author: C, date: "2026-01-16", readTime: "7 min", image: IMG.ops,
+    body: `Warehouse automation used to require £2m+ of investment. In 2026, entry-level pick-and-pack automation is £150-£400k, dramatically shifting the SME decision.
+
+## When in-house is now viable
+
+Above 500 orders/day, in-house automated fulfilment starts to pencil.
+
+If order volume is consistent (not seasonal-spike-driven), automation ROI improves.
+
+If you have space and a willingness to hire operational leadership, the returns are real.
+
+## When 3PL still wins
+
+Below 500 orders/day: 3PL almost always cheaper.
+
+Seasonal businesses: 3PL absorbs the peak-load risk.
+
+International multi-market brands: 3PL networks provide multi-location coverage in one contract.
+
+## The hybrid model
+
+Primary UK 3PL for domestic ecommerce. Small in-house team for sample fulfilment, VIP orders, and returns processing. Best of both.
+
+## What automation actually costs today
+
+Entry-level goods-to-person systems: £150-£300k. Sortation for returns: £50-£150k. Automated packing station: £40-£90k per station.
+
+## The decision framework
+
+If your unit-fulfilment cost through a 3PL is above £2.50 per unit and you do 500+ orders/day, model in-house.
+
+Below that, stay 3PL and focus your capital on marketing.
+
+## The mistake most SMEs make
+
+Insourcing too early. Automation makes sense at scale, not before. The right time is when your 3PL invoice is your third-biggest cost line and volumes are predictable.`
+  },
+  {
+    slug: "klaviyo-ai-segmentation-worth-turning-on",
+    title: "Klaviyo AI segmentation: what's worth turning on in 2026",
+    excerpt: "Klaviyo shipped a dozen new AI features. Not all of them matter. Here's the shortlist worth activating on your account.",
+    category: "Shopify",
+    keywords: ["Klaviyo AI", "Klaviyo segmentation", "email marketing 2026"],
+    author: A, date: "2026-01-14", readTime: "5 min", image: IMG.shopify,
+    body: `Klaviyo's AI features multiplied in 2025-26. Most are useful. Some are gimmicks. Here's what to prioritise.
+
+## Turn on immediately
+
+Predictive gender inference: cleaner segmentation, better creative targeting. Free lift.
+
+Predicted lifetime value: enables genuine VIP tiering. Essential for programs.
+
+Predicted next order date: powers winback timing better than fixed-day rules.
+
+## Turn on with caution
+
+AI subject lines: works for high-frequency lists, less useful for lower-cadence programmes.
+
+AI send time optimisation: real lift for larger lists (10k+), marginal for smaller.
+
+Product recommendation blocks: good default, but check they're not showing out-of-stock products.
+
+## Don't bother yet
+
+AI-generated email body copy: currently produces generic output that hurts brand voice. Human writers still win.
+
+Auto-generated flow suggestions: sometimes recommends flows that duplicate existing ones. Human oversight essential.
+
+## The one setup mistake
+
+Turning on multiple AI features simultaneously without measuring impact. Turn on one, test for 30 days, then move to the next. Otherwise you can't tell what's actually driving lift.
+
+## The ROI story
+
+Well-tuned Klaviyo drives 25-35% of DTC revenue for our clients. Poorly-tuned Klaviyo drives 5-8%. The AI features close about a third of that gap. Worth the effort.`
+  },
+  {
+    slug: "middle-east-ramadan-white-friday-2026",
+    title: "Middle East ecommerce 2026: Ramadan and White Friday operator guide",
+    excerpt: "Two moments define the Middle East ecommerce calendar. Getting them right is worth half your year. Here's the operating playbook.",
+    category: "International",
+    keywords: ["Middle East ecommerce", "Ramadan sales", "White Friday Noon"],
+    author: C, date: "2026-01-12", readTime: "7 min", image: IMG.intl,
+    body: `Ramadan and White Friday together drive 40-50% of annual ecommerce GMV for most brands operating in UAE and Saudi. Missing either is missing your year.
+
+## Ramadan 2026: the timing
+
+Ramadan falls in February-March 2026. Ramadan-linked buying starts 3-4 weeks earlier — from mid-January. Pre-Ramadan gifting spikes in the final week before Ramadan begins.
+
+## What sells during Ramadan
+
+Gifting, home decor, home fragrance, food & confectionery, modest fashion, beauty (particularly premium and gifting formats), abaya, dates, dry fruits.
+
+## What doesn't
+
+Nightlife-adjacent products. Products that clash with religious observance. Impulse-buy categories geared to Western holidays.
+
+## Operational preparation
+
+Inventory in-market 8-10 weeks ahead. Ramadan-themed creative ready 6 weeks ahead. Increase ad spend 40-60% during Ramadan week itself.
+
+## White Friday: the November event
+
+Noon and Amazon's answer to Black Friday. Runs the full last week of November plus first week of December.
+
+## What matters for White Friday
+
+Deal registration on Noon: submit 4-6 weeks ahead. Non-registered deals get discounted visibility.
+
+Amazon LD (Lightning Deal): apply 4 weeks ahead for the biggest days.
+
+Ad spend: increase 50-80% for the peak window. CPCs rise but conversion rates spike proportionally.
+
+## The one thing most brands miss
+
+Ramadan gift packs. Products bundled specifically for gifting outperform standard product listings by 2-3x during the season. Design once, sell every year.`
+  },
+  {
+    slug: "founder-led-brand-story-amazon",
+    title: "How to run a founder-led brand story on Amazon",
+    excerpt: "Amazon's Brand Story module is underused by most brand-registered sellers. Founder-led narratives outperform generic ones. Here's the playbook.",
+    category: "Amazon",
+    keywords: ["Amazon Brand Story", "founder brand Amazon", "Amazon storytelling"],
+    author: A, date: "2026-01-10", readTime: "5 min", image: IMG.amazon,
+    body: `Amazon's Brand Story module sits at the top of every brand-registered PDP. Most sellers fill it with generic corporate messaging. Founder-led narratives measurably outperform.
+
+## Why founder-led wins
+
+Buyers on Amazon still crave authenticity signals. A founder's face, story, and reason-for-existing on the PDP raises trust and lifts CVR 2-5% on brand-search traffic.
+
+## What to include
+
+A photo of the founder (or founding team). A short "why we exist" paragraph. A visible signature or handwritten note element.
+
+The mission — but grounded, not corporate. "We started this because..." beats "Our mission is to..."
+
+Category-specific proof points. Awards, press mentions, buyer testimonials.
+
+## What to leave out
+
+Long-form corporate history that reads like an About Us page. Buyers scan, they don't read.
+
+Stock photography of teams. Buyers spot it and discount the message.
+
+Corporate values statements. They read as inauthentic.
+
+## The mobile-first rule
+
+70%+ of Amazon UK traffic is mobile. Design the Brand Story for a 5-inch screen first. Test it on mobile. Iterate.
+
+## Refresh cadence
+
+Update the Brand Story every 6-9 months. Fresh photos, updated messaging, new proof points. Buyers who repeat-visit notice.
+
+## The compounding effect
+
+A well-crafted Brand Story lifts trust across the entire product catalogue, not just the ASIN currently being viewed. It's a whole-brand asset that costs zero to maintain once built.`
+  },
+  {
+    slug: "retail-to-dtc-pricing-strategy",
+    title: "The economics of retail-to-DTC: pricing without cannibalising channel",
+    excerpt: "Retail brands launching DTC face a pricing paradox. Match retail and you lose margin. Discount and you upset retailers. Here's the middle path.",
+    category: "Retail",
+    keywords: ["retail to DTC", "channel pricing strategy", "MAP policy DTC"],
+    author: C, date: "2026-01-08", readTime: "6 min", image: IMG.retail,
+    body: `Retail brands launching a DTC website almost always hit the same trap: how to price without upsetting retail partners or damaging DTC unit economics.
+
+## Rule one: never undercut retail on RRP
+
+If your retail partners can buy at £14 wholesale and sell at £30 RRP, your DTC price on the same SKU shouldn't be £25. That erodes retailer margin and invites conflict.
+
+## Rule two: differentiate the SKU
+
+Sell exclusive bundles, sizes, or variants direct that retailers don't stock. Same product, different SKU, different pricing logic.
+
+## Rule three: subscription as a discount vehicle
+
+Retailers rarely mind DTC subscription discounts because subscription buyers aren't people who would have bought from retail anyway.
+
+## The MAP policy question
+
+Minimum Advertised Price policies protect retail relationships and DTC pricing consistency together. Every scaling brand needs one. Enforce it — including on your own DTC channel.
+
+## The exclusive-first-launch tactic
+
+Launch new products DTC-first for a defined window (60-90 days) before retail listing. Justifies higher DTC price early, builds direct-relationship customers, and gives retailers a proof-of-demand pitch.
+
+## Where founders lose
+
+Discounting DTC by 20-30% to drive volume, then losing retailer meetings six months later because buyers checked your website. Retailers do this due diligence. Every time.
+
+## The one non-negotiable
+
+Full pricing transparency internally — sales, marketing, and retail teams all know the DTC and RRP structures. Misalignment leaks into buyer conversations and costs listings.`
+  },
+  {
+    slug: "voice-commerce-uk-2026",
+    title: "Voice commerce in the UK: is it finally here in 2026?",
+    excerpt: "Every year for the last five, someone declared voice commerce ready. Is 2026 different? A grounded look at what's actually happening.",
+    category: "Operations",
+    keywords: ["voice commerce UK", "Alexa shopping", "voice search ecommerce"],
+    author: B, date: "2026-01-06", readTime: "5 min", image: IMG.ops,
+    body: `Voice commerce has been "about to arrive" since 2019. In 2026, it's arrived in narrow segments — but not as broadly as evangelists predicted.
+
+## Where voice commerce genuinely works today
+
+Repeat orders of consumables via Alexa/Google Home. "Reorder my usual laundry detergent" works reliably for buyers with established purchase patterns.
+
+Simple product queries during hands-busy tasks: cooking, gardening, exercising. "Add batteries to my basket."
+
+Voice-driven search for products in decision phase, particularly on mobile.
+
+## Where voice commerce still doesn't work
+
+Considered purchases. Nobody buys a jacket by voice.
+
+Comparison shopping. Voice interfaces struggle to surface options.
+
+Complex categories. Anything requiring visual evaluation.
+
+## The Rufus/AI Overview overlap
+
+Voice commerce on Amazon is now largely voice-driven Rufus interactions. The AI assistant handles the interpretation. Sellers optimising for Rufus are inadvertently optimising for voice.
+
+## What to actually do
+
+Optimise for voice-search question phrasing in your listing bullets and Q&A: "How long does the battery last?" not just "12-hour battery life."
+
+Ensure your bestselling consumables are easy to reorder with a simple phrase. Check "Reorder [product name]" as a voice command works on Alexa and returns your product.
+
+## The realistic 2026 view
+
+Voice is a channel-augmentation tool, not a channel-replacement. Optimise for it as a percentage of your buyer's journey, not as a standalone strategy.`
+  },
+  {
     slug: "how-to-sell-on-amazon-uk-founder-guide-2026",
     title: "How to sell on Amazon UK: a founder's guide for 2026",
     excerpt: "Launching on Amazon UK is a well-worn path — but it's still where most brands lose six months and six figures. Here's the founder-level playbook.",

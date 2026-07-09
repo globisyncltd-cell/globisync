@@ -4,7 +4,7 @@ export const SITE = {
   tagline: "UK Ecommerce Agency",
   phone: "+44 7309 721673",
   whatsapp: "447309721673",
-  email: "globisyncltd@gmail.com",
+  email: "hello@globisync.com",
   address: "296 Pershore Road, Birmingham, B5 7SH, United Kingdom",
   city: "Birmingham",
   founded: "2019",

@@ -11,7 +11,7 @@ export default function About() {
     <>
       <SEO
         title="About · Birmingham-based UK Ecommerce Agency"
-        description="GlobiSync is a Birmingham-based UK ecommerce agency. Operators, not consultants — running growth for ambitious UK and international brands."
+        description="GlobiSync is a Birmingham-based UK ecommerce growth partner. Experts, not consultants — running growth for ambitious UK and international brands."
         path="/about"
       />
       <section className="bg-white pt-20 pb-14">
@@ -22,19 +22,23 @@ export default function About() {
               Where ambitious brands<br />become serious online businesses.
             </h1>
             <p className="mt-6 text-muted2 text-lg leading-relaxed">
-              GlobiSync was founded to build the ecommerce partner most brands can't find — one that combines
-              retail thinking with day-to-day operating discipline. We're not consultants who write reports;
-              we're operators who run accounts.
+              GlobiSync was founded to build the ecommerce partner most brands can't find — one that
+              combines retail thinking with day-to-day operating discipline. Too many brands are stuck
+              choosing between agencies that hand over a strategy deck and disappear, and freelancers
+              who can't scale past a single marketplace. We built GlobiSync to close that gap:
+              we're not consultants who write reports; we're operators who run accounts.
             </p>
             <p className="mt-4 text-muted2 leading-relaxed">
-              Our home is on Pershore Road in Birmingham — a city with a long trading history and no
-              patience for hot air. Our team blends ex-marketplace experts, DTC growth strategists,
-              and international-expansion specialists. We put that muscle directly into our clients' accounts.
+              Our home is on Pershore Road in Birmingham — a city with a long trading history and
+              no patience for hot air. Our team blends ex-marketplace experts, DTC growth strategists,
+              and international-expansion specialists, and we put that muscle directly into our
+              clients' accounts, not into slide decks.
             </p>
             <p className="mt-4 text-muted2 leading-relaxed">
-              We work primarily with UK-based ecommerce brands who are ready to grow — and we run
-              international expansion programmes for ambitious brands from anywhere in the world who
-              want to sell into the UK, US, Middle East, and Southeast Asia.
+              We work primarily with UK-based ecommerce brands ready to professionalise their marketplace
+              operations and scale beyond a single channel. Alongside this, we run international
+              expansion programmes for ambitious brands from anywhere in the world looking to sell
+              into the UK, US, Middle East, and Southeast Asia.
             </p>
           </div>
           <div className="lg:col-span-5">
@@ -53,7 +57,7 @@ export default function About() {
                 <MapPin className="h-4 w-4 flex-none mt-1 text-amber" />
                 <div>{SITE.address}</div>
               </div>
-              <div className="mt-4 text-xs text-muted2">Registered in England · HMRC</div>
+              <div className="mt-4 text-xs text-muted2">Registered in England · Company No. 17286969</div>
             </div>
           </div>
         </div>

@@ -92,10 +92,7 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <Mail className="h-4 w-4 flex-none mt-1 text-amber" />
-                <div className="flex flex-col gap-1">
-                  <a href={`mailto:${SITE.email}`} className="hover:text-amber">{SITE.email}</a>
-                  <a href="mailto:hello@globisync.com" className="hover:text-amber">hello@globisync.com</a>
-                </div>
+                <a href={`mailto:${SITE.email}`} className="hover:text-amber">{SITE.email}</a>
               </li>
               <li className="flex gap-3">
                 <Phone className="h-4 w-4 flex-none mt-1 text-amber" />
@@ -117,7 +114,7 @@ export default function Footer() {
             <Link to="/careers" data-testid="footer-careers-link" className="hover:text-amber transition-colors">
               Careers · We're hiring
             </Link>
-            <span>Registered in England · HMRC</span>
+            <span>Registered in England · Company No. 17286969</span>
           </div>
         </div>
       </div>

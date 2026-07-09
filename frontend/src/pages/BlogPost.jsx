@@ -72,12 +72,6 @@ export default function BlogPost() {
             {post.title}
           </h1>
           <p className="mt-4 text-lg text-muted2 leading-relaxed">{post.excerpt}</p>
-          <div className="mt-6 flex items-center gap-3 text-sm text-muted2">
-            <div className="h-8 w-8 rounded-full bg-ink text-white grid place-items-center font-serif text-sm">
-              {post.author.split(" ").map((n) => n[0]).join("")}
-            </div>
-            <div>By <span className="text-ink font-medium">{post.author}</span></div>
-          </div>
         </div>
 
         <div className="mt-10 max-w-5xl mx-auto px-6 lg:px-8">

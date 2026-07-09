@@ -48,14 +48,6 @@ export default function Team() {
               <div className="p-6">
                 <h3 className="font-serif text-2xl font-bold text-ink">{t.name}</h3>
                 <div className="mt-1 text-sm text-muted2">{t.role}</div>
-                {t.tagline && (
-                  <div
-                    data-testid={`team-tagline-${i}`}
-                    className="mt-4 border-l-2 border-amber pl-3 font-serif text-base italic text-ink leading-snug"
-                  >
-                    "{t.tagline}"
-                  </div>
-                )}
                 <p className="mt-4 text-sm text-muted2 leading-relaxed">{t.bio}</p>
                 <a
                   href={t.linkedin}

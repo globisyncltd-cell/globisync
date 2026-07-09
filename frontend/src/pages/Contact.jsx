@@ -231,7 +231,7 @@ export default function Contact() {
                 <Mail className="h-4 w-4 mt-1 text-amber flex-none" />
                 <div className="flex flex-col gap-1">
                   <a data-testid="contact-email-link" href={`mailto:${SITE.email}`} className="text-ink hover:text-amber">{SITE.email}</a>
-                  <a data-testid="contact-email-growth-link" href="mailto:growth@globisync.com" className="text-ink hover:text-amber">growth@globisync.com</a>
+                  <a data-testid="contact-email-hello-link" href="mailto:hello@globisync.com" className="text-ink hover:text-amber">hello@globisync.com</a>
                 </div>
               </div>
               <div className="flex items-start gap-3">

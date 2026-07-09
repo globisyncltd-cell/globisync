@@ -99,7 +99,7 @@ export default function Blog() {
                     </div>
                     <div className="mt-3 text-sm text-muted2 line-clamp-3">{p.excerpt}</div>
                     <div className="mt-5 flex items-center justify-between">
-                      <div className="text-xs text-muted2">By {p.author} · {new Date(p.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</div>
+                      <div className="text-xs text-muted2">{new Date(p.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</div>
                       <ArrowUpRight className="h-4 w-4 text-ink group-hover:text-amber" />
                     </div>
                   </div>

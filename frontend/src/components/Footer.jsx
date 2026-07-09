@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { SITE } from "@/lib/content";
-import { MENUS } from "@/lib/menus";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { FaWhatsapp, FaLinkedin, FaInstagram, FaFacebook, FaTiktok } from "react-icons/fa";
 
@@ -22,8 +21,6 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
-  const categories = MENUS.filter((m) => m.items && m.overviewSlug);
-
   return (
     <footer className="relative bg-slate950 text-white overflow-hidden">
       <div className="absolute inset-0 opacity-40 grain" />
@@ -98,7 +95,7 @@ export default function Footer() {
                 <Mail className="h-4 w-4 flex-none mt-1 text-amber" />
                 <div className="flex flex-col gap-1">
                   <a href={`mailto:${SITE.email}`} className="hover:text-amber">{SITE.email}</a>
-                  <a href="mailto:growth@globisync.com" className="hover:text-amber">growth@globisync.com</a>
+                  <a href="mailto:hello@globisync.com" className="hover:text-amber">hello@globisync.com</a>
                 </div>
               </li>
               <li className="flex gap-3">
@@ -113,23 +110,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Service categories — 4 overview links only */}
-        <div className="mt-14 pt-8 border-t border-white/10">
-          <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber mb-5">Services</div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm font-light">
-            {categories.map((m) => (
-              <Link
-                key={m.id}
-                to={`/${m.overviewSlug}`}
-                data-testid={`footer-category-${m.overviewSlug}`}
-                className="group block p-4 border border-white/15 hover:border-amber hover:bg-white/5 transition-all"
-              >
-                <div className="text-white group-hover:text-amber font-medium">{m.label}</div>
-                <div className="text-xs text-white/50 mt-1">{m.items.length} services</div>
-              </Link>
-            ))}
-          </div>
-        </div>
+        {/* Services section removed per user request */}
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-white/50 font-mono uppercase tracking-[0.15em]">
           <div>© {new Date().getFullYear()} GlobiSync Ltd · UK Ecommerce Growth Partner</div>

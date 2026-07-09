@@ -7,7 +7,6 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import Home from "@/pages/Home";
-import InternationalExpansion from "@/pages/InternationalExpansion";
 import About from "@/pages/About";
 import Team from "@/pages/Team";
 import Contact from "@/pages/Contact";
@@ -45,7 +44,6 @@ function App() {
               <Route path="/social-digital" element={<CategoryOverview />} />
               <Route path="/cross-border" element={<CategoryOverview />} />
               <Route path="/retail" element={<CategoryOverview />} />
-              <Route path="/international-expansion" element={<InternationalExpansion />} />
               <Route path="/about" element={<About />} />
               <Route path="/team" element={<Team />} />
               <Route path="/blog" element={<Blog />} />
@@ -57,7 +55,8 @@ function App() {
               <Route path="/services" element={<Home />} />
               <Route path="/fee-calculator" element={<Home />} />
               <Route path="/case-studies" element={<Home />} />
-              <Route path="/markets" element={<InternationalExpansion />} />
+              <Route path="/international-expansion" element={<Home />} />
+              <Route path="/markets" element={<Home />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </main>

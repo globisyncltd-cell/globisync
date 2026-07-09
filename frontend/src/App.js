@@ -53,10 +53,6 @@ function App() {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               {/* Old routes redirect to home */}
               <Route path="/services" element={<Home />} />
-              <Route path="/fee-calculator" element={<Home />} />
-              <Route path="/case-studies" element={<Home />} />
-              <Route path="/international-expansion" element={<Home />} />
-              <Route path="/markets" element={<Home />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </main>

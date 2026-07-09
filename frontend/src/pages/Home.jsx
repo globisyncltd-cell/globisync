@@ -84,7 +84,6 @@ export default function Home() {
       </section>
 
       <MarketplaceMarquee />
-      <BrandStrip />
 
       {/* CATEGORY GRID — 4 cards */}
       <section className="bg-white py-20 lg:py-24">
@@ -138,10 +137,7 @@ export default function Home() {
                       ))}
                     </div>
                   )}
-                  <div className="mt-6 flex items-center justify-between">
-                    <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2 group-hover:text-ink/70">
-                      {cat.items.length} services
-                    </div>
+                  <div className="mt-6 flex items-center justify-end">
                     <div className="text-sm font-medium text-ink flex items-center gap-1 group-hover:gap-2 transition-all">
                       Explore <ArrowUpRight className="h-4 w-4" />
                     </div>
@@ -176,6 +172,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <BrandStrip />
 
       {/* BLOG TEASER */}
       <section className="bg-secondary/40 py-20">

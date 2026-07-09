@@ -64,8 +64,8 @@ export const MENUS = [
     pitch: "From launch to £10m — the full marketplace ops rhythm most brands never get from an agency.",
     stats: [
       { k: "12", v: "Services" },
-      { k: "£45m+", v: "GMV managed" },
-      { k: "Named", v: "Senior owner" },
+      { k: "Weekly", v: "Ops calls" },
+      { k: "Multi", v: "Marketplace pods" },
     ],
     overviewSlug: "ecommerce",
     items: [

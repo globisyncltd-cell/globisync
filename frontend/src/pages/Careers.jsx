@@ -313,8 +313,8 @@ export default function Careers() {
           </h2>
           <p className="mt-4 text-white/70 font-light">
             We're always keen to meet strong ecommerce experts. Drop us a note at{" "}
-            <a href="mailto:globisyncltd@gmail.com" className="text-amber underline">
-              globisyncltd@gmail.com
+            <a href="mailto:hello@globisync.com" className="text-amber underline">
+              hello@globisync.com
             </a>{" "}
             with your CV.
           </p>

@@ -266,7 +266,10 @@ from fastapi.responses import Response
 
 _STATIC_ROUTES = [
     ("/", "1.0", "weekly"),
-    ("/international-expansion", "0.8", "monthly"),
+    ("/ecommerce", "0.9", "weekly"),
+    ("/social-digital", "0.9", "weekly"),
+    ("/cross-border", "0.9", "weekly"),
+    ("/retail", "0.9", "weekly"),
     ("/careers", "0.7", "weekly"),
     ("/about", "0.6", "monthly"),
     ("/team", "0.6", "monthly"),
@@ -294,24 +297,38 @@ _BLOG_SLUGS = [
     "subscription-commerce-shopify","loyalty-programs-drive-ltv",
     "post-purchase-experience-growth-lever","brand-protection-amazon-map-ip-gating",
     "hire-agency-vs-in-house",
+    # 2026 batch — added Feb 2026
+    "ai-agents-ecommerce-2026","tiktok-shop-uk-2026-state-of-play",
+    "amazon-rufus-changing-discovery","google-ai-overviews-ecommerce-seo",
+    "post-brexit-vat-changes-2026","sustainable-packaging-uk-dtc",
+    "end-of-cookies-ecommerce-adapting","shopify-markets-vs-headless",
+    "amazon-business-uk-b2b-marketplace","instagram-vs-tiktok-uk-brands-2026",
+    "warehouse-automation-3pl-vs-inhouse-2026","klaviyo-ai-segmentation-worth-turning-on",
+    "middle-east-ramadan-white-friday-2026","founder-led-brand-story-amazon",
+    "retail-to-dtc-pricing-strategy","voice-commerce-uk-2026",
 ]
 
 BASE_URL = "https://www.globisync.com"
 
 
 _SUBSERVICE_SLUGS = [
+    # Ecommerce Support
     "amazon","ebay","etsy","ecommerce-strategy","ecommerce-account-management",
     "ecommerce-product-listings","stock-inventory-management","order-management",
     "ecommerce-training","marketplace-integration","multi-marketplace-management",
-    "marketplace-optimisation","facebook","instagram","tiktok","social-media-strategy",
+    "marketplace-optimisation",
+    # Social & Digital Marketing
+    "facebook-management","instagram-management","tiktok-management","social-media-strategy",
     "social-content-creatives","community-management","social-commerce",
     "performance-marketing","paid-search","paid-social","seo","crm-email-marketing",
-    "generative-engine-optimisation","answer-engine-optimisation","strategy",
-    "conversion-optimisation","organic-search","facebook-ads","instagram-ads",
+    "generative-engine-optimisation","answer-engine-optimisation",
+    "conversion-optimisation","organic-search","facebook-instagram-ads",
     "tiktok-ads","google-meta-ads","google-remarketing","google-shopping",
-    "product-packaging-design","uk-warehouse-storage","uk-retail-ecommerce-access",
-    "pricing-compliance","import-customs","cross-border-logistics",
-    "international-brand-positioning","retail-to-ecommerce","retail-distribution",
+    # Cross Border Ecommerce
+    "uk-warehouse-storage","uk-retail-ecommerce-access","pricing-compliance",
+    "import-customs","cross-border-logistics","international-brand-positioning",
+    # Retail
+    "retail-to-ecommerce","retail-distribution",
 ]
 
 

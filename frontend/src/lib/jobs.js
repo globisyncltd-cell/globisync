@@ -130,27 +130,27 @@ export const JOBS = [
     team: "Growth & Partnerships",
     title: "Freelance Business Development Partner",
     summary:
-      "Work with us on a project or commission basis to open doors to UK retailers, ecommerce brands, or international manufacturers — and get paid for wins that stick.",
+      "Work with us on a project or commission basis to open doors to brands, retailers, or manufacturers anywhere in the world — and get paid for wins that stick.",
     about:
-      "If you already have an active network in UK retail, DTC founders, or international manufacturers looking to enter the UK — we want to work with you. This is a project or commission engagement, not employment. You bring warm introductions or opened doors; we handle delivery and close.",
+      "If you already have an active network of ecommerce founders, retail buyers, or manufacturers — anywhere in the world — we want to work with you. This is a project or commission engagement, not employment. You bring warm introductions or opened doors to anyone who needs our services (marketplace ops, social & digital, cross-border, retail); we handle delivery and close. Geography isn't a barrier — clients come to us from the UK, Europe, US, Middle East, Southeast Asia and beyond.",
     responsibilities: [
-      "Introduce us to UK ecommerce founders, marketplace sellers, or international brands with a UK-expansion mandate",
-      "Broker meetings with UK retail buyers (Waitrose, John Lewis, Boots, Ocado, Amazon Vendor) where relevant",
-      "Represent GlobiSync at events, network dinners, or industry gatherings where useful",
-      "Feed back deal-flow insight — what buyers are asking for, what categories are hot",
+      "Introduce us to ecommerce founders, marketplace sellers, or international brands globally — anyone needing marketplace, social, cross-border or retail support",
+      "Broker meetings with UK, US, GCC, or SEA retail buyers where relevant",
+      "Represent GlobiSync at events, network dinners, or industry gatherings anywhere useful",
+      "Feed back deal-flow insight — what buyers are asking for, what categories are hot in your market",
       "Optional: co-work on named campaigns for a defined fee scope",
     ],
     requirements: [
       "An active, relevant network — genuine relationships, not LinkedIn contact lists",
-      "Track record of opening ecommerce, retail, or B2B doors",
+      "Track record of opening ecommerce, retail, agency or B2B doors",
       "Comfortable operating on a commission / referral fee model",
-      "UK-based or with a strong UK network preferred",
+      "Location-agnostic — you can be based anywhere in the world",
     ],
     niceToHave: [
       "Prior agency, distributor, or retail buying background",
-      "Existing relationships with UK grocery / department store buyers",
+      "Existing relationships with retail buyers in any region (UK grocery / department stores / GCC / US)",
       "International trade or manufacturing network",
     ],
-    location: "UK or globally · Remote / freelance",
+    location: "Remote · Anywhere globally",
   },
 ];

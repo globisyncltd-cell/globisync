@@ -272,8 +272,24 @@ export const FAQ = [
     a: "Retainers begin with a 3-month pilot (fixed fee, fixed scope). After the pilot we move to a rolling monthly agreement with 30 days' notice either side. No 12-month lock-ins.",
   },
   {
-    q: "Do you work with brands based outside the UK?",
-    a: "Yes. Our primary focus is UK-based brands, but we run international expansion engagements for brands globally — see our International Expansion page. Our team operates across UK, US, Middle East, and Southeast Asia hours.",
+    q: "Do you only work with UK businesses?",
+    a: "No. GlobiSync is UK-based and helps both UK brands and international businesses entering or expanding in the UK market. We support overseas brands with market entry, compliance, fulfilment, ecommerce setup, and retail opportunities.",
+  },
+  {
+    q: "Do you provide warehouse and fulfilment support?",
+    a: "Yes. For suitable international brands, we can support UK inventory handling, storage coordination, marketplace fulfilment preparation, and routing products into the right ecommerce channels.",
+  },
+  {
+    q: "Can you help brands that are already selling online but not growing?",
+    a: "Absolutely. Many brands have products and sales channels already but struggle with visibility, conversion, advertising efficiency, inventory planning, or scaling operations. We identify growth opportunities and create an actionable improvement plan.",
+  },
+  {
+    q: "Do you help with retail partnerships?",
+    a: "Yes. Through our retail support services, we help brands understand UK retail opportunities, prepare for buyer conversations, and develop strategies for expanding from ecommerce into physical retail channels.",
+  },
+  {
+    q: "Do you replace an internal ecommerce team?",
+    a: "We can complement your existing team or act as an outsourced ecommerce partner. Some brands use us for specialist support, while others rely on us as their complete ecommerce operations team.",
   },
   {
     q: "How does getting started actually work?",

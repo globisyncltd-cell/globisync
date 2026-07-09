@@ -32,8 +32,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="UK Ecommerce Growth Partner · Birmingham"
-        description="GlobiSync is a UK ecommerce growth partner running marketplace management, social & digital marketing, cross-border ecommerce and retail distribution for ambitious brands."
+        title="UK Ecommerce Growth & International Commerce Agency"
+        description="GlobiSync is a UK-based ecommerce growth and international commerce agency helping brands and Amazon sellers grow across Amazon, marketplaces, retail channels and global markets."
       />
       <StructuredData />
 

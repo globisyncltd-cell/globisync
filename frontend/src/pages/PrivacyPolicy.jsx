@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
       <section className="bg-white pt-20 pb-20">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Privacy Policy ]</div>
-          <h1 className="mt-3 text-5xl md:text-6xl font-light text-ink leading-[1.05]">Privacy Policy</h1>
+          <h1 className="mt-3 text-4xl sm:text-5xl md:text-6xl font-light text-ink leading-[1.05] break-words">Privacy Policy</h1>
           <p className="mt-6 text-sm text-muted2 font-light">Last updated: {new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</p>
 
           <div className="mt-10 space-y-8 text-ink/90 font-light leading-relaxed">

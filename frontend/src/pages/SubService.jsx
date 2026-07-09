@@ -30,9 +30,9 @@ export default function SubService() {
       />
 
       {/* HERO */}
-      <section className="bg-white pt-20 pb-16 relative overflow-hidden">
+      <section className="bg-white pt-16 sm:pt-20 pb-12 sm:pb-16 relative overflow-hidden">
         <div className="absolute -top-32 -right-32 h-[400px] w-[400px] rounded-full bg-amber/10 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 relative">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 relative">
           <Link
             to={`/${s.overviewSlug}`}
             data-testid="subservice-breadcrumb"
@@ -42,22 +42,22 @@ export default function SubService() {
           </Link>
           <h1
             data-testid="subservice-title"
-            className="mt-4 text-5xl md:text-6xl lg:text-7xl font-light text-ink leading-[1.02] tracking-tight max-w-4xl"
+            className="mt-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-ink leading-[1.05] tracking-tight max-w-4xl break-words"
           >
             {s.title}
           </h1>
 
           {s.description && (
-            <p className="mt-6 max-w-3xl text-muted2 text-lg font-light leading-relaxed">
+            <p className="mt-6 max-w-3xl text-base sm:text-lg text-muted2 font-light leading-relaxed">
               {s.description}
             </p>
           )}
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-8 sm:mt-10 flex flex-wrap gap-3">
             <Link to="/contact">
               <Button
                 data-testid="subservice-cta"
-                className="h-12 px-6 rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium hover:-translate-y-0.5 transition-all"
+                className="h-11 sm:h-12 px-5 sm:px-6 rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium hover:-translate-y-0.5 transition-all"
               >
                 Get in touch <ArrowUpRight className="ml-2 h-4 w-4" />
               </Button>
@@ -66,23 +66,23 @@ export default function SubService() {
               href={`https://wa.me/${SITE.whatsapp}`}
               target="_blank"
               rel="noreferrer"
-              className="h-12 px-6 inline-flex items-center bg-white text-ink border border-ink font-medium hover:bg-ink hover:text-white transition-all"
+              className="h-11 sm:h-12 px-5 sm:px-6 inline-flex items-center bg-white text-ink border border-ink font-medium hover:bg-ink hover:text-white transition-all"
             >
               WhatsApp us
             </a>
           </div>
 
           {/* Quick-value strip */}
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-0 border-t border-l border-ink max-w-4xl">
+          <div className="mt-10 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-0 border-t border-l border-ink max-w-4xl">
             {[
               { k: "Senior", v: "expert on account" },
               { k: "Weekly", v: "ops calls" },
               { k: "Monthly", v: "written readouts" },
               { k: "Rolling", v: "monthly agreement" },
             ].map((x, i) => (
-              <div key={i} className="p-4 border-r border-b border-ink">
-                <div className="text-xl font-light text-ink">{x.k}</div>
-                <div className="text-xs text-muted2 font-mono uppercase tracking-[0.15em] mt-1">{x.v}</div>
+              <div key={i} className="p-3 sm:p-4 border-r border-b border-ink min-w-0">
+                <div className="text-lg sm:text-xl font-light text-ink break-words">{x.k}</div>
+                <div className="text-[10px] sm:text-xs text-muted2 font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] mt-1 break-words">{x.v}</div>
               </div>
             ))}
           </div>

@@ -29,7 +29,7 @@ export default function Blog() {
       <section className="bg-white pt-20 pb-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Insights ]</div>
-          <h1 className="mt-3 font-serif text-5xl md:text-6xl font-bold text-ink leading-[1.05]">
+          <h1 className="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-ink leading-[1.05] break-words">
             Playbooks<br />from the desk.
           </h1>
           <p className="mt-6 max-w-2xl text-muted2 text-lg">

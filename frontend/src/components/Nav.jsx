@@ -47,16 +47,17 @@ function DesktopMenu() {
             className="relative"
             onMouseEnter={() => setOpenMenu(m.id)}
           >
-            <button
+            <Link
+              to={`/${m.overviewSlug}`}
               data-testid={`nav-${m.id}`}
+              onClick={() => setOpenMenu(null)}
               className={`px-3 py-2 text-sm font-normal transition-colors inline-flex items-center gap-1 ${
                 openMenu === m.id ? "text-ink" : "text-muted2 hover:text-ink"
               }`}
-              onClick={() => setOpenMenu(openMenu === m.id ? null : m.id)}
             >
               {m.label}
               <ChevronDown className={`h-3 w-3 transition-transform ${openMenu === m.id ? "rotate-180" : ""}`} />
-            </button>
+            </Link>
             {openMenu === m.id && (
               <div
                 data-testid={`nav-dropdown-${m.id}`}
@@ -125,14 +126,23 @@ function MobileMenu({ open, setOpen }) {
           const isExp = expanded === m.id;
           return (
             <div key={m.id} className="border-b border-border">
-              <button
-                data-testid={`mobile-nav-${m.id}`}
-                onClick={() => setExpanded(isExp ? null : m.id)}
-                className="w-full flex items-center justify-between px-3 py-3 text-base text-ink"
-              >
-                {m.label}
-                <ChevronDown className={`h-4 w-4 transition-transform ${isExp ? "rotate-180" : ""}`} />
-              </button>
+              <div className="w-full flex items-center px-3 py-3 text-base text-ink">
+                <Link
+                  to={`/${m.overviewSlug}`}
+                  data-testid={`mobile-nav-${m.id}`}
+                  className="flex-1 text-left"
+                >
+                  {m.label}
+                </Link>
+                <button
+                  data-testid={`mobile-nav-toggle-${m.id}`}
+                  onClick={() => setExpanded(isExp ? null : m.id)}
+                  aria-label={`Toggle ${m.label} sub-menu`}
+                  className="p-2 -mr-2"
+                >
+                  <ChevronDown className={`h-4 w-4 transition-transform ${isExp ? "rotate-180" : ""}`} />
+                </button>
+              </div>
               {isExp && (
                 <div className="pb-3">
                   {m.items.map((it) => (

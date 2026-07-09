@@ -208,14 +208,14 @@ export default function Contact() {
         description="Book a discovery call with GlobiSync — a Birmingham-based UK ecommerce agency. One conversation, one clear next step."
         path="/contact"
       />
-      <section className="bg-white pt-20 pb-14">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-12 gap-10">
+      <section className="bg-white pt-16 sm:pt-20 pb-12 sm:pb-14">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Contact ]</div>
-            <h1 className="mt-3 font-serif text-5xl md:text-6xl font-bold text-ink leading-[1.05]">
+            <h1 className="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-ink leading-[1.05] break-words">
               Let's talk<br />about your growth.
             </h1>
-            <p className="mt-6 text-muted2 text-lg">
+            <p className="mt-6 text-muted2 text-base sm:text-lg">
               Book a discovery call, or send us a note — we reply within one working day from our Birmingham desk.
             </p>
 

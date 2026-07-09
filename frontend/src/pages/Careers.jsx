@@ -172,21 +172,21 @@ function JobRow({ job, onApply }) {
       data-testid={`career-card-${job.id}`}
       className="border-r border-b border-ink hover:bg-secondary/40 transition-colors"
     >
-      <div className="p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+      <div className="p-5 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
         <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap gap-2 items-center">
-            <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{job.team}</span>
+          <div className="flex flex-wrap gap-x-2 gap-y-1 items-center">
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.12em] sm:tracking-[0.15em] text-muted2">{job.team}</span>
             <span className="text-muted2">·</span>
-            <span className="text-xs font-mono uppercase tracking-[0.15em] text-muted2">{job.type}</span>
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.12em] sm:tracking-[0.15em] text-muted2">{job.type}</span>
           </div>
-          <div className="mt-2 text-xl md:text-2xl font-light text-ink leading-snug">{job.title}</div>
+          <div className="mt-2 text-lg sm:text-xl md:text-2xl font-light text-ink leading-snug break-words">{job.title}</div>
           <p className="mt-2 text-sm text-muted2 leading-relaxed max-w-2xl font-light">{job.summary}</p>
         </div>
-        <div className="flex flex-col md:flex-row gap-2 flex-none">
+        <div className="flex flex-row md:flex-row gap-2 flex-none w-full md:w-auto">
           <button
             data-testid={`career-details-btn-${job.id}`}
             onClick={() => setExpanded((v) => !v)}
-            className="rounded-none bg-white text-ink border border-ink px-4 h-10 text-sm font-medium hover:bg-ink hover:text-white transition-colors inline-flex items-center gap-1"
+            className="flex-1 md:flex-none rounded-none bg-white text-ink border border-ink px-4 h-10 text-sm font-medium hover:bg-ink hover:text-white transition-colors inline-flex items-center justify-center gap-1"
           >
             {expanded ? "Hide details" : "Full description"}
             <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} />
@@ -194,7 +194,7 @@ function JobRow({ job, onApply }) {
           <Button
             data-testid={`career-apply-btn-${job.id}`}
             onClick={() => onApply(job)}
-            className="rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium"
+            className="flex-1 md:flex-none rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium"
           >
             Apply <ArrowUpRight className="ml-1 h-4 w-4" />
           </Button>
@@ -275,16 +275,16 @@ export default function Careers() {
         path="/careers"
       />
 
-      <section className="bg-white pt-20 pb-14">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <section className="bg-white pt-16 sm:pt-20 pb-12 sm:pb-14">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Briefcase className="h-5 w-5 text-amber" />
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ Careers ]</div>
           </div>
-          <h1 className="mt-4 text-5xl md:text-6xl font-light text-ink leading-[1.05]">
-            Build the ecommerce agency<br />you wish existed.
+          <h1 className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light text-ink leading-[1.05] break-words">
+            Build the ecommerce agency<br className="hidden sm:inline" /> you wish existed.
           </h1>
-          <p className="mt-6 text-muted2 text-lg font-light leading-relaxed max-w-2xl">
+          <p className="mt-6 text-muted2 text-base sm:text-lg font-light leading-relaxed max-w-2xl">
             We hire experts — not observers. People who love the daily rhythm of running marketplace,
             paid-media, and social accounts. If that sounds like you, we'd like to meet.
           </p>

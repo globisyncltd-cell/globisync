@@ -14,14 +14,14 @@ export default function About() {
         description="GlobiSync is a Birmingham-based UK ecommerce growth partner. Experts, not consultants — running growth for ambitious UK and international brands."
         path="/about"
       />
-      <section className="bg-white pt-20 pb-14">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-12 gap-10">
+      <section className="bg-white pt-16 sm:pt-20 pb-12 sm:pb-14">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-7">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ About GlobiSync ]</div>
-            <h1 className="mt-3 font-serif text-5xl md:text-6xl font-bold text-ink leading-[1.05]">
-              Where ambitious brands<br />become serious online businesses.
+            <h1 className="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-ink leading-[1.05] break-words">
+              Where ambitious brands<br className="hidden sm:inline" /> become serious online businesses.
             </h1>
-            <p className="mt-6 text-muted2 text-lg leading-relaxed">
+            <p className="mt-6 text-muted2 text-base sm:text-lg leading-relaxed">
               GlobiSync was founded to build the ecommerce partner most brands can't find — one that
               combines retail thinking with day-to-day operating discipline. Too many brands are stuck
               choosing between agencies that hand over a strategy deck and disappear, and freelancers

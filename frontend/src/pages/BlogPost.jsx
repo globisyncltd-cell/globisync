@@ -68,7 +68,7 @@ export default function BlogPost() {
             <span className="text-muted2">·</span>
             <span className="text-muted2">{new Date(post.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</span>
           </div>
-          <h1 className="mt-4 font-serif text-4xl md:text-5xl font-bold text-ink leading-[1.1]">
+          <h1 className="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink leading-[1.1] break-words">
             {post.title}
           </h1>
           <p className="mt-4 text-lg text-muted2 leading-relaxed">{post.excerpt}</p>

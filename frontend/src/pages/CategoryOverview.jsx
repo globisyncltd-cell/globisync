@@ -20,26 +20,26 @@ export default function CategoryOverview() {
         path={`/${menu.overviewSlug}`}
       />
 
-      <section className="bg-white pt-20 pb-14">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <section className="bg-white pt-16 sm:pt-20 pb-12 sm:pb-14">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">
             [ {menu.label} ]
           </div>
           <h1
             data-testid="category-overview-title"
-            className="mt-4 text-5xl md:text-6xl font-light text-ink leading-[1.05] tracking-tight max-w-4xl"
+            className="mt-4 text-4xl sm:text-5xl md:text-6xl font-light text-ink leading-[1.05] tracking-tight max-w-4xl break-words"
           >
             {menu.label}
           </h1>
-          <p className="mt-6 max-w-3xl text-muted2 text-lg font-light leading-relaxed">
+          <p className="mt-6 max-w-3xl text-muted2 text-base sm:text-lg font-light leading-relaxed">
             {menu.overview}
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-8 sm:mt-10 flex flex-wrap gap-3">
             <Link to="/contact">
               <Button
                 data-testid="category-cta"
-                className="h-12 px-6 rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium hover:-translate-y-0.5 transition-all"
+                className="h-11 sm:h-12 px-5 sm:px-6 rounded-none bg-ink text-white hover:bg-amber hover:text-ink border border-ink font-medium hover:-translate-y-0.5 transition-all"
               >
                 Get in touch <ArrowUpRight className="ml-2 h-4 w-4" />
               </Button>
@@ -48,7 +48,7 @@ export default function CategoryOverview() {
               href={`https://wa.me/${SITE.whatsapp}`}
               target="_blank"
               rel="noreferrer"
-              className="h-12 px-6 inline-flex items-center bg-white text-ink border border-ink font-medium hover:bg-ink hover:text-white transition-all"
+              className="h-11 sm:h-12 px-5 sm:px-6 inline-flex items-center bg-white text-ink border border-ink font-medium hover:bg-ink hover:text-white transition-all"
             >
               WhatsApp us
             </a>

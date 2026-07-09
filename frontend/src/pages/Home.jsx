@@ -42,9 +42,9 @@ export default function Home() {
         <div className="absolute -top-40 -right-40 h-[520px] w-[520px] rounded-full bg-amber/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-[420px] w-[420px] rounded-full bg-slate950/5 blur-3xl" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-20 lg:pt-28 lg:pb-24 relative">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pt-28 lg:pb-24 relative">
           <div className="max-w-4xl animate-fade-up">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light leading-[1.02] tracking-tight text-ink">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight text-ink break-words">
               We help brands and Amazon sellers grow{" "}
               <span className="relative inline-block">
                 <span className="relative z-10">online sales</span>
@@ -52,7 +52,7 @@ export default function Home() {
               </span>{" "}
               — end to end.
             </h1>
-            <p className="mt-6 text-lg text-muted2 max-w-2xl font-light leading-relaxed">
+            <p className="mt-6 text-base sm:text-lg text-muted2 max-w-2xl font-light leading-relaxed">
               One senior team. Every channel that matters — marketplaces, social, paid media, cross-border. One promise: measurable growth, month after month.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -91,7 +91,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <div className="text-xs font-mono uppercase tracking-[0.2em] text-amber">[ What we do ]</div>
-              <h2 className="mt-3 text-4xl md:text-5xl font-light text-ink max-w-2xl leading-tight">
+              <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-light text-ink max-w-2xl leading-tight break-words">
                 Four pillars.<br />One growth partner.
               </h2>
             </div>
@@ -108,18 +108,18 @@ export default function Home() {
                   to={`/${cat.overviewSlug}`}
                   key={cat.id}
                   data-testid={`home-category-card-${cat.id}`}
-                  className="group p-8 lg:p-10 border-r border-b border-ink bg-white hover:bg-amber transition-colors block"
+                  className="group p-6 sm:p-8 lg:p-10 border-r border-b border-ink bg-white hover:bg-amber transition-colors block"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2 group-hover:text-ink/70">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] text-muted2 group-hover:text-ink/70">
                       {CATEGORY_KICKERS[cat.id]}
                     </div>
-                    <Icon className="h-6 w-6 text-amber group-hover:text-ink transition-colors" />
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-amber group-hover:text-ink transition-colors flex-none" />
                   </div>
-                  <h3 className="mt-6 text-3xl md:text-4xl font-light text-ink leading-tight">
+                  <h3 className="mt-5 text-2xl sm:text-3xl md:text-4xl font-light text-ink leading-tight break-words">
                     {cat.label}
                   </h3>
-                  <p className="mt-4 text-muted2 group-hover:text-ink/80 font-light leading-relaxed">
+                  <p className="mt-4 text-sm sm:text-base text-muted2 group-hover:text-ink/80 font-light leading-relaxed">
                     {cat.overview}
                   </p>
                   {cat.pitch && (
@@ -130,9 +130,9 @@ export default function Home() {
                   {cat.stats && (
                     <div className="mt-6 grid grid-cols-3 gap-0 border-t border-l border-ink/40 group-hover:border-ink/60">
                       {cat.stats.map((s, i) => (
-                        <div key={i} className="p-3 border-r border-b border-ink/40 group-hover:border-ink/60">
-                          <div className="text-lg font-light text-ink leading-none">{s.k}</div>
-                          <div className="text-[10px] text-muted2 group-hover:text-ink/70 font-mono uppercase tracking-[0.15em] mt-1">{s.v}</div>
+                        <div key={i} className="p-2 sm:p-3 border-r border-b border-ink/40 group-hover:border-ink/60 min-w-0">
+                          <div className="text-base sm:text-lg font-light text-ink leading-tight break-words">{s.k}</div>
+                          <div className="text-[9px] sm:text-[10px] text-muted2 group-hover:text-ink/70 font-mono uppercase tracking-[0.1em] mt-1 break-words">{s.v}</div>
                         </div>
                       ))}
                     </div>
@@ -216,12 +216,12 @@ export default function Home() {
       <FAQSection />
 
       {/* FINAL CTA */}
-      <section className="bg-amber py-20">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-6xl font-light text-ink leading-[1.05]">
+      <section className="bg-amber py-16 sm:py-20">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-light text-ink leading-[1.1] break-words">
             Let's map your growth plan in 30 minutes.
           </h2>
-          <p className="mt-4 text-ink/80 text-lg max-w-2xl mx-auto font-light">
+          <p className="mt-4 text-ink/80 text-base sm:text-lg max-w-2xl mx-auto font-light">
             One conversation. One clear next step. No pressure.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">

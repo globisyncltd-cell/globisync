@@ -7,7 +7,6 @@ import { FaWhatsapp, FaLinkedin, FaInstagram, FaFacebook, FaTiktok } from "react
 const FOOTER_LINKS = [
   { to: "/about", label: "About" },
   { to: "/blog", label: "Insights" },
-  { to: "/blog", label: "Blogs" },
   { to: "/contact", label: "Contact" },
   { to: "/careers", label: "Careers" },
   { to: "/privacy-policy", label: "Privacy Policy" },

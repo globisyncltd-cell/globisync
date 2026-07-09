@@ -206,3 +206,8 @@ export const SUBSERVICES = MENUS.flatMap((m) =>
 
 export const getSubservice = (slug) => SUBSERVICES.find((s) => s.slug === slug);
 export const getOverview = (slug) => MENUS.find((m) => m.overviewSlug === slug);
+export const getRelated = (slug, limit = 6) => {
+  const cur = getSubservice(slug);
+  if (!cur) return [];
+  return SUBSERVICES.filter((s) => s.parentId === cur.parentId && s.slug !== slug).slice(0, limit);
+};

@@ -13,9 +13,6 @@ import { CheckCircle2, Loader2, MapPin, Mail, Phone, Calendar as CalIcon, Clock 
 import { FaWhatsapp } from "react-icons/fa";
 import { SITE } from "@/lib/content";
 import SEO from "@/components/SEO";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
 const TIME_SLOTS = [
   "09:30", "10:00", "10:30", "11:00", "11:30",
   "12:00", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30",
@@ -45,14 +42,57 @@ function ContactForm() {
       return;
     }
     setLoading(true);
-    try {
-      await axios.post(`${API}/contact`, form);
-      setDone(true);
-      setForm({ name: "", email: "", message: "" });
-      toast.success("Received. We'll reply within one working day.");
-    } catch {
-      toast.error("Something went wrong — try WhatsApp instead.");
-    } finally { setLoading(false); }
+   try {
+
+  const response = await axios.post(
+
+    "https://api.web3forms.com/submit",
+
+    {
+
+      access_key: "01b3e79b-48a6-416d-a8eb-7b63582d697c",
+
+      subject: "New GlobiSync Website Enquiry",
+
+      from_name: "GlobiSync Website",
+
+
+
+      name: form.name,
+
+      email: form.email,
+
+      message: form.message,
+
+    }
+
+  );
+
+
+
+  if (response.data.success) {
+
+    setDone(true);
+
+    setForm({ name: "", email: "", message: "" });
+
+    toast.success("Received. We'll reply within one working day.");
+
+  } else {
+
+    throw new Error("Submission failed");
+
+  }
+
+
+
+} catch (error) {
+
+  console.error(error);
+
+  toast.error("Something went wrong — try WhatsApp instead.");
+
+} finally { setLoading(false); }
   };
 
   if (done) {
@@ -112,10 +152,38 @@ function BookingForm() {
     }
     setLoading(true);
     try {
-      await axios.post(`${API}/bookings`, form);
-      setDone(true);
-      toast.success("Booking received. We'll confirm the calendar invite shortly.");
-    } catch { toast.error("Booking failed. Please WhatsApp us instead."); }
+  const response = await axios.post(
+    "https://api.web3forms.com/submit",
+    {
+      access_key: "01b3e79b-48a6-416d-a8eb-7b63582d697c",
+
+      subject: "New GlobiSync Discovery Call Booking",
+      from_name: "GlobiSync Website",
+
+      name: form.name,
+      email: form.email,
+      company: form.company,
+      phone: form.phone,
+
+      preferred_date: form.preferred_date,
+      preferred_time: form.preferred_time,
+      timezone: form.timezone_name,
+
+      message: form.notes,
+    }
+  );
+
+  if (response.data.success) {
+    setDone(true);
+    toast.success("Booking received. We'll confirm shortly.");
+  } else {
+    throw new Error("Submission failed");
+  }
+
+} catch (error) {
+  console.error(error);
+  toast.error("Booking failed. Please WhatsApp us instead.");
+}
     finally { setLoading(false); }
   };
 

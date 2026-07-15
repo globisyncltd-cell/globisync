@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Block noise / build artifacts
+Disallow: /api/
+Disallow: /static/
+
 Sitemap: https://www.globisync.com/sitemap.xml

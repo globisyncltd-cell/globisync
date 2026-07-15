@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/((?!api/|static/|.*\\..*).*)", "destination": "/index.html" }
+  ],
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/services", "destination": "/ecommerce", "permanent": true },
+    { "source": "/services-1", "destination": "/ecommerce", "permanent": true },
+    { "source": "/fee-calculator", "destination": "/", "permanent": true },
+    { "source": "/case-studies", "destination": "/", "permanent": true },
+    { "source": "/international-expansion", "destination": "/cross-border", "permanent": true },
+    { "source": "/markets", "destination": "/cross-border", "permanent": true }
+  ]
+}

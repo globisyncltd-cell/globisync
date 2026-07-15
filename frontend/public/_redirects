@@ -1,18 +1,17 @@
-/home /
-/faqs /
-/blog-3-1/blog-post-title-one-clpxp /blog
-/services-1 /ecommerce
-/services /ecommerce
-/fee-calculator /
-/case-studies /
-/international-expansion /cross-border
-/markets /cross-border
-/blog-3-1 /blog
-/blog-3-1/category/Cross-Border+E-commerce /cross-border
-/blog-3-1/category/E-commerce+for+Manufacturers /blog
-/blog-3-1/tag/cross-border+ecommerce+india+to+uk /blog
-/blog-3-1/tag/amazon+uk+for+indian+sellers /blog
-/blog-3-1/tag/global+selling+amazon+india /blog
-/blog-3-1/category/Product+Launch+Strategy /blog
-/blog-3-1/category/UK+Marketplace+Insights /blog
-/index.html 200
+# --- Legacy route redirects (permanent 301) ---
+/home                                                       /                            301
+/faqs                                                       /                            301
+/services                                                   /ecommerce                   301
+/services-1                                                 /ecommerce                   301
+/fee-calculator                                             /                            301
+/case-studies                                               /                            301
+/international-expansion                                    /cross-border                301
+/markets                                                    /cross-border                301
+/blog-3-1                                                   /blog                        301
+/blog-3-1/*                                                 /blog                        301
+
+# --- Sitemap: proxy to backend dynamic sitemap so it always reflects live content ---
+/sitemap.xml                                                /sitemap.xml                 200
+
+# --- SPA fallback: every non-file, non-API route serves index.html ---
+/*                                                          /index.html                  200

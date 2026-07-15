@@ -1,0 +1,39 @@
+{
+  "summary": "Iteration 12 — SEO/SPA-routing verification + booking-email re-validation. All 13 direct-URL routes return final HTTP 200 (note: /team returns 301 → /team/ trailing-slash before 200; this is CF/Express normalization on the preview host — the SPA _redirects `/* /index.html 200` will catch both forms on Netlify). Static /sitemap.xml and backend /api/sitemap.xml both return 200 with exactly 103 <url> entries and include all 8 required URLs (/ecommerce, /social-digital, /cross-border, /retail, /services/amazon, /blog/ai-agents-ecommerce-2026, /blog/amazon-rufus-changing-discovery, /blog/voice-commerce-uk-2026). /robots.txt returns 200 with expected Sitemap line and Disallow /api/ + /static/ (Cloudflare Managed Content is prepended by CF at ingress — this is external and not a code issue). index.html raw fetch — after a required frontend restart to flush the CRA dev-server's cached HTML — matches the new source: contains 'Ecommerce Support', 'Social & Digital Marketing', 'Cross Border Ecommerce', 'Retail', 'Team', 'Insights', 'Careers', 'About', 'Contact', 'hello@globisync.com', 'Company No. 17286969'; contains no 'globisyncltd@gmail.com', 'HMRC', '/fee-calculator', '/international-expansion' or 'Playfair Display'. Live booking POST /api/bookings fired TWO 'Email sent to=' log lines within 121 ms: admin=globisyncltd@gmail.com (resend_id b81bbed0-d1f1-412e-ac4d-fde4e10daa19) + submitter=live-test-<uuid>@example.com with subject 'Your discovery-call request — GlobiSync' (em dash) and valid UUID resend_id afe75cd3-6813-4917-a58c-e932e60b4bac. server.py sanity: _send_email_async sets params['reply_to']=REPLY_TO_EMAIL and params['from']=SENDER_EMAIL, has NO 'A senior operator' phrase, NO 'Reply to this email' phrase, and 'globisyncltd@gmail.com' appears only as the CONTACT_EMAIL env-fallback default. _redirects has the SPA fallback rule `/* /index.html 200` on the last non-comment line plus all required legacy 301s. vercel.json exists with rewrite pattern `/((?!api/|static/|.*\\..*).*)` excluding api/, static/ and files-with-dots + all matching redirects.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "CRA dev-server (preview host) HTML caching",
+        "issue": "The CRA/webpack-dev-server on the preview URL was serving a STALE compiled index.html even though /app/frontend/public/index.html source was already the new version. A `sudo supervisorctl restart frontend` was required to flush the cached HTML. This is a dev-server artifact ONLY — on a production static-host deploy (Netlify / Vercel / S3) this does not apply because index.html is served directly from the /build output. E1 should be aware that when they redeploy to globisync.com, the fresh index.html will be shipped as-is; no restart magic needed.",
+        "affected_selectors": ["/index.html raw fetch"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_email_reply_to.py",
+    "/app/test_reports/pytest/iteration_11.xml"
+  ],
+  "action_items": [
+    "None required for code. When redeploying to globisync.com: ensure hosting provider picks up /app/frontend/public/_redirects (Netlify) OR /app/frontend/public/vercel.json (Vercel) OR equivalent host rewrite/redirect config so that /about, /team, /blog and the 41 subservice routes render correctly on hard reload.",
+    "(Optional, low priority carried from iteration 11) Normalise contact-form submitter subject from middle dot to em dash for deliverability parity with the booking subject."
+  ],
+  "critical_code_review_comments": [
+    "robots.txt served on preview URL is *appended* by Cloudflare Managed Content — the effective bot-blocking (GPTBot, ClaudeBot, Bytespider, Amazonbot etc.) currently comes from CF, not our file. Our file only contributes User-agent:*, Allow:/, Disallow: /api/ /static/, and the Sitemap line. This is fine and expected but E1 should confirm the same CF/host policy is enabled on globisync.com if they want the anti-scraper rules to apply post-redeploy.",
+    "index.html has an inline <script> tag defer-loading /static/js/bundle.js injected by CRA dev-server — will be replaced by the production build's hashed bundle at deploy time, so not a concern.",
+    "server.py still 541 lines — E1 could split _contact_html / _booking_html / _thank_you_html / _career_admin_html / _career_ack_html templates into /app/backend/email_templates.py to shrink it under 500 and improve maintainability (carried from iteration 11)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "N/A — no auth on any tested endpoint.",
+  "seed_data_creation": "One live booking created in Mongo `bookings` collection via POST /api/bookings for live-test-9fd12651-3097-4bdf-b808-139194fe65d3@example.com (name='Test User', notes='iter12 verify', preferred_date=2026-08-15). Uses throwaway example.com email — will bounce on the submitter side but that is intentional for verification. Not cleaned up; safe to leave.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 10 review-request checks for iteration 12 passed. If E1 or the user reports the same symptoms again (booking email missing / 404 on hard reload), the root cause is on the DOWNSTREAM DEPLOY (globisync.com stale build) and NOT in /app source — verify by re-running: (1) curl -L -o /dev/null -w '%{http_code}' <preview>/team etc., (2) curl -s <preview>/sitemap.xml | grep -c '<url>' (expect 103), (3) POST /api/bookings and grep /var/log/supervisor/backend.err.log for the two 'Email sent to=' lines. The static sitemap.xml at /app/frontend/public/sitemap.xml is a snapshot generated from /api/sitemap.xml — if E1 adds new blog posts / services, they must regenerate it via `curl <backend>/api/sitemap.xml > /app/frontend/public/sitemap.xml` before redeploy, otherwise the static and dynamic sitemaps will drift.",
+  "rca of the issue": "Original user complaint had two threads: (a) 404s on globisync.com/about,/team,/blog direct URLs and (b) booking email never arriving in inbox. Thread (a) was a MISSING SPA FALLBACK on the downstream deploy — the source repo now has _redirects (Netlify) and vercel.json (Vercel) both containing the `/* → /index.html 200` fallback plus 301s for legacy paths (/services, /international-expansion, /fee-calculator, /markets, /home, /faqs, /case-studies, /services-1, /blog-3-1) so once E1/user redeploys, hard-reload on any route including the 41 subservices will render correctly. Thread (b) was already fixed in iteration 11 (added reply_to and env-driven SENDER_EMAIL) — reconfirmed live in this iteration: both admin + submitter emails fire with valid Resend UUIDs and em-dash subject. Sitemap was stale (missed the 4 overview pages, 41 subservices, 16 new 2026 blog posts) — now regenerated to 103 URLs on both static /sitemap.xml and dynamic /api/sitemap.xml. Only residual gap is that Resend dashboard entries visible to the user historically only show delivered/bounced sends — the submitter emails to throwaway example.com addresses will always show as bounced there; user should be advised to trigger the booking with a real inbox they control to see the confirmation land."
+}

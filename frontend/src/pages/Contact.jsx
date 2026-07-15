@@ -13,6 +13,9 @@ import { CheckCircle2, Loader2, MapPin, Mail, Phone, Calendar as CalIcon, Clock 
 import { FaWhatsapp } from "react-icons/fa";
 import { SITE } from "@/lib/content";
 import SEO from "@/components/SEO";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
 const TIME_SLOTS = [
   "09:30", "10:00", "10:30", "11:00", "11:30",
   "12:00", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30",
@@ -42,57 +45,22 @@ function ContactForm() {
       return;
     }
     setLoading(true);
-   try {
-
-  const response = await axios.post(
-
-    "https://api.web3forms.com/submit",
-
-    {
-
-      access_key: "01b3e79b-48a6-416d-a8eb-7b63582d697c",
-
-      subject: "New GlobiSync Website Enquiry",
-
-      from_name: "GlobiSync Website",
-
-
-
-      name: form.name,
-
-      email: form.email,
-
-      message: form.message,
-
+    try {
+      await axios.post(`${API}/contact`, {
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      });
+      setDone(true);
+      setForm({ name: "", email: "", message: "" });
+      toast.success("Received. We'll reply within one working day.");
+    } catch (error) {
+      console.error(error);
+      const msg = error?.response?.data?.detail || "Something went wrong — try WhatsApp instead.";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
     }
-
-  );
-
-
-
-  if (response.data.success) {
-
-    setDone(true);
-
-    setForm({ name: "", email: "", message: "" });
-
-    toast.success("Received. We'll reply within one working day.");
-
-  } else {
-
-    throw new Error("Submission failed");
-
-  }
-
-
-
-} catch (error) {
-
-  console.error(error);
-
-  toast.error("Something went wrong — try WhatsApp instead.");
-
-} finally { setLoading(false); }
   };
 
   if (done) {
@@ -152,39 +120,25 @@ function BookingForm() {
     }
     setLoading(true);
     try {
-  const response = await axios.post(
-    "https://api.web3forms.com/submit",
-    {
-      access_key: "01b3e79b-48a6-416d-a8eb-7b63582d697c",
-
-      subject: "New GlobiSync Discovery Call Booking",
-      from_name: "GlobiSync Website",
-
-      name: form.name,
-      email: form.email,
-      company: form.company,
-      phone: form.phone,
-
-      preferred_date: form.preferred_date,
-      preferred_time: form.preferred_time,
-      timezone: form.timezone_name,
-
-      message: form.notes,
+      await axios.post(`${API}/bookings`, {
+        name: form.name,
+        email: form.email,
+        company: form.company || null,
+        phone: form.phone || null,
+        preferred_date: form.preferred_date,
+        preferred_time: form.preferred_time,
+        timezone_name: form.timezone_name || null,
+        notes: form.notes || null,
+      });
+      setDone(true);
+      toast.success("Booking received. Confirmation on its way.");
+    } catch (error) {
+      console.error(error);
+      const msg = error?.response?.data?.detail || "Booking failed. Please WhatsApp us instead.";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
     }
-  );
-
-  if (response.data.success) {
-    setDone(true);
-    toast.success("Booking received. We'll confirm shortly.");
-  } else {
-    throw new Error("Submission failed");
-  }
-
-} catch (error) {
-  console.error(error);
-  toast.error("Booking failed. Please WhatsApp us instead.");
-}
-    finally { setLoading(false); }
   };
 
   if (done) {

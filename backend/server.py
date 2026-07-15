@@ -25,6 +25,7 @@ db = client[os.environ['DB_NAME']]
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '').strip()
 SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
 CONTACT_EMAIL = os.environ.get('CONTACT_EMAIL', 'globisyncltd@gmail.com')
+REPLY_TO_EMAIL = os.environ.get('REPLY_TO_EMAIL', 'hello@globisync.com')
 if RESEND_API_KEY:
     resend.api_key = RESEND_API_KEY
 
@@ -97,14 +98,15 @@ async def _send_email_async(subject: str, html: str, to_email: str = None, attac
             "to": [target],
             "subject": subject,
             "html": html,
+            "reply_to": REPLY_TO_EMAIL,
         }
         if attachments:
             params["attachments"] = attachments
         result = await asyncio.to_thread(resend.Emails.send, params)
-        logger.info(f"Email sent: {result}")
+        logger.info(f"Email sent to={target} subject='{subject}' resend_id={result.get('id') if isinstance(result, dict) else result}")
         return result
     except Exception as e:
-        logger.error(f"Email send failed: {e}")
+        logger.error(f"Email send FAILED to={target} subject='{subject}' error={type(e).__name__}: {e}")
         return None
 
 
@@ -155,13 +157,13 @@ def _thank_you_html(name: str) -> str:
         <div style="font-size:22px;font-weight:700;margin-top:8px">Thanks, {name} — we've got your message.</div>
       </div>
       <div style="padding:24px">
-        <p>A senior operator from our Birmingham desk will reply within one working day.</p>
+        <p>A senior expert from our Birmingham desk will reply within one working day.</p>
         <p>In the meantime, if it's time-sensitive, WhatsApp us on <a href="https://wa.me/447309721673" style="color:#0b0f19;font-weight:600">+44 7309 721673</a>.</p>
         <p style="margin-top:24px">— The GlobiSync team</p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
         <p style="color:#4B5563;font-size:12px">
           GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
-          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+          <a href="mailto:hello@globisync.com" style="color:#4B5563">hello@globisync.com</a>
         </p>
       </div>
     </div>
@@ -181,13 +183,13 @@ def _booking_confirmation_html(payload: BookingSubmission) -> str:
           <tr><td style="padding:4px 0"><strong>Date:</strong></td><td>{payload.preferred_date}</td></tr>
           <tr><td style="padding:4px 0"><strong>Time:</strong></td><td>{payload.preferred_time} {payload.timezone_name or ''}</td></tr>
         </table>
-        <p>A senior operator will send you a calendar invite within one working day to confirm the slot.</p>
-        <p style="margin-top:24px">Any questions? Reply to this email or WhatsApp us on <a href="https://wa.me/447309721673" style="color:#0b0f19;font-weight:600">+44 7309 721673</a>.</p>
+        <p>A senior expert will send you a calendar invite within one working day to confirm the slot.</p>
+        <p style="margin-top:24px">Any questions? Email us at <a href="mailto:hello@globisync.com" style="color:#0b0f19;font-weight:600">hello@globisync.com</a> or WhatsApp us on <a href="https://wa.me/447309721673" style="color:#0b0f19;font-weight:600">+44 7309 721673</a>.</p>
         <p style="margin-top:24px">— The GlobiSync team</p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
         <p style="color:#4B5563;font-size:12px">
           GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
-          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+          <a href="mailto:hello@globisync.com" style="color:#4B5563">hello@globisync.com</a>
         </p>
       </div>
     </div>
@@ -243,7 +245,7 @@ def _playbook_html(name: str) -> str:
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
         <p style="color:#4B5563;font-size:12px">
           GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
-          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+          <a href="mailto:hello@globisync.com" style="color:#4B5563">hello@globisync.com</a>
         </p>
       </div>
     </div>
@@ -402,7 +404,7 @@ async def create_booking(payload: BookingCreate):
     ))
     # 2) Confirmation to the submitter
     asyncio.create_task(_send_email_async(
-        subject="Your discovery-call request · GlobiSync",
+        subject="Your discovery-call request — GlobiSync",
         html=_booking_confirmation_html(submission),
         to_email=submission.email,
     ))
@@ -455,7 +457,7 @@ def _career_ack_html(name: str, position: str) -> str:
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0" />
         <p style="color:#4B5563;font-size:12px">
           GlobiSync Ltd · 296 Pershore Road, Birmingham, B5 7SH · United Kingdom<br />
-          <a href="mailto:growth@globisync.com" style="color:#4B5563">growth@globisync.com</a>
+          <a href="mailto:hello@globisync.com" style="color:#4B5563">hello@globisync.com</a>
         </p>
       </div>
     </div>

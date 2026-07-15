@@ -1,0 +1,32 @@
+{
+  "summary": "Backend-only verification of email reply_to + template rewrite (iteration 11). All 10 pytest assertions passed. POST /api/bookings, /api/careers/apply and /api/contact each fired exactly TWO 'Email sent to=' log lines within ~1s of the request, all with valid UUID resend_ids. Booking submitter subject uses EM DASH ('—') not middle dot. Source code contains no residual 'growth@globisync.com', no 'A senior operator', and no 'Reply to this email' phrases. `_send_email_async` sets params['reply_to'] = REPLY_TO_EMAIL sourced from env (hello@globisync.com).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/contact", "issue": "Non-fee-calc submitter subject still uses middle dot ('Thanks — we've received your message · GlobiSync'). Not in scope of this iteration's fix (booking-only), but worth normalising for deliverability parity with the booking-subject fix."}
+    ]
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_email_reply_to.py",
+    "/app/test_reports/pytest/iteration_11.xml"
+  ],
+  "action_items": [
+    "(Optional, low priority) Normalise contact-form and playbook subjects to use em dash instead of middle dot for consistency and better deliverability."
+  ],
+  "critical_code_review_comments": [
+    "server.py is 541 lines — still under the 700-line soft cap but templates (_contact_html, _booking_html, _thank_you_html, _booking_confirmation_html, _playbook_html, _career_admin_html, _career_ack_html) would be cleaner in a dedicated /app/backend/email_templates.py module.",
+    "_send_email_async fires-and-forgets via asyncio.create_task without awaiting. If Resend fails only the log records it — no retry, no persistence of failed sends. Acceptable for MVP but consider a simple failed_email collection for observability.",
+    "Booking / contact endpoints echo submission in Mongo with created_at converted to isoformat string; the GET endpoints then re-parse. Fine, but a serializer helper would DRY it up."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_email_reply_to.py (new)"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "N/A (skipped per request)"},
+  "test_credentials": "N/A (no auth on any tested endpoint).",
+  "seed_data_creation": "Test DB documents created with TEST_/verify-test prefixes in collections `bookings`, `career_applications`, `contact_submissions` (Mongo). Not cleaned up — production data untouched (all use throwaway example.com emails).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend email flow (Resend + reply_to) is fully verified via /app/backend/tests/test_email_reply_to.py. Test uses REACT_APP_BACKEND_URL, hits live endpoints, and reads /var/log/supervisor/backend.{out,err}.log to confirm the two 'Email sent to=' lines per request with valid resend_id UUIDs. Re-run with: pytest /app/backend/tests/test_email_reply_to.py -v. Do not delete or duplicate this test file; extend if new email flows are added.",
+  "rca of the issue": "Original issue was reply_to not set on Resend sends → replies to noreply@ bounced. Fix applied in E1's iteration: (1) added REPLY_TO_EMAIL env var (hello@globisync.com) and wired into every _send_email_async call, (2) rewrote booking-confirmation HTML to say 'Email us at hello@globisync.com' instead of 'Reply to this email', (3) normalised booking subject to em dash, (4) replaced 'senior operator' with 'senior expert' and removed 'growth@globisync.com' references. Verified via static grep on server.py and live Resend log inspection — all 10 assertions green."
+}

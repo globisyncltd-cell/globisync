@@ -265,7 +265,7 @@ export default function Contact() {
 
             <div className="mt-10 p-6 border-l-2 border-amber bg-secondary/50">
               <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">Response promise</div>
-              <p className="mt-2 text-ink font-medium">
+              <p className="mt-2 text-muted2 font-medium">
                 One working day. From a real expert. In writing.
               </p>
             </div>

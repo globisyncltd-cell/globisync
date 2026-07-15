@@ -7,11 +7,15 @@ import base64
 import asyncio
 import logging
 import resend
+from datetime import datetime, timedelta, timezone
+try:
+    from zoneinfo import ZoneInfo  # py3.9+
+except ImportError:  # pragma: no cover
+    ZoneInfo = None
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
 import uuid
-from datetime import datetime, timezone
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -86,6 +90,35 @@ class BookingCreate(BaseModel):
 
 
 # ---------- Helpers ----------
+def _slot_in_uk_time(preferred_date: str, preferred_time: str, tz_name: Optional[str]) -> str:
+    """Convert a booker's local date+time into UK-time display for admin emails."""
+    src_tz = tz_name or "Europe/London"
+    fallback = f"{preferred_date} {preferred_time} {src_tz}"
+    if ZoneInfo is None:
+        return fallback
+    try:
+        naive = datetime.strptime(f"{preferred_date} {preferred_time}", "%Y-%m-%d %H:%M")
+        local = naive.replace(tzinfo=ZoneInfo(src_tz))
+        uk = local.astimezone(ZoneInfo("Europe/London"))
+        return uk.strftime("%a %d %b %Y · %H:%M %Z")
+    except Exception:
+        return fallback
+
+
+def _slot_local_display(preferred_date: str, preferred_time: str, tz_name: Optional[str]) -> str:
+    """Friendly display in the booker's own timezone."""
+    src_tz = tz_name or "Europe/London"
+    fallback = f"{preferred_date} at {preferred_time} ({src_tz})"
+    if ZoneInfo is None:
+        return fallback
+    try:
+        naive = datetime.strptime(f"{preferred_date} {preferred_time}", "%Y-%m-%d %H:%M")
+        local = naive.replace(tzinfo=ZoneInfo(src_tz))
+        return local.strftime("%a %d %b %Y · %H:%M %Z")
+    except Exception:
+        return fallback
+
+
 async def _send_email_async(subject: str, html: str, to_email: str = None, attachments: list = None):
     """Send email via Resend. Silently no-op if API key not configured."""
     if not RESEND_API_KEY:
@@ -129,6 +162,8 @@ def _contact_html(payload: ContactSubmission) -> str:
 
 
 def _booking_html(payload: BookingSubmission) -> str:
+    uk_slot = _slot_in_uk_time(payload.preferred_date, payload.preferred_time, payload.timezone_name)
+    local_slot = _slot_local_display(payload.preferred_date, payload.preferred_time, payload.timezone_name)
     return f"""
     <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
       <h2 style="border-bottom:2px solid #FF9900;padding-bottom:8px">New Discovery Call Booking — GlobiSync</h2>
@@ -137,8 +172,9 @@ def _booking_html(payload: BookingSubmission) -> str:
         <tr><td style="padding:6px 0;font-weight:600">Email</td><td>{payload.email}</td></tr>
         <tr><td style="padding:6px 0;font-weight:600">Company</td><td>{payload.company or '-'}</td></tr>
         <tr><td style="padding:6px 0;font-weight:600">Phone</td><td>{payload.phone or '-'}</td></tr>
-        <tr><td style="padding:6px 0;font-weight:600">Preferred Date</td><td>{payload.preferred_date}</td></tr>
-        <tr><td style="padding:6px 0;font-weight:600">Preferred Time</td><td>{payload.preferred_time} {payload.timezone_name or ''}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600;color:#FF9900">Slot (UK time)</td><td style="font-weight:600">{uk_slot}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Booker's local slot</td><td>{local_slot}</td></tr>
+        <tr><td style="padding:6px 0;font-weight:600">Booker's timezone</td><td>{payload.timezone_name or '-'}</td></tr>
         <tr><td style="padding:6px 0;font-weight:600">Marketplace</td><td>{payload.marketplace or '-'}</td></tr>
       </table>
       <h3 style="margin-top:16px">Notes</h3>
@@ -172,6 +208,7 @@ def _thank_you_html(name: str) -> str:
 
 
 def _booking_confirmation_html(payload: BookingSubmission) -> str:
+    local_slot = _slot_local_display(payload.preferred_date, payload.preferred_time, payload.timezone_name)
     return f"""
     <div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#0b0f19">
       <div style="background:#0b0f19;color:#fff;padding:24px">
@@ -181,8 +218,7 @@ def _booking_confirmation_html(payload: BookingSubmission) -> str:
       <div style="padding:24px">
         <p>Lovely to hear from you, and thanks for taking the time to reach out. We've locked in your preferred slot below:</p>
         <table style="width:100%;background:#f8f9fa;padding:16px;border-left:3px solid #FF9900;margin:16px 0">
-          <tr><td style="padding:4px 0"><strong>Date:</strong></td><td>{payload.preferred_date}</td></tr>
-          <tr><td style="padding:4px 0"><strong>Time:</strong></td><td>{payload.preferred_time} {payload.timezone_name or ''}</td></tr>
+          <tr><td style="padding:4px 0"><strong>Your slot:</strong></td><td>{local_slot}</td></tr>
         </table>
         <p>One of our senior team will personally reach out within the next working day to confirm the slot and drop a calendar invite in your inbox. No sales script, no decks — just a proper conversation about your growth.</p>
         <p style="margin-top:24px">Anything you'd like us to prep for the call? Simply reply to this email and it'll come straight to us. You can also WhatsApp us any time on <a href="https://wa.me/447309721673" style="color:#0b0f19;font-weight:600">+44 7309 721673</a>.</p>

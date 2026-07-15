@@ -311,8 +311,8 @@ export default function Contact() {
 
             <div className="mt-10 p-6 border-l-2 border-amber bg-secondary/50">
               <div className="text-xs font-mono uppercase tracking-[0.2em] text-muted2">Response promise</div>
-              <p className="mt-2 text-ink font-medium">
-                One working day. From a real operator. In writing.
+              <p className="mt-2 text-ink font-medium leading-relaxed">
+                A real human — not a bot — will read your message and reply within one working day. In writing, in your inbox, from someone who actually runs accounts every day.
               </p>
             </div>
           </div>

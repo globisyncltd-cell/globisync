@@ -375,7 +375,7 @@ async def create_contact(payload: ContactCreate):
         ))
     else:
         asyncio.create_task(_send_email_async(
-            subject="Thanks — we've received your message · GlobiSync",
+            subject="Thanks — we've received your message — GlobiSync",
             html=_thank_you_html(submission.name),
             to_email=submission.email,
         ))

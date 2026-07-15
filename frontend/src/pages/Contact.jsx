@@ -67,8 +67,8 @@ function ContactForm() {
     return (
       <div data-testid="contact-success" className="p-8 border border-ink bg-secondary/50 text-center">
         <CheckCircle2 className="mx-auto h-10 w-10 text-amber" />
-        <h3 className="mt-3 font-serif text-2xl font-bold text-ink">Thank you.</h3>
-        <p className="mt-2 text-muted2">A senior expert will reply within one working day.</p>
+        <h3 className="mt-3 font-serif text-2xl font-bold text-ink">Message received.</h3>
+        <p className="mt-2 text-muted2">Lovely to hear from you — one of our senior team will personally reply within one working day.</p>
         <Button data-testid="contact-send-another-btn" onClick={() => setDone(false)} className="mt-4 rounded-none bg-ink text-white border border-ink">
           Send another
         </Button>

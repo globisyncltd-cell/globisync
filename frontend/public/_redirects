@@ -1,17 +1,4 @@
-# --- Legacy route redirects (permanent 301) ---
-/home                                                       /                            301
-/faqs                                                       /                            301
-/services                                                   /ecommerce                   301
-/services-1                                                 /ecommerce                   301
-/fee-calculator                                             /                            301
-/case-studies                                               /                            301
-/international-expansion                                    /cross-border                301
-/markets                                                    /cross-border                301
-/blog-3-1                                                   /blog                        301
-/blog-3-1/*                                                 /blog                        301
+# This file exists only as a safety net — /app/netlify.toml is the source of truth.
+# See netlify.toml for the full config (proxy, SPA fallback, 301 legacy redirects).
 
-# --- Sitemap: proxy to backend dynamic sitemap so it always reflects live content ---
-/sitemap.xml                                                /sitemap.xml                 200
-
-# --- SPA fallback: every non-file, non-API route serves index.html ---
-/*                                                          /index.html                  200
+/*  /index.html  200

@@ -1,3 +1,1 @@
-/api/*  https://globisync-new-site.preview.emergentagent.com/api/:splat  200
-/sitemap.xml  https://globisync-new-site.preview.emergentagent.com/api/sitemap.xml  200
 /*  /index.html  200

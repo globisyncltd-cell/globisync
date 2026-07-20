@@ -25,6 +25,12 @@
   force  = true
 
 [[redirects]]
+  from   = "/api/"
+  to     = "https://globisync-new-site.preview.emergentagent.com/api/"
+  status = 200
+  force  = true
+
+[[redirects]]
   from   = "/api/*"
   to     = "https://globisync-new-site.preview.emergentagent.com/api/:splat"
   status = 200

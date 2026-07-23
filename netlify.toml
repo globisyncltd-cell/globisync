@@ -26,7 +26,7 @@
 
 [[redirects]]
   from   = "/sitemap.xml"
-  to     = "https://globisync-new-site.preview.emergentagent.com/api/sitemap.xml"
+  to     = "https://globisync.onrender.com/api/sitemap.xml"
   status = 200
   force  = true
 

@@ -16,7 +16,7 @@
 # ------------------------------------------------------------------
 # Proxy all /api/* to the FastAPI backend
 # NOTE: change this URL when you move the backend to a permanent host
-# (Render / Railway / Fly / etc.) — this preview URL is temporary but stable.
+# (Render / Railway / Fly / etc.) — Render backend URL.
 # ------------------------------------------------------------------
 [[redirects]]
   from   = "/api/*"
